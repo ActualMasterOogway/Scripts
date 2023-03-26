@@ -1,20 +1,21 @@
-local Table = {
-    [1] = "Bandit (Level 1)",
-	[2] = "Bandit Leader (Level 15)",
-	[3] = "Clown Pirate (Level 30)",
-	[4] = "Clown Leader (Level 60)",
-	[5] = "Cavemen (Level 75)",
-	[6] = "Gorilla (Level 120)",
-	[7] = "Snow Bandit (Level 200)",
-	[8] = "Small Yeti (Level 275)",
-	[9] = "Yeti (Level 350)",
-	[10] = "Sand Bandit (Level 450)",
-	[11] = "Pharaoh Guard (Level 600)",
-	[12] = "Anubis the Bone Keeper (Level 800)",
-	[13] = "Sky Bandit (Level 1000)",
-	[14] = "High-Level Sky Bandit (Level 1100)",
-	[15] = "Sky Leader (Level 1200)",
-	[16] = "Chief (Level 1400)",
-	[17] = "Fishman Chief (Level 1600)"
+local Tabel = {
+	"Anubis the Bone Keeper (Level 800)"
+	"Bandit (Level 1)",
+	"Clown Leader (Level 60)",
+	"Caveman (Level 75)",
+	"Yeti (Level 350)",
+	"Small Yeti (Level 275)",
+	"Clown Pirate (Level 30)",
+	"Pharaoh Guard (Level 600)",
+	"Snow Bandit (Level 200)",
+	"High-Level Sky Bandit (Level 1100)",
+	"Fishman Chief (Level 1600)",
+	"Sand Bandit (Level 450)",
+	"Chief (Level 1400)",
+	"Sky Leader (Level 1200)",
+	"Gorilla (Level 120)",
+	"Sky Bandit (Level 1000)",
+	"Bandit Leader (Level 15)",
+	"Monkey (Level 90)"
 }
-return Table
+return Tabel
