@@ -1,0 +1,16 @@
+local Table = {
+    [1] = "Arnament Haki",
+    [2] = "Geppo",
+    [3] = "Katana",
+    [4] = "Shinsen",
+    [5] = "NamelessKatana",
+    [6] = "Pink Cape",
+    [7] = "Marine Cape",
+    [8] = "Pirate Cape",
+    [9] = "Thunder Drum",
+    [10] = "Sand Cape",
+    [11] = "Combat",
+    [12] = "Black Leg",
+    [13] = "Yeti"
+}
+return Table
