@@ -1,13 +1,13 @@
 local QTP = (syn and syn.queue_on_teleport) or queue_on_teleport
 repeat task.wait() until game.CoreGui task.wait(0.25)
 game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay").DescendantAdded:Connect(function(Err)
-	if Err.Name == "ErrorTitle" then
+	if Err.Name == "ErrorTitle" then task.wait(3)
 		QTP(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Doors/Death%20Farm.lua"))
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
 end)
 for i,Err in pairs(game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay"):GetDescendants()) do
-	if Err.Name == "ErrorTitle" then
+	if Err.Name == "ErrorTitle" then task.wait(3)
 		QTP(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Doors/Death%20Farm.lua"))
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
