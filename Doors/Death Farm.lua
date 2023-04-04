@@ -12,7 +12,12 @@ for i,Err in pairs(game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("pr
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
 end
-if game.PlaceId == 6516141723 then
+if game.PlaceId == 6839171747 then
+    repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true task.wait(.25)
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    game.ReplicatedStorage.EntityInfo.PlayAgain:FireServer()
+    QTP(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Doors/Death%20Farm.lua"))
+elseif game.PlaceId == 6516141723 then
     repeat task.wait() until game:IsLoaded() and game.Players and game.Workspace and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChild("Health") and game.Players.LocalPlayer.Character:FindFirstChild("Sheesh") and game.Workspace:FindFirstChild("Lobby") and game.Workspace:FindFirstChild("Lobby"):FindFirstChild("LobbyElevators") local FoundFreeElevator = false task.wait(.5)
     task.spawn(function()
         while FoundFreeElevator == false do task.wait()
@@ -30,12 +35,6 @@ if game.PlaceId == 6516141723 then
         firetouchinterest(FoundFreeElevator:FindFirstChild("TouchInterest"), game.Players.LocalPlayer.Character.Head, 0) 
         firetouchinterest(FoundFreeElevator:FindFirstChild("TouchInterest"), game.Players.LocalPlayer.Character.Head, 1) task.wait()
     end
-end
-if game.PlaceId == 6839171747 then
-    repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true task.wait(.25)
-    game.Players.LocalPlayer.Character.Humanoid.Health = 0
-    game.ReplicatedStorage.EntityInfo.PlayAgain:FireServer()
-    QTP(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Doors/Death%20Farm.lua"))
 else
     QTP(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Doors/Death%20Farm.lua"))
     game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer)
