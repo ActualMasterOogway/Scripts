@@ -88,7 +88,7 @@ elseif game.PlaceId == 731680819 then
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
     task.wait(1.25)
     local oldpos = game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position
-    game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position = UDim2.new(0, 0, -0.6, 0)
+    game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position = UDim2.new(0, 0, 0, 0)
     task.wait(0.25)
     MouseClick("Left", 849, 216)
     task.wait(0.25)
