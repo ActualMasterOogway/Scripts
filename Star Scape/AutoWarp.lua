@@ -14,7 +14,7 @@ print("loading routes and namecall")
 local Routes = require(game:GetService("ReplicatedStorage"):WaitForChild("Source", 60):WaitForChild("Client", 60):WaitForChild("Helpers", 60):WaitForChild("Routes", 60))
 local go = false
 local NM NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-	if not checkcaller() and getnamecallmethod() == "FireServer" and self == ExitWarpEffect then
+	if not checkcaller() and getnamecallmethod() == "FireServer" and self.Name == "ExitWarpEffect" then
 		go = true
 	end
 	return NM(self, ...)
