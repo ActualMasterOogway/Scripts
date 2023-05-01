@@ -19,7 +19,7 @@ local NM NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 	return NM(self, ...)
 end))
 repeat task.wait() until go == true
-task.wait(1)
+task.wait(0.75)
 if Routes.getNextSystemName() ~= nil then
 	queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
