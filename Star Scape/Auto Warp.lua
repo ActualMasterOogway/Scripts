@@ -89,4 +89,26 @@ elseif game.PlaceId == 3352371986 then
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
     queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
+elseif game.PlaceId == 731680819 then
+    game:GetService("ReplicatedStorage").Source.Client.Triggers.PreloadZone:Fire(1)
+    task.wait(.25)
+    TPShip(CFrame.new(-16417.2773, -15400.4619, -18133.0996, 0.712774694, 0.311850518, 0.628252685, -0.056373354, 0.918294728, -0.391863286, -0.699123919, 0.243893534, 0.672117352))
+    task.wait(0.5)
+    game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[2], "TradeUnionSupplies", BoxAmount)
+    game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[1], "TradeUnionSupplies", BoxAmount)
+    task.wait(0.45)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
+    task.wait(1.25)
+    local oldpos = game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position
+    game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position = UDim2.new(0, 0, -0.6, 0)
+    task.wait(0.25)
+    MouseClick("Left", 849, 216)
+    task.wait(0.25)
+    game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position = oldpos
+    task.wait(0.45)
+    MouseClick("Left", 1000, 880)
+    task.wait(0.15)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
 end
