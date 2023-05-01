@@ -187,7 +187,7 @@ elseif game.PlaceId == 3352371986 then
 	MouseClick("Left", 1095, 847)
 	task.wait(0.45)
 	MouseClick("Left", 1000, 880)
-	task.wait(0.15)
+	task.wait(0.35)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
     queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
