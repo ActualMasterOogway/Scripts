@@ -70,7 +70,7 @@ elseif game.PlaceId == 3352371986 then
     task.wait(1.25)
 	MouseClick("Left", 1095, 847)
 	task.wait(0.45)
-	MouseClick("Left", 1000, 880)
+	MouseClick("Left", 1000, 850)
 	task.wait(0.15)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
