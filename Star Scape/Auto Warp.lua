@@ -7,7 +7,7 @@ end
 local queue_on_tp = (syn and syn.queue_on_teleport or queue_on_teleport)
 local secure_call = (syn and syn.secure_call or cus_secure_call)
 local Routes = require(game:GetService("ReplicatedStorage"):WaitForChild("Source", 60):WaitForChild("Client", 60):WaitForChild("Helpers", 60):WaitForChild("Routes", 60))
-local Ship = game:GetService("Workspace").Ships[game:GetService("Players").LocalPlayer.Name]:FindFirstChildWhichIsA("Model")
+local Ship = game:GetService("Workspace").Ships:WaitForChild(game:GetService("Players").LocalPlayer.Name, 60):WaitForChildWhichIsA("Model", 60)
 function TPShip(Position)
     local M = Instance.new("Model")
     local Obj = Instance.new("Part", M)
