@@ -15,6 +15,7 @@ for i,Err in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) 
         repeat game:GetService("TeleportService"):Teleport(679715583, game.Players.LocalPlayer) task.wait() until false == true
 	end
 end
+if game.PlaceId ~= 679715583 then
 if not syn then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Lua_SecureCall", true))()
 end
@@ -109,4 +110,5 @@ elseif game.PlaceId == 731680819 then
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
+end
 end
