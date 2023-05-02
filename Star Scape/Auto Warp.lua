@@ -2,7 +2,8 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 repeat task.wait() until game and game.CoreGui and game.CoreGui:FindFirstChild("RobloxPromptGui") and game.CoreGui:FindFirstChild("RobloxPromptGui"):FindFirstChild("promptOverlay")
-((syn and syn.queue_on_teleport) or queue_on_teleport)(game:HttpGet("https://github.com/MasterOogway6147/Scripts/edit/main/Star%20Scape/Auto%20Warp.lua"))
+local queue_on_tp = (syn and syn.queue_on_teleport or queue_on_teleport)
+queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua"))
 game.CoreGui.RobloxPromptGui.promptOverlay.DescendantAdded:Connect(function(Err)
 	if Err.Name == "ErrorTitle" then
         repeat game:GetService("TeleportService"):Teleport(679715583, game.Players.LocalPlayer) task.wait() until false == true
@@ -17,7 +18,6 @@ end
 if not syn then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Lua_SecureCall", true))()
 end
-local queue_on_tp = (syn and syn.queue_on_teleport or queue_on_teleport)
 local secure_call = (syn and syn.secure_call or cus_secure_call)
 local Routes = require(game:GetService("ReplicatedStorage"):WaitForChild("Source", 60):WaitForChild("Client", 60):WaitForChild("Helpers", 60):WaitForChild("Routes", 60))
 local Ship = game:GetService("Workspace"):WaitForChild("Ships", 60):WaitForChild(game:GetService("Players").LocalPlayer.Name, 60)
