@@ -66,7 +66,6 @@ for i,v in pairs(Ship:GetDescendants()) do
 end
 local BoxAmount = tonumber(readfile("StarScapeBoxAmount.config"))
 if Routes.getNextSystemName() ~= nil then
-	queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 elseif game.PlaceId == 3352371986 then
     TPShip(CFrame.new(-14859.5, -15436, -15846.5, 0.712774694, 0.311850518, 0.628252685, -0.056373354, 0.918294728, -0.391863286, -0.699123919, 0.243893534, 0.672117352))
@@ -87,7 +86,6 @@ elseif game.PlaceId == 3352371986 then
 	task.wait(0.35)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
-    queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 elseif game.PlaceId == 731680819 then
     game:GetService("ReplicatedStorage").Source.Client.Triggers.PreloadZone:Fire(1)
@@ -110,6 +108,5 @@ elseif game.PlaceId == 731680819 then
     task.wait(0.15)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
-    queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 end
