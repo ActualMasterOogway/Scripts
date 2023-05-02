@@ -1,6 +1,19 @@
 if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
+repeat task.wait() until game and game.CoreGui and game.CoreGui:FindFirstChild("RobloxPromptGui") and game.CoreGui:FindFirstChild("RobloxPromptGui"):FindFirstChild("promptOverlay")
+((syn and syn.queue_on_teleport) or queue_on_teleport)(game:HttpGet("https://github.com/MasterOogway6147/Scripts/edit/main/Star%20Scape/Auto%20Warp.lua"))
+game.CoreGui.RobloxPromptGui.promptOverlay.DescendantAdded:Connect(function(Err)
+	if Err.Name == "ErrorTitle" then
+        repeat game:GetService("TeleportService"):Teleport(679715583, game.Players.LocalPlayer) task.wait() until false == true
+	end
+end)
+task.wait(0.1)
+for i,Err in pairs(game.CoreGui.RobloxPromptGui.promptOverlay:GetDescendants()) do
+	if Err.Name == "ErrorTitle" then
+        repeat game:GetService("TeleportService"):Teleport(679715583, game.Players.LocalPlayer) task.wait() until false == true
+	end
+end
 if not syn then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Lua_SecureCall", true))()
 end
@@ -84,7 +97,6 @@ elseif game.PlaceId == 3352371986 then
 	task.wait(0.35)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
-    queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 elseif game.PlaceId == 731680819 then
     game:GetService("ReplicatedStorage").Source.Client.Triggers.PreloadZone:Fire(1)
@@ -107,6 +119,5 @@ elseif game.PlaceId == 731680819 then
     task.wait(0.15)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
-    queue_on_tp(game:HttpGet("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Star%20Scape/Auto%20Warp.lua", true))
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 end
