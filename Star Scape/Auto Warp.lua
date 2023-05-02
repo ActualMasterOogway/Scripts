@@ -106,6 +106,7 @@ elseif game.PlaceId == 731680819 then
     game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[2], "TradeUnionSupplies", BoxAmount)
     game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[1], "TradeUnionSupplies", BoxAmount)
     task.wait(0.45)
+	repeat
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
     task.wait(1.25)
@@ -119,6 +120,8 @@ elseif game.PlaceId == 731680819 then
     task.wait(0.15)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
+	task.wait(1)
+	until Routes.getNextSystemName() ~= nil
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 end
 end
