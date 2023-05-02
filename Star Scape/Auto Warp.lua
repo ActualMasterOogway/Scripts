@@ -88,6 +88,7 @@ elseif game.PlaceId == 3352371986 then
     end
     game:GetService("ReplicatedStorage").Remote.Warfare.TakeFactionSupplies:FireServer(Supplies, BoxAmount)
     task.wait(0.65)
+	repeat
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
     task.wait(1.25)
@@ -97,6 +98,8 @@ elseif game.PlaceId == 3352371986 then
 	task.wait(0.35)
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
+	task.wait(1)
+	until Routes.getNextSystemName() ~= nil
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
 elseif game.PlaceId == 731680819 then
     game:GetService("ReplicatedStorage").Source.Client.Triggers.PreloadZone:Fire(1)
