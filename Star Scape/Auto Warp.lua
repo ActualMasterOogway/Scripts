@@ -74,7 +74,7 @@ local NM NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 	return NM(self, ...)
 end))
 repeat task.wait() until go == true
-task.wait(1.75)
+task.wait(2.35)
 local BoxAmount = tonumber(readfile("StarScapeBoxAmount.config"))
 if Routes.getNextSystemName() ~= nil then
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
