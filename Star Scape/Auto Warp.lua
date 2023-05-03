@@ -61,11 +61,6 @@ function MouseClick(Type, XPos, YPos)
         return error("Expected Mouse Click Left or Right (got "..Type..")")
     end
 end
-for i,v in pairs(Ship:GetDescendants()) do
-    if v:IsA("BasePart") and v.CanCollide then
-        v.CanCollide = false
-    end
-end
 local go = false
 local NM NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 	if not checkcaller() and getnamecallmethod() == "FireServer" and self.Name == "ExitWarpEffect" then
@@ -75,6 +70,11 @@ local NM NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
 end))
 repeat task.wait() until go == true
 task.wait(2.35)
+for i,v in pairs(Ship:GetDescendants()) do
+    if v:IsA("BasePart") and v.CanCollide then
+        v.CanCollide = false
+    end
+end
 local BoxAmount = tonumber(readfile("StarScapeBoxAmount.config"))
 if Routes.getNextSystemName() ~= nil then
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
