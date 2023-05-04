@@ -83,8 +83,10 @@ elseif game.PlaceId == 3352371986 then
     task.wait(1.25)
 	MouseClick("Left", 1095, 847)
 	task.wait(0.45)
+	repeat
 	MouseClick("Left", 1000, 880)
 	task.wait(0.35)
+	until Routes.getNextSystemName() ~= nil
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
@@ -105,8 +107,10 @@ elseif game.PlaceId == 731680819 then
     task.wait(0.25)
     game:GetService("Players").LocalPlayer.PlayerGui.Map.Window.Position = UDim2.new(0, 0, 0, 0)
     task.wait(0.45)
+	repeat
     MouseClick("Left", 1000, 880)
-    task.wait(0.15)
+    task.wait(0.35)
+	until Routes.getNextSystemName() ~= nil
     game:GetService("VirtualInputManager"):SendKeyEvent(true, 0x6d, false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, 0x6d, false, game)
 	secure_call(require(game:GetService("ReplicatedStorage").Source.Client.Flight.Warp).leaveSystem, game:GetService("Players").LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("Game"), game:GetService("ReplicatedStorage").System.Neighbors[Routes.getNextSystemName()].Value)
