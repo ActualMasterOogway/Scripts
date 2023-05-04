@@ -104,7 +104,7 @@ elseif game.PlaceId == 3352371986 then
 elseif game.PlaceId == 731680819 then
     game:GetService("ReplicatedStorage").Source.Client.Triggers.PreloadZone:Fire(1)
     task.wait(.25)
-    TPShip(CFrame.new(-16417.2773, -15400.4619, -18133.0996, 0.712774694, 0.311850518, 0.628252685, -0.056373354, 0.918294728, -0.391863286, -0.699123919, 0.243893534, 0.672117352))
+    TPShip(CFrame.new(-17982.666, -15363.7373, -15333.1934, 0.951517105, -0.0600790866, 0.301671565, 0.0450485498, 0.997383356, 0.0565430075, -0.304279238, -0.0402117707, 0.951733768))
     task.wait(0.5)
     game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[2], "TradeUnionSupplies", BoxAmount)
     game:GetService("ReplicatedStorage").Remote.Warfare.DeliverFactionSupplies:FireServer(game:GetService("Workspace").Stations:GetChildren()[1], "TradeUnionSupplies", BoxAmount)
