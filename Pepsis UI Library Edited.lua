@@ -537,15 +537,17 @@ function darkenColor(clr, intensity)
 end
 library.subs.darkenColor = darkenColor
 local __runscript = true
+local oldtaskwait = task.wait()
 local function wait_check(...)
 	if __runscript then
-		return task.wait(...)
+		return oldtaskwait(...)
 	else
-		task.wait()
+		oldtaskwait()
 		return false
 	end
 end
-library.subs.Wait, library.subs.wait, library.Wait = wait_check, wait_check, wait_check
+setreadonly(task, false) setreadonly(task.wait, false) task.wait = wait_check setreadonly(task.wait, true) setreadonly(task, false)
+library.subs.Wait, library.subs.wait, library.Wait = task.wait, task.wait, task.wait
 function library.IsGuiValid()
 	return __runscript
 end
