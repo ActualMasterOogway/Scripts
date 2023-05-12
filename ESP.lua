@@ -4,6 +4,7 @@ local Plr = Players.LocalPlayer
 local Char = Plr.Character or Plr.CharacterAdded:Wait()
 local Root = Char:WaitForChild("HumanoidRootPart")
 local Camera = workspace.CurrentCamera
+local highlightt
 
 local ESP = {
     connections = {},
@@ -14,7 +15,7 @@ local ESP = {
         tracers = true,
         rainbow = false,
         textSize = 16,
-        tracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 25),
+        tracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y),
         tracerThickness = 1,
     },
 }
@@ -37,18 +38,16 @@ function ESP:Add(object, settings)
         ESP:Remove(object)
     end
     
-    local highlight = Instance.new("Highlight", game.CoreGui)
-
     local container = {
         connections = {},
         draw = {},
         object = object,
-        highlight = highlight
         name = settings.name or object.Name,
         root = settings.root or object,
         active = true,
     }
-
+	
+	local highlight = Instance.new("Highlight", game.CoreGui)
     local displayLabel = Drawing.new("Text")
     local tracer = Drawing.new("Line")
     local color = settings.color or (objectIsPlayer(object) and object.Team) and object.TeamColor.Color or Color3.fromRGB(255, 255, 255)
@@ -83,7 +82,9 @@ function ESP:Add(object, settings)
     }
 
     ESP.containers[container.object] = container
-
+	
+	highlightt = highlight
+	
     container.connections.ancestryChanged = container.root.AncestryChanged:Connect(function()
         if container.root:IsDescendantOf(nil) then
             ESP:Remove(container.root)
@@ -112,8 +113,9 @@ function ESP:Remove(object)
             v.object:Remove()
             container.draw[i] = nil
         end
-        ESP.containers[highlight]:Destroy()
         ESP.containers[object] = nil
+        highlightt:Destroy()
+        highlightt = nil
     end
 end
 
