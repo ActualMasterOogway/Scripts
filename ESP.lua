@@ -36,11 +36,14 @@ function ESP:Add(object, settings)
     if ESP.containers[object] then
         ESP:Remove(object)
     end
+    
+    local highlight = Instance.new("Highlight", game.CoreGui)
 
     local container = {
         connections = {},
         draw = {},
         object = object,
+        highlight = highlight
         name = settings.name or object.Name,
         root = settings.root or object,
         active = true,
@@ -48,7 +51,6 @@ function ESP:Add(object, settings)
 
     local displayLabel = Drawing.new("Text")
     local tracer = Drawing.new("Line")
-    local highlight = Instance.new("Highlight", game.CoreGui)
     local color = settings.color or (objectIsPlayer(object) and object.Team) and object.TeamColor.Color or Color3.fromRGB(255, 255, 255)
 
     displayLabel.Center = true
@@ -110,7 +112,7 @@ function ESP:Remove(object)
             v.object:Remove()
             container.draw[i] = nil
         end
-
+        ESP.containers[highlight]:Destroy()
         ESP.containers[object] = nil
     end
 end
