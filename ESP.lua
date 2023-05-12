@@ -48,7 +48,7 @@ function ESP:Add(object, settings)
 
     local displayLabel = Drawing.new("Text")
     local tracer = Drawing.new("Line")
-    local highlight = Instance.new("Highlight")
+    local highlight = Instance.new("Highlight", game.CoreGui)
     local color = settings.color or (objectIsPlayer(object) and object.Team) and object.TeamColor.Color or Color3.fromRGB(255, 255, 255)
 
     displayLabel.Center = true
