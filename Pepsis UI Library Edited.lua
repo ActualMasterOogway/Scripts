@@ -546,8 +546,7 @@ local function wait_check(...)
 		return false
 	end
 end
-setreadonly(task, false) task.wait = wait_check setreadonly(task, true)
-library.subs.Wait, library.subs.wait, library.Wait = task.wait, task.wait, task.wait
+library.subs.Wait, library.subs.wait, library.Wait = wait_check, wait_check, wait_check
 function library.IsGuiValid()
 	return __runscript
 end
