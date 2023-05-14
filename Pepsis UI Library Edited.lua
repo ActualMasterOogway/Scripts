@@ -537,7 +537,7 @@ function darkenColor(clr, intensity)
 end
 library.subs.darkenColor = darkenColor
 local __runscript = true
-local oldtaskwait = task.wait()
+local oldtaskwait = task.wait
 local function wait_check(...)
 	if __runscript then
 		return oldtaskwait(...)
