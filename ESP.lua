@@ -6,7 +6,7 @@ local Root = Char:WaitForChild("HumanoidRootPart")
 local Camera = workspace.CurrentCamera
 local highlightt
 
-local ESP = {
+getgenv().ESP = {
     connections = {},
     containers = {},
     settings = {
@@ -187,5 +187,3 @@ end)
 ESP.connections.characterAdded = Plr.CharacterAdded:Connect(function(c)
     Char, Root = c, c:WaitForChild("HumanoidRootPart")
 end)
-
-return ESP
