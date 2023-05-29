@@ -1,24 +1,29 @@
+-- Services
+
 local Players = game:GetService("Players")
 local RS = game:GetService("RunService")
+
+-- Variables
 local Plr = Players.LocalPlayer
 local Char = Plr.Character or Plr.CharacterAdded:Wait()
 local Root = Char:WaitForChild("HumanoidRootPart")
 local Camera = workspace.CurrentCamera
-local highlightt
 
 getgenv().ESP = {
     connections = {},
     containers = {},
     settings = {
         distance = true,
-        health = true,
+        health = false,
         tracers = true,
         rainbow = false,
         textSize = 16,
-        tracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y),
+        tracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2),
         tracerThickness = 1,
     },
 }
+
+-- Functions
 
 local function getWTVP(vec3)
     local wtvp, visible = Camera:WorldToViewportPoint(vec3)
@@ -37,7 +42,7 @@ function ESP:Add(object, settings)
     if ESP.containers[object] then
         ESP:Remove(object)
     end
-    
+
     local container = {
         connections = {},
         draw = {},
@@ -46,10 +51,12 @@ function ESP:Add(object, settings)
         root = settings.root or object,
         active = true,
     }
-	
-	local highlight = Instance.new("Highlight", game.CoreGui)
+
+    -- Construction
+
     local displayLabel = Drawing.new("Text")
     local tracer = Drawing.new("Line")
+
     local color = settings.color or (objectIsPlayer(object) and object.Team) and object.TeamColor.Color or Color3.fromRGB(255, 255, 255)
 
     displayLabel.Center = true
@@ -61,11 +68,8 @@ function ESP:Add(object, settings)
     tracer.Color = color
     tracer.From = ESP.settings.tracerFrom
     tracer.Thickness = ESP.settings.tracerThickness
-    highlight.Adornee = object
-    highlight.OutlineColor = color
-    highlight.FillColor = color
-    highlight.FillTransparency = 0.8
-    highlight.OutlineTransparency = 0.35
+
+    -- Indexing
 
     container.draw.display = {
         object = displayLabel,
@@ -82,9 +86,9 @@ function ESP:Add(object, settings)
     }
 
     ESP.containers[container.object] = container
-	
-	highlightt = highlight
-	
+
+    -- Scripts
+
     container.connections.ancestryChanged = container.root.AncestryChanged:Connect(function()
         if container.root:IsDescendantOf(nil) then
             ESP:Remove(container.root)
@@ -113,9 +117,8 @@ function ESP:Remove(object)
             v.object:Remove()
             container.draw[i] = nil
         end
+
         ESP.containers[object] = nil
-        highlightt:Destroy()
-        highlightt = nil
     end
 end
 
@@ -145,6 +148,8 @@ function ESP:UpdateContainers()
                 end
             end
 
+            -- Update draws
+
             v.draw.display.object.Text = v.name
 
             if ESP.settings.distance then
@@ -158,6 +163,8 @@ function ESP:UpdateContainers()
                     v.draw.display.object.Text = v.draw.display.object.Text.. " [".. healthPercentage.. "%]"
                 end
             end
+
+            -- Rainbow
 
             for i2, v2 in next, v.draw do
                 if v2.canRGB then
@@ -173,6 +180,8 @@ function ESP:UpdateContainers()
         end
     end
 end
+
+-- Scripts
 
 ESP.connections.updateContainers = RS.RenderStepped:Connect(ESP.UpdateContainers)
 
