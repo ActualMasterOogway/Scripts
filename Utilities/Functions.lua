@@ -1,3 +1,4 @@
+if funcs then return end
 local err = function() error("Unsupported function. Please get a supported executor!") end
 getgenv().funcs = {
     setreadonly = setreadonly or make_writeable,
