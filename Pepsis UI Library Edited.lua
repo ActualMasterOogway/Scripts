@@ -1304,6 +1304,7 @@ do
 			Text.Position = UDim2.new(0.5, 0, 0.5, 0)
 			Text.Size = UDim2.new(1, 0, 1, 0)
 			Text.TextColor3 = library.colors.elementText
+            Text.RichText = true
 			colored[1 + #colored] = {Text, "TextColor3", "elementText"}
 			Text.TextSize = 14
 			Text.TextStrokeTransparency = 0.75
@@ -1543,6 +1544,7 @@ do
 				Title.Position = UDim2.new(0, 6, 0, 4)
 				Title.Size = UDim2.new(0, 300, 0, 25)
 				Title.TextColor3 = library.colors.elementText
+                Title.RichText = true
 				colored[1 + #colored] = {Title, "TextColor3", "elementText"}
 				Title.TextSize = 15
 				Title.TextStrokeTransparency = 0.95
@@ -2112,6 +2114,7 @@ function library:CreateWindow(options, ...)
 	headline.Font = Enum.Font.Code
 	headline.Text = (windowName and tostring(windowName)) or "???"
 	headline.TextColor3 = library.colors.main
+    headline.RichText = true
 	colored[1 + #colored] = {headline, "TextColor3", "main"}
 	headline.TextSize = 14
 	headline.TextStrokeColor3 = library.colors.outerBorder
@@ -2127,6 +2130,7 @@ function library:CreateWindow(options, ...)
 	splitter.Font = Enum.Font.Code
 	splitter.Text = "|"
 	splitter.TextColor3 = library.colors.tabText
+    splitter.RichText = true
 	colored[1 + #colored] = {splitter, "TextColor3", "tabText"}
 	splitter.TextSize = 14
 	splitter.TextStrokeColor3 = library.colors.tabText
@@ -2389,6 +2393,7 @@ function library:CreateWindow(options, ...)
 			sectionHeadline.LineHeight = 1.15
 			sectionHeadline.Text = (sectionName and sectionName or "???")
 			sectionHeadline.TextColor3 = library.colors.section
+            sectionHeadline.RichText = true
 			colored[1 + #colored] = {sectionHeadline, "TextColor3", "section"}
 			sectionHeadline.TextSize = 14
 			sectionHeadline.Size = UDim2.fromOffset(textToSize(sectionHeadline).X + 4, 12)
@@ -2512,6 +2517,7 @@ function library:CreateWindow(options, ...)
 				toggleHeadline.Font = Enum.Font.Code
 				toggleHeadline.Text = toggleName or "???"
 				toggleHeadline.TextColor3 = library.colors.elementText
+                toggleHeadline.RichText = true
 				local colored_toggleHeadline_TextColor3 = {toggleHeadline, "TextColor3", "elementText", (lockedup and 0.5) or nil}
 				colored[1 + #colored] = colored_toggleHeadline_TextColor3
 				toggleHeadline.TextSize = 14
@@ -3471,6 +3477,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {textboxHeadline, "TextColor3", "elementText"}
 				textboxHeadline.TextSize = 14
 				textboxHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                textboxHeadline.RichText = true
 				sectionFunctions:Update()
 				local last_v = presetValue
 				local function resolvevalue(val)
@@ -3663,6 +3670,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {keybindHeadline, "TextColor3", "elementText"}
 				keybindHeadline.TextSize = 14
 				keybindHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                keybindHeadline.RichText = true
 				keybindPositioner.Name = "keybindPositioner"
 				keybindPositioner.Parent = newKeybind
 				keybindPositioner.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -3934,6 +3942,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {labelHeadline, "TextColor3", "elementText"}
 				labelHeadline.TextSize = 14
 				labelHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                labelHeadline.RichText = true
 				labelPositioner.Name = "labelPositioner"
 				labelPositioner.Parent = newLabel
 				labelPositioner.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -4091,6 +4100,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {sliderHeadline, "TextColor3", "elementText"}
 				sliderHeadline.TextSize = 14
 				sliderHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                sliderHeadline.RichText = true
 				local realTextbox = nil
 				local function Set(t, newValue)
 					if nil == newValue and t ~= nil then
@@ -4511,6 +4521,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {dropdownHeadline, "TextColor3", "elementText"}
 				dropdownHeadline.TextSize = 14
 				dropdownHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                dropdownHeadline.RichText = true
 				dropdownHolderFrame.Name = "dropdownHolderFrame"
 				dropdownHolderFrame.Parent = newDropdown
 				dropdownHolderFrame.Active = true
@@ -5265,6 +5276,7 @@ function library:CreateWindow(options, ...)
 					colored[1 + #colored] = {dropdownHeadline, "TextColor3", "elementText"}
 					dropdownHeadline.TextSize = 14
 					dropdownHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                    dropdownHeadline.RichText = true
 					dropdownHolderFrame.Name = "dropdownHolderFrame"
 					dropdownHolderFrame.Parent = newDropdown
 					dropdownHolderFrame.Active = true
@@ -6070,6 +6082,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {dropdownSelection, "TextColor3", "otherElementText"}
 				dropdownSelection.TextSize = 14
 				dropdownSelection.TextXAlignment = Enum.TextXAlignment.Left
+                dropdownSelection.RichText = true
 				dropdownHeadline.Name = "dropdownHeadline"
 				dropdownHeadline.Parent = newDropdown
 				dropdownHeadline.BackgroundColor3 = Color3.new(1, 1, 1)
@@ -6082,6 +6095,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {dropdownHeadline, "TextColor3", "elementText"}
 				dropdownHeadline.TextSize = 14
 				dropdownHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                dropdownHeadline.RichText = true
 				dropdownHolderFrame.Name = "dropdownHolderFrame"
 				dropdownHolderFrame.Parent = newDropdown
 				dropdownHolderFrame.Active = true
@@ -6769,6 +6783,7 @@ function library:CreateWindow(options, ...)
 				colored[1 + #colored] = {colorPickerHeadline, "TextColor3", "elementText"}
 				colorPickerHeadline.TextSize = 14
 				colorPickerHeadline.TextXAlignment = Enum.TextXAlignment.Left
+                colorPickerHeadline.RichText = true
 				colorPickerButton.Name = "colorPickerButton"
 				colorPickerButton.Parent = newColorPicker
 				colorPickerButton.BackgroundColor3 = Color3.new(1, 1, 1)
