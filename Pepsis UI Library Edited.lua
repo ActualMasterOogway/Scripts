@@ -472,7 +472,7 @@ local library = {
 	colored = {},
 	configuration = {
 		hideKeybind = Enum.KeyCode.RightShift,
-		smoothDragging = false,
+		smoothDragging = true,
 		easingStyle = Enum.EasingStyle.Quart,
 		easingDirection = Enum.EasingDirection.Out
 	},
