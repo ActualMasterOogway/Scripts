@@ -153,7 +153,7 @@ end
 onCharacterAdded(Char)
 Plr.CharacterAdded:Connect(onCharacterAdded, char)
 
-RS.Stepped:Connect(function()
+ESP.UpdateConnection = RS.Stepped:Connect(function()
     for root, container in next, ESP.Containers do
         if isAlive(root) then
             local screenPos, onScreen = getWTVP(root.Position)
