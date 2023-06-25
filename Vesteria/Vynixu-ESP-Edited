@@ -10,8 +10,6 @@ local Char = Plr.Character or Plr.CharacterAdded:Wait()
 local Root = Char:WaitForChild("hitbox")
 local Camera = workspace.CurrentCamera
 
-local WorldToViewportPoint = Camera.WorldToViewportPoint
-
 local ESP = {
     Containers = {},
     Settings = {
@@ -44,18 +42,17 @@ local function getPlayerFromRoot(root)
 end
 
 local function getWTVP(vec3)
-    local screenPos, onScreen = WorldToViewportPoint(Camera, vec3)
+    local screenPos, onScreen = Camera.WorldToViewportPoint(Camera, vec3)
     
     return Vector2.new(screenPos.X, screenPos.Y), onScreen
 end
 
 local function isAlive(root)
-    if not root.Parent then
+    if root:IsDescendantOf(nil) then
         return false
-    elseif root.Parent:FindFirstChild("Humanoid") and root.Parent.Humanoid.Health <= 0 then
+    elseif root.Parent:FindFirstChildOfClass("Humanoid") and root.Parent.Humanoid.Health <= 0 or root:FindFirstChildOfClass("Humanoid") and root:FindFirstChildOfClass("Humanoid").Health <= 0 or root:FindFirstChild("health") and root:FindFirstChild("health").Value > 0 then
         return false
     end
-
     return true
 end
 
@@ -179,9 +176,9 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
     
                             elseif v.Name == "Stats" then
                                 local dist = ESP.Settings.Distance and "[ ".. (math.floor((root.Position - Root.Position).Magnitude)).. " ]" or ""
-                                local health = ESP.Settings.Health and root.Parent:FindFirstChild("Humanoid") and " [ ".. (math.floor(100 / root.Parent.Humanoid.MaxHealth * root.Parent.Humanoid.Health * 10) / 10).. "% ]" or ""
+                                local health = ESP.Settings.Health and root.Parent:FindFirstChild("Humanoid") and " [ ".. (math.floor(100 / root.Parent.Humanoid.MaxHealth * root.Parent.Humanoid.Health * 10) / 10).. "% ]" or ESP.Settings.Health and root:FindFirstChild("health") and " [ ".. (math.floor(100 / root:FindFirstChild("maxHealth").Value * root:FindFirstChild("health").Value * 10) / 10).. "% ]"  or ""
 
-                                v.Obj.Text = dist.. health
+                                v.Obj.Text = dist..health
                             end
     
                         elseif v.Type == "Line" and ESP.Settings.Tracer then
