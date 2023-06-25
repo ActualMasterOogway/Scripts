@@ -158,7 +158,7 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
         if isAlive(root) then
             local screenPos, onScreen = getWTVP(root.Position)
 
-            if onScreen and container.Active and (Char:GetPivot().Position - root:GetPivot().Position).Magnitude < container.ShowDistance then
+            if onScreen and container.Active and (Char:GetPivot().Position - container.Root:GetPivot().Position).Magnitude < container.Distance then
                 local texts = 0
                 for _, v in next, container.Draw do
                     if v.Type == "Text" and v.Obj.Text ~= "" then
