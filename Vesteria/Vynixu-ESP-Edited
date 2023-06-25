@@ -88,6 +88,8 @@ function ESP:Add(root, options)
     local tracer = Drawing.new("Line")
     local outline = Instance.new("Highlight")
 
+    container.Highlight = outline
+
     nameLabel.Center = true
     nameLabel.Color = container.Color
     nameLabel.Outline = true
@@ -108,7 +110,7 @@ function ESP:Add(root, options)
     outline.FillTransparency = 0.75
     outline.OutlineColor = container.Color
     outline.OutlineTransparency = 0
-    outline.Parent = container.OutlineFocus
+    outline.Adornee = container.OutlineFocus
 
     -- Connections
 
