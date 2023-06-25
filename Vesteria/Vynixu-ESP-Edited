@@ -103,7 +103,7 @@ function ESP:Add(root, options)
     tracer.From = self.Settings.TracerFrom
     tracer.Thickness = self.Settings.TracerThickness
 
-    outline.Enabled = false
+    outline.Enabled = options.Outline
     outline.FillColor = container.Color
     outline.FillTransparency = 0.75
     outline.OutlineColor = container.Color
