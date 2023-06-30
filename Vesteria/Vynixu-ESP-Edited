@@ -176,7 +176,7 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
     
                             elseif v.Name == "Stats" then
                                 local dist = ESP.Settings.Distance and "[ ".. (math.floor((container.Root:GetPivot() - Char:GetPivot().Position).Magnitude)).. " ]" or ""
-                                local health = ESP.Settings.Health and container.Root.Parent:FindFirstChildOfClass("Humanoid") and " [ ".. (math.floor(100 / container.Root.Parent:FindFirstChildOfClass("Humanoid").MaxHealth * container.Root.Parent:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ESP.Settings.Health and container.Root:FindFirstChild("health") and container.Root:FindFirstChild("maxHealth") and " [ ".. (math.floor(100 / container.Root:FindFirstChild("maxHealth").Value * container.Root:FindFirstChild("health").Value * 10) / 10).. "% ]" or ""
+                                local health = ESP.Settings.Health and container.Root.Parent:FindFirstChildOfClass("Humanoid") and " [ ".. (math.floor(100 / container.Root.Parent:FindFirstChildOfClass("Humanoid").MaxHealth * container.Root.Parent:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ""
 
                                 v.Obj.Text = dist..health
                             end
