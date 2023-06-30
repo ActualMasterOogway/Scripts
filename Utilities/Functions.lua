@@ -21,7 +21,7 @@ getgenv().funcs = {
     jsdecode = function(...) return game:GetService("HttpService"):JSONDecode(...) end,
     jsencode = function(...) return game:GetService("HttpService"):JSONEncode(...) end,
     getgithubcontent = function(table) local Response = funcs.request({Url = "https://raw.githubusercontent.com/"..table["User"].."/"..table["Repository"]:gsub(" ", "-").."/"..table["Branch"].."/"..table["FileName"], Method = "GET", Headers = {["Authorization"] = "token "..table["AccessToken"], ["Content-Type"] = "application/json"}}) for i,v in pairs(oldprints) do getgenv()[i] = v end if Response.Success then return Response.Body else warn("404: Not Found") return "404: Not Found" end end,
-    base64 = funcs.loadstring(funcs.httpget("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Utilities/Base64.lua"))
+    base64 = loadstring(funcs.httpget("https://raw.githubusercontent.com/MasterOogway6147/Scripts/main/Utilities/Base64.lua"))()
 }
 local mt = funcs.getrawmetatable(game)
 local oldnc = mt.__namecall; mt.__namecall = newcclosure(function(self, ...)
