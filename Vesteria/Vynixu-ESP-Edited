@@ -9,13 +9,19 @@ local Plr = Players.LocalPlayer
 local Char = Plr.Character or Plr.CharacterAdded:Wait()
 local Root = Char:WaitForChild("hitbox")
 local Camera = workspace.CurrentCamera
+local math_floor = math.floor
+local Drawing_new = Drawing.new
 
 local ESP = {
     Containers = {},
     Settings = {
         DisplayNames = true,
         Distance = true,
-        Health = true,
+        Health = {
+            Enabled = true,
+            Percentage = false,
+            RealValue = true,
+        },
         Tracer = true,
         TracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y),
         TracerThickness = 1,
@@ -48,9 +54,9 @@ local function getWTVP(vec3)
 end
 
 local function isAlive(root)
-    if root:IsDescendantOf(nil) then
+    if not root:IsDescendantOf(game) then
         return false
-    elseif root.Parent:FindFirstChildOfClass("Humanoid") and root.Parent.Humanoid.Health <= 0 or root:FindFirstChildOfClass("Humanoid") and root:FindFirstChildOfClass("Humanoid").Health <= 0 or root:FindFirstChild("health") and root:FindFirstChild("health").Value > 0 then
+    elseif root.Parent:FindFirstChildOfClass("Humanoid") and root.Parent.Humanoid.Health <= 0 or root:FindFirstChildOfClass("Humanoid") and root:FindFirstChildOfClass("Humanoid").Health <= 0 or root:FindFirstChild("health") and root:FindFirstChild("health").Value <= 0 then
         return false
     end
     return true
@@ -81,9 +87,9 @@ function ESP:Add(root, options)
 
     -- Draw
 
-    local nameLabel = Drawing.new("Text")
-    local statsLabel = Drawing.new("Text")
-    local tracer = Drawing.new("Line")
+    local nameLabel = Drawing_new("Text")
+    local statsLabel = Drawing_new("Text")
+    local tracer = Drawing_new("Line")
     local outline = Instance.new("Highlight")
 
     nameLabel.Center = true
@@ -175,10 +181,11 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
                                 v.Obj.Text = container.Name
     
                             elseif v.Name == "Stats" then
-                                local dist = ESP.Settings.Distance and "[ ".. (math.floor((container.Root:GetPivot() - Char:GetPivot().Position).Magnitude)).. " ]" or ""
-                                local health = ESP.Settings.Health and container.Root.Parent:FindFirstChildOfClass("Humanoid") and " [ ".. (math.floor(100 / container.Root.Parent:FindFirstChildOfClass("Humanoid").MaxHealth * container.Root.Parent:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ""
+                                local dist = ESP.Settings.Distance and "[ ".. (math_floor((container.Root:GetPivot().Position - Char:GetPivot().Position).Magnitude)).. " ]" or ""
+                                local Phealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.Percentage and container.Root:FindFirstChild("health") and "\n [ ".. (math_floor(100 / container.Root:FindFirstChild("maxHealth").Value * container.Root:FindFirstChild("health").Value * 10) / 10).. "% ]" or ""
+                                local Rhealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.RealValue and container.Root:FindFirstChild("health") and "\n [ "..(math_floor(container.Root:FindFirstChild("health").Value / 100) * 100).."/"..(math_floor(container.Root:FindFirstChild("maxHealth").Value / 100) * 100).." ]" or ""
 
-                                v.Obj.Text = dist..health
+                                v.Obj.Text = dist..Rhealth..Phealth
                             end
     
                         elseif v.Type == "Line" and ESP.Settings.Tracer then
