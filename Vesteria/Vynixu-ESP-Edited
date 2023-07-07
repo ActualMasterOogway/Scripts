@@ -72,7 +72,7 @@ function ESP:Add(root, options)
     -- Container
     
     local player = getPlayerFromRoot(root)
-
+    
     local container = {
         Active = true,
         Root = root,
@@ -80,7 +80,7 @@ function ESP:Add(root, options)
         Name = options.Name or (player and player[self.Settings.DisplayNames and "DisplayName" or "Name"]) or root.Name,
         Color = options.Color or (player and player.Team and player.TeamColor.Color) or Color3.new(1, 1, 1),
         OutlineFocus = options.OutlineFocus or (player and player.Character) or (root.Parent and root.Parent.ClassName == "Model" and root.Parent) or root,
-        Distance = options.ShowDistance or math.exp(7198),
+        Distance = options.ShowDistance or math.huge,
         Connections = {},
         Draw = {},
     }
