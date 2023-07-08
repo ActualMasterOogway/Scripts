@@ -170,7 +170,7 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
                 end
     
                 for i, v in next, container.Draw do
-                    local color = container.Color or ESP.Settings.Rainbow and Color3.fromHSV(tick() % 5 / 5, 1, 1)
+                    local color = ESP.Settings.Rainbow and Color3.fromHSV(tick() % 5 / 5, 1, 1) or container.Color
 
                     if v.Type ~= "Outline" then
                         if v.Type == "Text" then
