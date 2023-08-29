@@ -4,10 +4,10 @@ local Plr = game.Players.LocalPlayer
 
 local Functions = {
     IsClosure = is_synapse_function or iskrnlclosure or isexecutorclosure or function() return true end,
-    SetIdentity = (syn and syn.set_thread_identity) or set_thread_identity or setthreadidentity or setthreadcontext or function() end,
-    GetIdentity = (syn and syn.get_thread_identity) or get_thread_identity or getthreadidentity or getthreadcontext or function() end,
+    SetIdentity = (syn and syn.set_thread_identity) or set_thread_identity or setthreadidentity or setthreadcontext or function() return 0 end,
+    GetIdentity = (syn and syn.get_thread_identity) or get_thread_identity or getthreadidentity or getthreadcontext or function() return 0 end,
     Request = (syn and syn.request) or http_request or request or function() return {Body = "404: Not Found", Success = false} end,
-    QueueOnTeleport = (syn and syn.queue_on_teleport) or queue_on_teleport,
+    QueueOnTeleport = (syn and syn.queue_on_teleport) or queue_on_teleport or function() end,
     GetAsset = getsynasset or getcustomasset or function() return "" end,
     ProtectGui = protect_gui or (syn and syn.protect_gui) or (Fluxus and Fluxus.protect_gui) or function(...) return ... end,
     GetHUI = gethui or get_hidden_ui or function(...) return game.CoreGui end,
@@ -20,7 +20,8 @@ local Functions = {
 		Substract = function(...) return ... end,
 		ToHex = function(...) return ... end,
 		ToColor3 = function(...) return ... end,
-	}
+	},
+    GetSignalConnections = get_signal_cons or getconnections or function() return {} end
 }
 
 local loadedms = getloadedmodules()
