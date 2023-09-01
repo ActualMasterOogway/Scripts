@@ -9,20 +9,26 @@ local Plr = Players.LocalPlayer
 local Char = Plr.Character or Plr.CharacterAdded:Wait()
 local Root = Char:WaitForChild("HumanoidRootPart")
 local Camera = workspace.CurrentCamera
-
-local WorldToViewportPoint = Camera.WorldToViewportPoint
+local math_floor = math.floor
+local Drawing_new = Drawing.new
+local isA = game.IsA
+local WTVP = Camera.WorldToViewportPoint
 
 local ESP = {
     Containers = {},
     Settings = {
         DisplayNames = true,
         Distance = true,
-        Health = true,
+        Health = {
+            Enabled = true,
+            Percentage = true,
+            RealValue = true,
+        },
         Tracer = true,
-        TracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 25),
+        TracerFrom = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y),
         TracerThickness = 1,
         Outline = true,
-        OutlineOpacity = 0.75,
+        OutlineOpacity = 0.7,
         OutlineOnTop = true,
         Rainbow = false,
         TextSize = 16,
@@ -36,26 +42,21 @@ local function onCharacterAdded(char)
 end
 
 local function getPlayerFromRoot(root)
-    for _, v in next, Players:GetPlayers() do
-        if v.Character and root:IsDescendantOf(v.Character) then
-            return v
-        end
-    end
+    return Players:GetPlayerFromCharacter(isA(root, "Model") and root or root:FindFirstAncestorOfClass("Model"))
 end
 
 local function getWTVP(vec3)
-    local screenPos, onScreen = WorldToViewportPoint(Camera, vec3)
+    local screenPos, onScreen = WTVP(Camera, vec3)
     
     return Vector2.new(screenPos.X, screenPos.Y), onScreen
 end
 
 local function isAlive(root)
-    if not root.Parent then
+    if root.Parent == nil then
         return false
-    elseif root.Parent:FindFirstChild("Humanoid") and root.Parent.Humanoid.Health <= 0 then
+    elseif root.Parent:FindFirstChildOfClass("Humanoid") and root.Parent.Humanoid.Health <= 0 or root:FindFirstChildOfClass("Humanoid") and root:FindFirstChildOfClass("Humanoid").Health <= 0 then
         return false
     end
-
     return true
 end
 
@@ -69,7 +70,7 @@ function ESP:Add(root, options)
     -- Container
     
     local player = getPlayerFromRoot(root)
-
+    
     local container = {
         Active = true,
         Root = root,
@@ -77,15 +78,17 @@ function ESP:Add(root, options)
         Name = options.Name or (player and player[self.Settings.DisplayNames and "DisplayName" or "Name"]) or root.Name,
         Color = options.Color or (player and player.Team and player.TeamColor.Color) or Color3.new(1, 1, 1),
         OutlineFocus = options.OutlineFocus or (player and player.Character) or (root.Parent and root.Parent.ClassName == "Model" and root.Parent) or root,
+        Outline = nil,
+        MaxDistance = options.MaxDistance or math.huge,
         Connections = {},
         Draw = {},
     }
 
     -- Draw
 
-    local nameLabel = Drawing.new("Text")
-    local statsLabel = Drawing.new("Text")
-    local tracer = Drawing.new("Line")
+    local nameLabel = Drawing_new("Text")
+    local statsLabel = Drawing_new("Text")
+    local tracer = Drawing_new("Line")
     local outline = Instance.new("Highlight")
 
     nameLabel.Center = true
@@ -99,6 +102,7 @@ function ESP:Add(root, options)
     statsLabel.Color = Color3.new(1, 1, 1)
     statsLabel.Size = self.Settings.TextSize
 
+    tracer.Visible = false
     tracer.Color = container.Color
     tracer.From = self.Settings.TracerFrom
     tracer.Thickness = self.Settings.TracerThickness
@@ -110,11 +114,13 @@ function ESP:Add(root, options)
     outline.OutlineTransparency = 0
     outline.Parent = container.OutlineFocus
 
+    container.Outline = outline
+
     -- Connections
 
     if player then
         container.Connections.changeTeam = player:GetPropertyChangedSignal("Team"):Connect(function()
-            self:Remove(container.Root)
+            self:Remove(root)
         end)
     end
 
@@ -150,14 +156,14 @@ end
 -- Scripts
 
 onCharacterAdded(Char)
-Plr.CharacterAdded:Connect(onCharacterAdded, char)
+Plr.CharacterAdded:Connect(onCharacterAdded)
 
-RS.Stepped:Connect(function()
+ESP.UpdateConnection = RS.Stepped:Connect(function()
     for root, container in next, ESP.Containers do
-        if isAlive(root) and root:IsA("PVInstance") then
-            local screenPos, onScreen = getWTVP(root:GetPivot().Position)
+        if isAlive(root) then
+            local screenPos, onScreen = getWTVP(root.Position)
 
-            if onScreen and container.Active then
+            if onScreen and container.Active and (Char:GetPivot().Position - (isA(root, "BasePart") and root.CFrame or isA(root, "Model") and root:GetPivot()).Position).Magnitude < container.MaxDistance then
                 local texts = 0
                 for _, v in next, container.Draw do
                     if v.Type == "Text" and v.Obj.Text ~= "" then
@@ -165,28 +171,31 @@ RS.Stepped:Connect(function()
                     end
                 end
     
-                for i, v in next, container.Draw do
-                    local color = ESP.Settings.Rainbow and Color3.fromHSV(tick() % 5 / 5, 1, 1) or container.Color
+                for i = 1, #container.Draw do
+                    local v = container.Draw[i]
+                    local color = container.Color or ESP.Settings.Rainbow and Color3.fromHSV(tick() % 5 / 5, 1, 1) or Color3.new(1,1,1)
 
                     if v.Type ~= "Outline" then
                         if v.Type == "Text" then
                             v.Obj.Size = ESP.Settings.TextSize
-                            v.Obj:GetPivot().Position = screenPos - Vector2.new(0, (texts - i) * ESP.Settings.TextSize)
+                            v.Obj.Position = screenPos - Vector2.new(0, (texts - i) * ESP.Settings.TextSize)
     
                             if v.Name == "Name" then
                                 v.Obj.Text = container.Name
     
                             elseif v.Name == "Stats" then
-                                local dist = ESP.Settings.Distance and "[ ".. (math.floor((root:GetPivot().Position - Root:GetPivot().Position).Magnitude)).. " ]" or ""
-                                local health = ESP.Settings.Health and root.Parent:FindFirstChild("Humanoid") and " [ ".. (math.floor(100 / root.Parent.Humanoid.MaxHealth * root.Parent.Humanoid.Health * 10) / 10).. "% ]" or ""
+                                local dist = ESP.Settings.Distance and "[ ".. (math_floor(((isA(root, "BasePart") and root.CFrame or isA(root, "Model") and root:GetPivot()).Position - Char:GetPivot().Position).Magnitude)).. " ]" or ""
+                                local Phealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.Percentage and root:FindFirstChildOfClass("Humanoid") and "\n [ ".. (math_floor(100 / root:FindFirstChildOfClass("Humanoid").MaxHealth * root:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ""
+                                local Rhealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.RealValue and root:FindFirstChildOfClass("Humanoid") and "\n [ "..(math_floor(root:FindFirstChildOfClass("Humanoid").Value / 100) * 100).."/"..(math_floor(root:FindFirstChildOfClass("Humanoid").MaxHealth / 100) * 100).." ]" or ""
 
-                                v.Obj.Text = dist.. health
+                                v.Obj.Text = dist..Rhealth..Phealth
                             end
     
                         elseif v.Type == "Line" and ESP.Settings.Tracer then
                             v.Obj.From = ESP.Settings.TracerFrom
                             v.Obj.To = screenPos + Vector2.new(0, math.max(texts * ESP.Settings.TextSize / 2, ESP.Settings.TextSize))
                             v.Obj.Thickness = ESP.Settings.TracerThickness
+                            v.Obj.Visible = true
                         end
                         
                         v.Obj.Color = color
