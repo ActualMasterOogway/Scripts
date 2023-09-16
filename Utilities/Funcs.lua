@@ -13,18 +13,16 @@ local Functions = {
     GetHUI = gethui or get_hidden_ui or function(...) return game.CoreGui end,
     SetReadOnly = setreadonly or make_writeable or function(...) return ... end,
     IsReadOnly = isreadonly or is_writeable or function() return true end,
-    CloneData = function(a) if type(a) == "userdata" and cloneref then return cloneref(a) elseif type(a) == "function" and (clonefunc or clonefunction) then return (clonefunc or clonefunction)(a) end return a end,
-	IdentifyExecutor = function() local exploitcheck = (syn and not is_sirhurt_closure and not pebc_execute and "Synapse") or (secure_load and "Sentinel") or (is_sirhurt_closure and "Sirhurt") or (pebc_execute and "ProtoSmasher") or (KRNL_LOADED and "Krnl") or (WrapGlobal and "WeAreDevs") or (isvm and "Proxo") or (shadow_env and "Shadow") or (jit and "EasyExploits") or (getscriptenvs and "Calamari") or (unit and not syn and "Unit") or (OXYGEN_LOADED and "Oxygen U") or (IsElectron and "Electron") or identifyexecutor or getexecutor or getexecutorname local Exploit = "Undefined" if type(exploitcheck) == "function" then Exploit = exploitcheck() elseif type(exploitcheck) == "string" then Exploit = exploitcheck else Exploit = "Failed to identify Executor!" end return Exploit end,
+    CloneData = function(a) if typeof(a) == "userdata" and (cloneref or clonereference) then return (cloneref or clonereference)(a), true elseif type(a) == "function" and (clonefunc or clonefunction) then return (clonefunc or clonefunction)(a), true elseif typeof(a) == "Instance" then local oldArchivable = a.Archivable a.Archivable = true local c = a:Clone() a.Archivable = oldArchivable return c, true end return a, false end,
+	Executor = (function() local exploitcheck = identifyexecutor or getexecutor or getexecutorname or (syn and not is_sirhurt_closure and not pebc_execute and "Synapse") or (secure_load and "Sentinel") or (is_sirhurt_closure and "Sirhurt") or (pebc_execute and "ProtoSmasher") or (KRNL_LOADED and "Krnl") or (WrapGlobal and "WeAreDevs") or (isvm and "Proxo") or (shadow_env and "Shadow") or (jit and "EasyExploits") or (getscriptenvs and "Calamari") or (unit and not syn and "Unit") or (OXYGEN_LOADED and "Oxygen U") or (IsElectron and "Electron") local Exploit = "Undefined" if type(exploitcheck) == "function" then Exploit = exploitcheck() elseif type(exploitcheck) == "string" then Exploit = exploitcheck else Exploit = "Failed to identify Executor!" end return Exploit end)(),
 	Color = {
 		Add = function(...) return ... end,
 		Substract = function(...) return ... end,
 		ToHex = function(...) return ... end,
 		ToColor3 = function(...) return ... end,
 	},
-    GetSignalConnections = get_signal_cons or getconnections or function() return {} end
+    GetSignalConnections = getconnections or getsignalcons or get_signal_cons or function(signal: RBXScriptSignal) if typeof(signal) == "RBXScriptSignal" then return {} else return error('connect is not a valid member of '..signal.ClassName..' "'..signal.Name..'"') end end
 }
-
-local loadedms = getloadedmodules()
 
 -- // Misc Functions \\ --
 
@@ -47,10 +45,12 @@ local function convertToAsset(str)
     end
 end -- thx vynixu
 
+local GetService = game.GetService
+
 -- // Functions \\ --
 
 Functions.Service = setmetatable({}, {__index = function(self, ServiceName)
-	local Service = Functions.CloneData(game:GetService(ServiceName))
+	local Service = Functions.CloneData(GetService(game, ServiceName))
 	self[ServiceName] = Service
 	return Service
 end})
@@ -68,14 +68,6 @@ Functions.GetPlayerByName = function(name)
         end
     end
 end
-
-Functions.LoadModule = function(name)
-    for i,ms in next, loadedms do
-        if ms.Name == name then
-            return require(ms)
-        end
-    end
-end -- thx for the idea vynixu
 
 Functions.LoadCustomAsset = function(str)
     if str == "" then
@@ -100,8 +92,26 @@ Functions.LoadCustomInstance = function(str)
     warn("Something went wrong attempting to load custom instance")
 end -- and again
 
--- Scripts
+Functions.CreateModule = function(configs)
+    local md = {}
+    local realMD = {}
+    md.__index = md
+    realMD.__index = realMD
 
+    md.GetModule = function(self)
+        if self ~= md.__index.__index then return error("Expected ':' not '.' calling member function GetModule", 5) end
+        return realMD
+    end
+
+    md.AddFunction = function(self)
+        if self ~= md.__index.__index then return error("Expected ':' not '.' calling member function AddFunction", 5) end
+    end
+
+    return md
+end
+
+-- Scripts
+if isfolder("realmasteroogway_debris") then delfolder("realmasteroogway_debris") end
 makefolder("realmasteroogway_debris")
 
 Functions.Service.Players.PlayerRemoving:Connect(function(player)
