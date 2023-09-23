@@ -12,6 +12,7 @@ local Camera = workspace.CurrentCamera
 local math_floor = math.floor
 local Drawing_new = Drawing.new
 local isA = game.IsA
+local GetPivot = Char.GetPivot
 local WTVP = Camera.WorldToViewportPoint
 
 local ESP = {
@@ -33,6 +34,7 @@ local ESP = {
         Rainbow = false,
         TextSize = 16,
     },
+    __index = nil,
 }
 
 -- Misc Functions
@@ -63,9 +65,11 @@ end
 -- Functions
 
 function ESP:Add(root, options)
+    if self.__index.__index.__index ~= ESP.__index then return error("Expected ':' not '.' calling member function Add", 5) end
     if self.Containers[root] then
         self:Remove(root)
     end
+    if options == nil then options = {} end
 
     -- Container
     
@@ -78,7 +82,6 @@ function ESP:Add(root, options)
         Name = options.Name or (player and player[self.Settings.DisplayNames and "DisplayName" or "Name"]) or root.Name,
         Color = options.Color or (player and player.Team and player.TeamColor.Color) or Color3.new(1, 1, 1),
         OutlineFocus = options.OutlineFocus or (player and player.Character) or (root.Parent and root.Parent.ClassName == "Model" and root.Parent) or root,
-        Outline = nil,
         MaxDistance = options.MaxDistance or math.huge,
         Connections = {},
         Draw = {},
@@ -114,8 +117,6 @@ function ESP:Add(root, options)
     outline.OutlineTransparency = 0
     outline.Parent = container.OutlineFocus
 
-    container.Outline = outline
-
     -- Connections
 
     if player then
@@ -136,6 +137,7 @@ function ESP:Add(root, options)
 end
 
 function ESP:Remove(root)
+    if self.__index.__index.__index ~= ESP.__index then return error("Expected ':' not '.' calling member function Remove", 5) end
     local container = self.Containers[root]
 
     if container then
@@ -157,13 +159,17 @@ end
 
 onCharacterAdded(Char)
 Plr.CharacterAdded:Connect(onCharacterAdded)
+Players.PlayerRemoving:Connect(function(player) if player == Plr then Drawing.clear() end end)
+
+ESP.__index = ESP
 
 ESP.UpdateConnection = RS.Stepped:Connect(function()
     for root, container in next, ESP.Containers do
         if isAlive(root) then
-            local screenPos, onScreen = getWTVP(root.Position)
+        	local rootPos = (isA(root, "BasePart") and root.CFrame or isA(root, "Model") and GetPivot(root)).Position
+            local screenPos, onScreen = getWTVP(rootPos)
 
-            if onScreen and container.Active and (Char:GetPivot().Position - (isA(root, "BasePart") and root.CFrame or isA(root, "Model") and root:GetPivot()).Position).Magnitude < container.MaxDistance then
+            if onScreen and container.Active and (Root.Position - rootPos).Magnitude < container.MaxDistance then
                 local texts = 0
                 for _, v in next, container.Draw do
                     if v.Type == "Text" and v.Obj.Text ~= "" then
@@ -184,9 +190,9 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
                                 v.Obj.Text = container.Name
     
                             elseif v.Name == "Stats" then
-                                local dist = ESP.Settings.Distance and "[ ".. (math_floor(((isA(root, "BasePart") and root.CFrame or isA(root, "Model") and root:GetPivot()).Position - Char:GetPivot().Position).Magnitude)).. " ]" or ""
+                                local dist = ESP.Settings.Distance and "[ ".. (math_floor((rootPos - Root.Position).Magnitude)).. " ]" or ""
                                 local Phealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.Percentage and root:FindFirstChildOfClass("Humanoid") and "\n [ ".. (math_floor(100 / root:FindFirstChildOfClass("Humanoid").MaxHealth * root:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ""
-                                local Rhealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.RealValue and root:FindFirstChildOfClass("Humanoid") and "\n [ "..(math_floor(root:FindFirstChildOfClass("Humanoid").Value / 100) * 100).."/"..(math_floor(root:FindFirstChildOfClass("Humanoid").MaxHealth / 100) * 100).." ]" or ""
+                                local Rhealth = ESP.Settings.Health.Enabled and ESP.Settings.Health.RealValue and root:FindFirstChildOfClass("Humanoid") and "\n [ "..(math_floor(root:FindFirstChildOfClass("Humanoid").Health / 100) * 100).."/"..(math_floor(root:FindFirstChildOfClass("Humanoid").MaxHealth / 100) * 100).." ]" or ""
 
                                 v.Obj.Text = dist..Rhealth..Phealth
                             end
@@ -220,6 +226,8 @@ ESP.UpdateConnection = RS.Stepped:Connect(function()
                 for _, v in next, container.Draw do
                     if v.Type ~= "Outline" then
                         v.Obj.Visible = false
+                    else
+                        v.Obj.Enabled = false
                     end
                 end
             end
