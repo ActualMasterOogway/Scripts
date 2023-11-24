@@ -1,5 +1,5 @@
-local MasterOogway6147 = {}
-MasterOogway6147.Version = "1.0"
+local realmasteroogway = {}
+realmasteroogway.Version = "1.0"
 local guiloaded = false
 function rmdname(length)
 	local randomname = ""
@@ -9,7 +9,9 @@ function rmdname(length)
 	return randomname
 end
 
-function MasterOogway6147:Load(loadconfig)
+function realmasteroogway:Load(loadconfig)
+    local math_floor = math.floor 
+    local TweenService = game:GetService("TweenService")
 	if loadconfig.KeySystem == nil then
 		loadconfig.KeySystem = {
 			Enabled = false,
@@ -50,201 +52,204 @@ function MasterOogway6147:Load(loadconfig)
 			end
 		end)
 	end
-    local MasterOogway6147Key = Instance.new("ScreenGui")
-    MasterOogway6147Key.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    MasterOogway6147Key.Parent = game.CoreGui
-    MasterOogway6147Key.Name = rmdname(18)
-    MasterOogway6147Key.ResetOnSpawn = false
+    local realmasteroogwayKey = Instance.new("ScreenGui")
+    realmasteroogwayKey.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    realmasteroogwayKey.Parent = game.CoreGui
+    realmasteroogwayKey.Name = rmdname(18)
+    realmasteroogwayKey.ResetOnSpawn = false
 
     task.spawn(function()
-        while wait(1) do
-            if MasterOogway6147Key then
-                for i, v in pairs(MasterOogway6147Key:GetDescendants()) do
-                    if v then
-                        v.Name = rmdname(math.random(10,20))
-                    end
+        while task.wait(1) do
+            if realmasteroogwayKey then
+                local e = math.random(10,20)
+                for i, v in next, realmasteroogwayKey:GetDescendants() do
+                    v.Name = rmdname(e)
+                    pcall(function()
+                        v.Size = UDim2.new(v.Size.X.Scale +  (v.Size.X.Offset/ v.Parent.AbsoluteSize.X), 0, v.Size.Y.Scale + (v.Size.Y.Offset/ v.Parent.AbsoluteSize.Y), 0)
+                        v.Position = UDim2.new(v.Position.X.Scale +  (v.Position.X.Offset/ v.Parent.AbsolutePosition.X), 0, v.Position.Y.Scale + (v.Position.Y.Offset/ v.Parent.AbsolutePosition.Y), 0)
+                    end)
                 end
             end
         end
     end)
 
-    local MasterOogway6147KeyShadow = Instance.new("ImageLabel")
-    MasterOogway6147KeyShadow.Name = "MasterOogway6147KeyShadow"
-    MasterOogway6147KeyShadow.ZIndex = 2
-    MasterOogway6147KeyShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    MasterOogway6147KeyShadow.Size = UDim2.new(0, 660, 0, 134)
-    MasterOogway6147KeyShadow.ClipsDescendants = true
-    MasterOogway6147KeyShadow.BackgroundTransparency = 1
-    MasterOogway6147KeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
-    MasterOogway6147KeyShadow.BorderSizePixel = 0
-    MasterOogway6147KeyShadow.ScaleType = Enum.ScaleType.Slice
-    MasterOogway6147KeyShadow.ImageTransparency = 1
-    MasterOogway6147KeyShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    MasterOogway6147KeyShadow.TileSize = UDim2.new(1, 0, 2, 0)
-    MasterOogway6147KeyShadow.Image = "rbxassetid://1316045217"
-    MasterOogway6147KeyShadow.SliceCenter = Rect.new(50, 50, 50, 50)
-    MasterOogway6147KeyShadow.Parent = MasterOogway6147Key
+    local realmasteroogwayKeyShadow = Instance.new("ImageLabel")
+    realmasteroogwayKeyShadow.Name = "realmasteroogwayKeyShadow"
+    realmasteroogwayKeyShadow.ZIndex = 2
+    realmasteroogwayKeyShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    realmasteroogwayKeyShadow.Size = UDim2.new(0, 660, 0, 134)
+    realmasteroogwayKeyShadow.ClipsDescendants = true
+    realmasteroogwayKeyShadow.BackgroundTransparency = 1
+    realmasteroogwayKeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
+    realmasteroogwayKeyShadow.BorderSizePixel = 0
+    realmasteroogwayKeyShadow.ScaleType = Enum.ScaleType.Slice
+    realmasteroogwayKeyShadow.ImageTransparency = 1
+    realmasteroogwayKeyShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    realmasteroogwayKeyShadow.TileSize = UDim2.new(1, 0, 2, 0)
+    realmasteroogwayKeyShadow.Image = "rbxassetid://1316045217"
+    realmasteroogwayKeyShadow.SliceCenter = Rect.new(50, 50, 50, 50)
+    realmasteroogwayKeyShadow.Parent = realmasteroogwayKey
     
-    local MasterOogway6147KeyShadow_Window = Instance.new("Frame")
-    MasterOogway6147KeyShadow_Window.Name = "MasterOogway6147KeyShadow_Window"
-    MasterOogway6147KeyShadow_Window.ZIndex = 3
-    MasterOogway6147KeyShadow_Window.Size = UDim2.new(0, 650, 0, 124)
-    MasterOogway6147KeyShadow_Window.ClipsDescendants = true
-    MasterOogway6147KeyShadow_Window.Position = UDim2.new(0, 5, 0, 5)
-    MasterOogway6147KeyShadow_Window.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window.BackgroundColor3 = loadconfig.Color.Background
-    MasterOogway6147KeyShadow_Window.Parent = MasterOogway6147KeyShadow
+    local realmasteroogwayKeyShadow_Window = Instance.new("Frame")
+    realmasteroogwayKeyShadow_Window.Name = "realmasteroogwayKeyShadow_Window"
+    realmasteroogwayKeyShadow_Window.ZIndex = 3
+    realmasteroogwayKeyShadow_Window.Size = UDim2.new(0, 650, 0, 124)
+    realmasteroogwayKeyShadow_Window.ClipsDescendants = true
+    realmasteroogwayKeyShadow_Window.Position = UDim2.new(0, 5, 0, 5)
+    realmasteroogwayKeyShadow_Window.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window.BackgroundColor3 = loadconfig.Color.Background
+    realmasteroogwayKeyShadow_Window.Parent = realmasteroogwayKeyShadow
     
-    local MasterOogway6147KeyShadow_WindowUICorner = Instance.new("UICorner")
-    MasterOogway6147KeyShadow_WindowUICorner.Name = "MasterOogway6147KeyShadow_WindowUICorner"
-    MasterOogway6147KeyShadow_WindowUICorner.CornerRadius = UDim.new(0, 3)
-    MasterOogway6147KeyShadow_WindowUICorner.Parent = MasterOogway6147KeyShadow_Window
+    local realmasteroogwayKeyShadow_WindowUICorner = Instance.new("UICorner")
+    realmasteroogwayKeyShadow_WindowUICorner.Name = "realmasteroogwayKeyShadow_WindowUICorner"
+    realmasteroogwayKeyShadow_WindowUICorner.CornerRadius = UDim.new(0, 3)
+    realmasteroogwayKeyShadow_WindowUICorner.Parent = realmasteroogwayKeyShadow_Window
     
-    local MasterOogway6147KeyShadow_WindowUIStroke = Instance.new("UIStroke")
-    MasterOogway6147KeyShadow_WindowUIStroke.Name = "MasterOogway6147KeyShadow_WindowUIStroke"
-    MasterOogway6147KeyShadow_WindowUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    MasterOogway6147KeyShadow_WindowUIStroke.Thickness = 1.2
-    MasterOogway6147KeyShadow_WindowUIStroke.Color = Color3.fromRGB(100, 100, 100)
-    MasterOogway6147KeyShadow_WindowUIStroke.Parent = MasterOogway6147KeyShadow_Window
+    local realmasteroogwayKeyShadow_WindowUIStroke = Instance.new("UIStroke")
+    realmasteroogwayKeyShadow_WindowUIStroke.Name = "realmasteroogwayKeyShadow_WindowUIStroke"
+    realmasteroogwayKeyShadow_WindowUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    realmasteroogwayKeyShadow_WindowUIStroke.Thickness = 1.2
+    realmasteroogwayKeyShadow_WindowUIStroke.Color = Color3.fromRGB(100, 100, 100)
+    realmasteroogwayKeyShadow_WindowUIStroke.Parent = realmasteroogwayKeyShadow_Window
     
-    local MasterOogway6147KeyShadow_Window_Outline = Instance.new("Frame")
-    MasterOogway6147KeyShadow_Window_Outline.Name = "MasterOogway6147KeyShadow_Window_Outline"
-    MasterOogway6147KeyShadow_Window_Outline.ZIndex = 4
-    MasterOogway6147KeyShadow_Window_Outline.Size = UDim2.new(0, 650, 0, 1)
-    MasterOogway6147KeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 34)
-    MasterOogway6147KeyShadow_Window_Outline.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
-    MasterOogway6147KeyShadow_Window_Outline.Parent = MasterOogway6147KeyShadow_Window
+    local realmasteroogwayKeyShadow_Window_Outline = Instance.new("Frame")
+    realmasteroogwayKeyShadow_Window_Outline.Name = "realmasteroogwayKeyShadow_Window_Outline"
+    realmasteroogwayKeyShadow_Window_Outline.ZIndex = 4
+    realmasteroogwayKeyShadow_Window_Outline.Size = UDim2.new(0, 650, 0, 1)
+    realmasteroogwayKeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 34)
+    realmasteroogwayKeyShadow_Window_Outline.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
+    realmasteroogwayKeyShadow_Window_Outline.Parent = realmasteroogwayKeyShadow_Window
     
-    local MasterOogway6147KeyShadow_Window_TopBar = Instance.new("Frame")
-    MasterOogway6147KeyShadow_Window_TopBar.Name = "MasterOogway6147KeyShadow_Window_TopBar"
-    MasterOogway6147KeyShadow_Window_TopBar.ZIndex = 4
-    MasterOogway6147KeyShadow_Window_TopBar.Size = UDim2.new(0, 650, 0, 34)
-    MasterOogway6147KeyShadow_Window_TopBar.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_TopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
-    MasterOogway6147KeyShadow_Window_TopBar.Parent = MasterOogway6147KeyShadow_Window
+    local realmasteroogwayKeyShadow_Window_TopBar = Instance.new("Frame")
+    realmasteroogwayKeyShadow_Window_TopBar.Name = "realmasteroogwayKeyShadow_Window_TopBar"
+    realmasteroogwayKeyShadow_Window_TopBar.ZIndex = 4
+    realmasteroogwayKeyShadow_Window_TopBar.Size = UDim2.new(0, 650, 0, 34)
+    realmasteroogwayKeyShadow_Window_TopBar.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_TopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
+    realmasteroogwayKeyShadow_Window_TopBar.Parent = realmasteroogwayKeyShadow_Window
     
-    local MasterOogway6147KeyShadow_Window_TopBarWindowUICorner = Instance.new("UICorner")
-    MasterOogway6147KeyShadow_Window_TopBarWindowUICorner.Name = "MasterOogway6147KeyShadow_Window_TopBarWindowUICorner"
-    MasterOogway6147KeyShadow_Window_TopBarWindowUICorner.CornerRadius = UDim.new(0, 6)
-    MasterOogway6147KeyShadow_Window_TopBarWindowUICorner.Parent = MasterOogway6147KeyShadow_Window_TopBar
+    local realmasteroogwayKeyShadow_Window_TopBarWindowUICorner = Instance.new("UICorner")
+    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBarWindowUICorner"
+    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.CornerRadius = UDim.new(0, 6)
+    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar
     
-    local MasterOogway6147KeyShadow_Window_TopBar_Title = Instance.new("TextLabel")
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Name = "MasterOogway6147KeyShadow_Window_TopBar_Title"
-    MasterOogway6147KeyShadow_Window_TopBar_Title.ZIndex = 5
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Size = UDim2.new(0, 80, 0, 25)
-    MasterOogway6147KeyShadow_Window_TopBar_Title.BackgroundTransparency = 1
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Position = UDim2.new(0, 7.5, 0, 5)
-    MasterOogway6147KeyShadow_Window_TopBar_Title.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_TopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147KeyShadow_Window_TopBar_Title.FontSize = Enum.FontSize.Size14
-    MasterOogway6147KeyShadow_Window_TopBar_Title.TextSize = 14
-    MasterOogway6147KeyShadow_Window_TopBar_Title.TextScaled = true
-    MasterOogway6147KeyShadow_Window_TopBar_Title.TextColor3 = Color3.fromRGB(220, 220, 220)
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Text = loadconfig.HubName
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Font = Enum.Font.Gotham
-    MasterOogway6147KeyShadow_Window_TopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
-    MasterOogway6147KeyShadow_Window_TopBar_Title.Parent = MasterOogway6147KeyShadow_Window_TopBar
+    local realmasteroogwayKeyShadow_Window_TopBar_Title = Instance.new("TextLabel")
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Title"
+    realmasteroogwayKeyShadow_Window_TopBar_Title.ZIndex = 5
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Size = UDim2.new(0, 80, 0, 25)
+    realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundTransparency = 1
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Position = UDim2.new(0, 7.5, 0, 5)
+    realmasteroogwayKeyShadow_Window_TopBar_Title.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayKeyShadow_Window_TopBar_Title.FontSize = Enum.FontSize.Size14
+    realmasteroogwayKeyShadow_Window_TopBar_Title.TextSize = 14
+    realmasteroogwayKeyShadow_Window_TopBar_Title.TextScaled = true
+    realmasteroogwayKeyShadow_Window_TopBar_Title.TextColor3 = Color3.fromRGB(220, 220, 220)
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Text = loadconfig.HubName
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Font = Enum.Font.Gotham
+    realmasteroogwayKeyShadow_Window_TopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
+    realmasteroogwayKeyShadow_Window_TopBar_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
     
-    local MasterOogway6147KeyShadow_Window_TopBar_Beta_Title = Instance.new("TextLabel")
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Name = "MasterOogway6147KeyShadow_Window_TopBar_Beta_Title"
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.ZIndex = 5
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Size = UDim2.new(0, 53, 0, 22)
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Position = UDim2.new(0, 90, 0, 6)
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.BackgroundColor3 = loadconfig.Color.Foreground
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.FontSize = Enum.FontSize.Size14
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.TextSize = 14
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.TextColor3 = loadconfig.Color.Background
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Text = "Beta"
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Font = Enum.Font.Gotham
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_Title.Parent = MasterOogway6147KeyShadow_Window_TopBar
+    local realmasteroogwayKeyShadow_Window_TopBar_Beta_Title = Instance.new("TextLabel")
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_Title"
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.ZIndex = 5
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Size = UDim2.new(0, 53, 0, 22)
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Position = UDim2.new(0, 90, 0, 6)
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BackgroundColor3 = loadconfig.Color.Foreground
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.FontSize = Enum.FontSize.Size14
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextSize = 14
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextColor3 = loadconfig.Color.Background
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Text = "Beta"
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Font = Enum.Font.Gotham
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
     
-    local MasterOogway6147KeyShadow_Window_TopBar_Beta_TitleWindowUICorner = Instance.new("UICorner")
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Name = "MasterOogway6147KeyShadow_Window_TopBar_Beta_TitleWindowUICorner"
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_TitleWindowUICorner.CornerRadius = UDim.new(0, 4)
-    MasterOogway6147KeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Parent = MasterOogway6147KeyShadow_Window_TopBar_Beta_Title
+    local realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner = Instance.new("UICorner")
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner"
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.CornerRadius = UDim.new(0, 4)
+    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_Beta_Title
     
-    local MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title = Instance.new("TextLabel")
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Name = "MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title"
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.ZIndex = 5
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Size = UDim2.new(0, 76, 0, 35)
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.BackgroundTransparency = 1
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Position = UDim2.new(0, 150, 0, 0)
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.FontSize = Enum.FontSize.Size14
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.TextSize = 14
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.TextColor3 = loadconfig.Color.Foreground
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Text = "Key System"
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Font = Enum.Font.Gotham
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.TextXAlignment = Enum.TextXAlignment.Left
-    MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title.Parent = MasterOogway6147KeyShadow_Window_TopBar
+    local realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title = Instance.new("TextLabel")
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title"
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.ZIndex = 5
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Size = UDim2.new(0, 76, 0, 35)
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundTransparency = 1
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Position = UDim2.new(0, 150, 0, 0)
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.FontSize = Enum.FontSize.Size14
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextSize = 14
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextColor3 = loadconfig.Color.Foreground
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Text = "Key System"
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Font = Enum.Font.Gotham
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextXAlignment = Enum.TextXAlignment.Left
+    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
     
-    local MasterOogway6147KeyShadow_Window_TopBar_Close_Button = Instance.new("ImageButton")
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.Name = "MasterOogway6147KeyShadow_Window_TopBar_Close_Button"
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.ZIndex = 5
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.Size = UDim2.new(0, 18, 0, 18)
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.BackgroundTransparency = 1
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.Position = UDim2.new(0, 624, 0, 8)
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.BorderSizePixel = 0
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.ImageColor3 = Color3.fromRGB(220, 220, 220)
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.Image = "http://www.roblox.com/asset/?id=6031094678"
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.Parent = MasterOogway6147KeyShadow_Window_TopBar
-    MasterOogway6147KeyShadow_Window_TopBar_Close_Button.MouseButton1Click:Connect(function()
-        game:GetService("TweenService"):Create(MasterOogway6147KeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 1, 0)}):Play()
-        for i, v in pairs(MasterOogway6147Key:GetDescendants()) do
+    local realmasteroogwayKeyShadow_Window_TopBar_Close_Button = Instance.new("ImageButton")
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_Close_Button"
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ZIndex = 5
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Size = UDim2.new(0, 18, 0, 18)
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundTransparency = 1
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Position = UDim2.new(0, 624, 0, 8)
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BorderSizePixel = 0
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ImageColor3 = Color3.fromRGB(220, 220, 220)
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Image = "http://www.roblox.com/asset/?id=6031094678"
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
+    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.MouseButton1Click:Connect(function()
+        TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 1, 0)}):Play()
+        for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
             if v:IsA("ImageLabel") or v:IsA("ImageButton") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
             elseif v:IsA("Frame") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
             elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
             elseif v:IsA("UIStroke") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
             end
         end
         wait(0.5)
-        MasterOogway6147Key:Destroy()
+        realmasteroogwayKey:Destroy()
         wait(0.5)
     end)
 
-	local MasterOogway6147_Current_LoadingTXT = Instance.new("TextLabel")
-    MasterOogway6147_Current_LoadingTXT.Name = "MasterOogway6147_Current_LoadingTXT"
-    MasterOogway6147_Current_LoadingTXT.ZIndex = 5
-    MasterOogway6147_Current_LoadingTXT.Size = UDim2.new(0, 120, 0, 35)
-    MasterOogway6147_Current_LoadingTXT.BackgroundTransparency = 1
-    MasterOogway6147_Current_LoadingTXT.BorderSizePixel = 0
-    MasterOogway6147_Current_LoadingTXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147_Current_LoadingTXT.FontSize = Enum.FontSize.Size14
-    MasterOogway6147_Current_LoadingTXT.TextTransparency = 1
-    MasterOogway6147_Current_LoadingTXT.TextSize = 14
-    MasterOogway6147_Current_LoadingTXT.TextColor3 = loadconfig.Color.Foreground
-    MasterOogway6147_Current_LoadingTXT.Text = "Correct Key!"
-    MasterOogway6147_Current_LoadingTXT.Font = Enum.Font.Gotham
-    MasterOogway6147_Current_LoadingTXT.TextXAlignment = Enum.TextXAlignment.Right
-    MasterOogway6147_Current_LoadingTXT.Parent = MasterOogway6147KeyShadow_Window_TopBar
+	local realmasteroogway_Current_LoadingTXT = Instance.new("TextLabel")
+    realmasteroogway_Current_LoadingTXT.Name = "realmasteroogway_Current_LoadingTXT"
+    realmasteroogway_Current_LoadingTXT.ZIndex = 5
+    realmasteroogway_Current_LoadingTXT.Size = UDim2.new(0, 120, 0, 35)
+    realmasteroogway_Current_LoadingTXT.BackgroundTransparency = 1
+    realmasteroogway_Current_LoadingTXT.BorderSizePixel = 0
+    realmasteroogway_Current_LoadingTXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogway_Current_LoadingTXT.FontSize = Enum.FontSize.Size14
+    realmasteroogway_Current_LoadingTXT.TextTransparency = 1
+    realmasteroogway_Current_LoadingTXT.TextSize = 14
+    realmasteroogway_Current_LoadingTXT.TextColor3 = loadconfig.Color.Foreground
+    realmasteroogway_Current_LoadingTXT.Text = "Correct Key!"
+    realmasteroogway_Current_LoadingTXT.Font = Enum.Font.Gotham
+    realmasteroogway_Current_LoadingTXT.TextXAlignment = Enum.TextXAlignment.Right
+    realmasteroogway_Current_LoadingTXT.Parent = realmasteroogwayKeyShadow_Window_TopBar
     
     if loadconfig.Discord.Join == true then
 		if loadconfig.Discord.Type == ("Button" or nil) then
-			MasterOogway6147_Current_LoadingTXT.Position = UDim2.new(0, 330, 0, 0)
-			local MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button = Instance.new("TextButton")
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Name = "MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button"
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.ZIndex = 5
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Size = UDim2.new(0, 160, 0, 26)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Position = UDim2.new(0, 456, 0, 4)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.BorderSizePixel = 0
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.BackgroundColor3 = loadconfig.Color.Foreground
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.AutoButtonColor = false
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.FontSize = Enum.FontSize.Size14
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.TextSize = 14
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.TextColor3 = loadconfig.Color.Background
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Text = "Join Discord Server"
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Font = Enum.Font.Gotham
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.Parent = MasterOogway6147KeyShadow_Window_TopBar
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Click:Connect(function()
+			realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 330, 0, 0)
+			local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button = Instance.new("TextButton")
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button"
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.ZIndex = 5
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Size = UDim2.new(0, 160, 0, 26)
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Position = UDim2.new(0, 456, 0, 4)
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BorderSizePixel = 0
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BackgroundColor3 = loadconfig.Color.Foreground
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.AutoButtonColor = false
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.FontSize = Enum.FontSize.Size14
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextSize = 14
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextColor3 = loadconfig.Color.Background
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Text = "Join Discord Server"
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Font = Enum.Font.Gotham
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Click:Connect(function()
 				if request then
 					request({
 						Url = 'http://127.0.0.1:6463/rpc?v=1',
@@ -278,24 +283,24 @@ function MasterOogway6147:Load(loadconfig)
 				end
 			end)
 
-			local MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner = Instance.new("UICorner")
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Name = "MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner"
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.CornerRadius = UDim.new(0, 3)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Parent = MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button
+			local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner = Instance.new("UICorner")
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner"
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.CornerRadius = UDim.new(0, 3)
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button
 
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.MouseEnter:Connect(function()
-				game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseEnter:Connect(function()
+				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
 			end)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.MouseLeave:Connect(function()
-				game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseLeave:Connect(function()
+				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 			end)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Down:Connect(function()
-				game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Down:Connect(function()
+				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
 			end)
-			MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Up:Connect(function()
-				game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Up:Connect(function()
+				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 			end)
-			game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
+			TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
 		elseif loadconfig.Discord.Type == "Auto" then
 			if request then
 				request({
@@ -331,7 +336,7 @@ function MasterOogway6147:Load(loadconfig)
 		end
 	end
 	if (loadconfig.Discord.Join == false or loadconfig.Discord.Type == "Auto") then
-		MasterOogway6147_Current_LoadingTXT.Position = UDim2.new(0, 500, 0, 0)
+		realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 500, 0, 0)
 	end
     
     local KeyFrame_Frame = Instance.new("Frame")
@@ -341,7 +346,7 @@ function MasterOogway6147:Load(loadconfig)
     KeyFrame_Frame.Position = UDim2.new(0, 6, 0, 42)
     KeyFrame_Frame.BorderSizePixel = 0
     KeyFrame_Frame.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
-    KeyFrame_Frame.Parent = MasterOogway6147KeyShadow_Window
+    KeyFrame_Frame.Parent = realmasteroogwayKeyShadow_Window
     
     local KeyFrame_FrameUICorner = Instance.new("UICorner")
     KeyFrame_FrameUICorner.Name = "KeyFrame_FrameUICorner"
@@ -388,7 +393,7 @@ function MasterOogway6147:Load(loadconfig)
     KeyFrame_Frame_SubmitButton.TextColor3 = loadconfig.Color.Background
     KeyFrame_Frame_SubmitButton.Text = "Submit"
     KeyFrame_Frame_SubmitButton.Font = Enum.Font.Gotham
-    KeyFrame_Frame_SubmitButton.Parent = MasterOogway6147KeyShadow_Window
+    KeyFrame_Frame_SubmitButton.Parent = realmasteroogwayKeyShadow_Window
     
     local KeyFrame_Frame_SubmitButtonUICorner = Instance.new("UICorner")
     KeyFrame_Frame_SubmitButtonUICorner.Name = "KeyFrame_Frame_SubmitButtonUICorner"
@@ -411,34 +416,34 @@ function MasterOogway6147:Load(loadconfig)
     KeyFrame_Frame_Description_TXT.Font = Enum.Font.Gotham
     KeyFrame_Frame_Description_TXT.TextWrap = true
     KeyFrame_Frame_Description_TXT.TextXAlignment = Enum.TextXAlignment.Center
-    KeyFrame_Frame_Description_TXT.Parent = MasterOogway6147KeyShadow_Window
+    KeyFrame_Frame_Description_TXT.Parent = realmasteroogwayKeyShadow_Window
 
     KeyFrame_Frame_TextBox.Focused:Connect(function()
-        game:GetService("TweenService"):Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
+        TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
     end)
     KeyFrame_Frame_TextBox.FocusLost:Connect(function()
-        game:GetService("TweenService"):Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+        TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
     end)
 
     KeyFrame_Frame_SubmitButton.MouseButton1Click:Connect(function()
         if KeyFrame_Frame_TextBox.Text == Config.Key then
-            game:GetService("TweenService"):Create(MasterOogway6147_Current_LoadingTXT, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             wait(0.5)
-            game:GetService("TweenService"):Create(MasterOogway6147KeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
-            for i, v in pairs(MasterOogway6147KeyShadow.Parent:GetDescendants()) do
+            TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
+            for i, v in pairs(realmasteroogwayKeyShadow.Parent:GetDescendants()) do
                 if v:IsA("ImageLabel") or v:IsA("ImageButton") then
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
                 elseif v:IsA("Frame") then
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
                 elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                 elseif v:IsA("UIStroke") then
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
                 end
             end
             wait(0.5)
-            MasterOogway6147Key:Destroy()
+            realmasteroogwayKey:Destroy()
             wait(1)
             guiloaded = true
         else
@@ -446,20 +451,20 @@ function MasterOogway6147:Load(loadconfig)
         end
 
         KeyFrame_Frame_SubmitButton.MouseEnter:Connect(function()
-            game:GetService("TweenService"):Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
+            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
         end)
         KeyFrame_Frame_SubmitButton.MouseLeave:Connect(function()
-            game:GetService("TweenService"):Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
         end)
         KeyFrame_Frame_SubmitButton.MouseButton1Down:Connect(function()
-            game:GetService("TweenService"):Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
+            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
         end)
         KeyFrame_Frame_SubmitButton.MouseButton1Up:Connect(function()
-            game:GetService("TweenService"):Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
         end)
     end)
 
-    for i, v in pairs(MasterOogway6147Key:GetDescendants()) do
+    for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
         if v:IsA("ImageLabel") or v:IsA("ImageButton") then
             v.ImageTransparency = 1
         elseif v:IsA("Frame") then
@@ -472,22 +477,22 @@ function MasterOogway6147:Load(loadconfig)
         end
     end
     
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.5, 0), ImageTransparency = 0.4}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_Close_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_Beta_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0, TextTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147KeyShadow_Window_TopBar_KeySystem_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147_Current_LoadingTXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-    game:GetService("TweenService"):Create(KeyFrame_Frame, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(KeyFrame_Frame_TextBox, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(KeyFrame_Frame_Description_TXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.5, 0), ImageTransparency = 0.4}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Close_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Beta_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0, TextTransparency = 0}):Play()
+    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+    TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+    TweenService:Create(KeyFrame_Frame, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+    TweenService:Create(KeyFrame_Frame_TextBox, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+    TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
+    TweenService:Create(KeyFrame_Frame_Description_TXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
     
-    for i, v in pairs(MasterOogway6147Key:GetDescendants()) do
+    for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
         if v:IsA("UIStroke") then
-            game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
         end
     end
     
@@ -495,8 +500,8 @@ function MasterOogway6147:Load(loadconfig)
         local UserInputService = game:GetService("UserInputService")
         local runService = (game:GetService("RunService"));
     
-        local gui = MasterOogway6147KeyShadow_Window_TopBar
-        local guitodrag = MasterOogway6147KeyShadow
+        local gui = realmasteroogwayKeyShadow_Window_TopBar
+        local guitodrag = realmasteroogwayKeyShadow
     
         local dragging
         local dragInput
@@ -513,7 +518,7 @@ function MasterOogway6147:Load(loadconfig)
         function Update(dt)
             if not (startPos) then return end;
             if not (dragging) and (lastGoalPos) then
-                MasterOogway6147KeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(MasterOogway6147KeyShadow.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(MasterOogway6147KeyShadow.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
+                realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
                 return 
             end;
     
@@ -521,14 +526,14 @@ function MasterOogway6147:Load(loadconfig)
             local xGoal = (startPos.X.Offset - delta.X);
             local yGoal = (startPos.Y.Offset - delta.Y);
             lastGoalPos = UDim2.new(startPos.X.Scale, xGoal, startPos.Y.Scale, yGoal)
-            MasterOogway6147KeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(MasterOogway6147KeyShadow.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(MasterOogway6147KeyShadow.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
+            realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
         end;
     
         gui.InputBegan:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                 dragging = true
                 dragStart = input.Position
-                startPos = MasterOogway6147KeyShadow.Position
+                startPos = realmasteroogwayKeyShadow.Position
                 lastMousePos = UserInputService:GetMouseLocation()
     
                 input.Changed:Connect(function()
@@ -552,68 +557,73 @@ function MasterOogway6147:Load(loadconfig)
         guicontinue = true
     end
 
-    repeat wait() until guiloaded or guicontinue
+    repeat task.wait() until guiloaded or guicontinue
 
     if guicontinue then
-        if MasterOogway6147Key then
-            MasterOogway6147Key:Destroy()
+        if realmasteroogwayKey then
+            realmasteroogwayKey:Destroy()
         end
     end
 
-    local MasterOogway6147Beta = Instance.new("ScreenGui")
-    MasterOogway6147Beta.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    MasterOogway6147Beta.ResetOnSpawn = false
-    MasterOogway6147Beta.Parent = game:GetService("CoreGui")
-    MasterOogway6147Beta.Name = rmdname(18)
+    local realmasteroogwayBeta = Instance.new("ScreenGui")
+    realmasteroogwayBeta.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    realmasteroogwayBeta.ResetOnSpawn = false
+    realmasteroogwayBeta.Parent = game:GetService("CoreGui")
+    realmasteroogwayBeta.Name = rmdname(18)
 
     task.spawn(function()
         while task.wait(1) do
-            if MasterOogway6147Beta then
-                for i, v in pairs(MasterOogway6147Beta:GetDescendants()) do
-                    v.Name = rmdname(math.random(10,20))
+            if realmasteroogwayBeta then
+                local e = math.random(10,20)
+                for i, v in next, realmasteroogwayKey:GetDescendants() do
+                    v.Name = rmdname(e)
+                    pcall(function()
+                        v.Size = UDim2.new(v.Size.X.Scale +  (v.Size.X.Offset/ v.Parent.AbsoluteSize.X), 0, v.Size.Y.Scale + (v.Size.Y.Offset/ v.Parent.AbsoluteSize.Y), 0)
+                        v.Position = UDim2.new(v.Position.X.Scale +  (v.Position.X.Offset/ v.Parent.AbsolutePosition.X), 0, v.Position.Y.Scale + (v.Position.Y.Offset/ v.Parent.AbsolutePosition.Y), 0)
+                    end)
                 end
             end
         end
     end)
     
-    local MasterOogway6147BetaShadow = Instance.new("ImageLabel")
-    MasterOogway6147BetaShadow.Name = "MasterOogway6147BetaShadow"
-    MasterOogway6147BetaShadow.ZIndex = 2
-    MasterOogway6147BetaShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    MasterOogway6147BetaShadow.Size = UDim2.new(0, 666, 0, 460)
-    MasterOogway6147BetaShadow.BackgroundTransparency = 1
-    MasterOogway6147BetaShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
-    MasterOogway6147BetaShadow.BorderSizePixel = 0
-    MasterOogway6147BetaShadow.ScaleType = Enum.ScaleType.Slice
-    MasterOogway6147BetaShadow.ImageTransparency = 0
-    MasterOogway6147BetaShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    MasterOogway6147BetaShadow.TileSize = UDim2.new(1, 0, 2, 0)
-    MasterOogway6147BetaShadow.Image = "rbxassetid://1316045217"
-    MasterOogway6147BetaShadow.SliceCenter = Rect.new(50, 50, 50, 50)
-    MasterOogway6147BetaShadow.Parent = MasterOogway6147Beta
+    local realmasteroogwayBetaShadow = Instance.new("ImageLabel")
+    realmasteroogwayBetaShadow.Name = "realmasteroogwayBetaShadow"
+    realmasteroogwayBetaShadow.ZIndex = 2
+    realmasteroogwayBetaShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    realmasteroogwayBetaShadow.Size = UDim2.new(0, 666, 0, 460)
+    realmasteroogwayBetaShadow.BackgroundTransparency = 1
+    realmasteroogwayBetaShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
+    realmasteroogwayBetaShadow.BorderSizePixel = 0
+    realmasteroogwayBetaShadow.ScaleType = Enum.ScaleType.Slice
+    realmasteroogwayBetaShadow.ImageTransparency = 0
+    realmasteroogwayBetaShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    realmasteroogwayBetaShadow.TileSize = UDim2.new(1, 0, 2, 0)
+    realmasteroogwayBetaShadow.Image = "rbxassetid://1316045217"
+    realmasteroogwayBetaShadow.SliceCenter = Rect.new(50, 50, 50, 50)
+    realmasteroogwayBetaShadow.Parent = realmasteroogwayBeta
     
-    local MasterOogway6147Window = Instance.new("Frame")
-    MasterOogway6147Window.Name = "MasterOogway6147Window"
-    MasterOogway6147Window.ZIndex = 3
-    MasterOogway6147Window.Visible = false
-    MasterOogway6147Window.Size = UDim2.new(0, 654, 0, 450)
-    MasterOogway6147Window.ClipsDescendants = true
-    MasterOogway6147Window.Position = UDim2.new(0, 5, 0, 5)
-    MasterOogway6147Window.BorderSizePixel = 0
-    MasterOogway6147Window.BackgroundColor3 = loadconfig.Color.Background
-    MasterOogway6147Window.Parent = MasterOogway6147BetaShadow
+    local realmasteroogwayWindow = Instance.new("Frame")
+    realmasteroogwayWindow.Name = "realmasteroogwayWindow"
+    realmasteroogwayWindow.ZIndex = 3
+    realmasteroogwayWindow.Visible = false
+    realmasteroogwayWindow.Size = UDim2.new(0, 654, 0, 450)
+    realmasteroogwayWindow.ClipsDescendants = true
+    realmasteroogwayWindow.Position = UDim2.new(0, 5, 0, 5)
+    realmasteroogwayWindow.BorderSizePixel = 0
+    realmasteroogwayWindow.BackgroundColor3 = loadconfig.Color.Background
+    realmasteroogwayWindow.Parent = realmasteroogwayBetaShadow
     
     local WindowUICorner = Instance.new("UICorner")
     WindowUICorner.Name = "WindowUICorner"
     WindowUICorner.CornerRadius = UDim.new(0, 3)
-    WindowUICorner.Parent = MasterOogway6147Window
+    WindowUICorner.Parent = realmasteroogwayWindow
     
     local WindowUIStroke = Instance.new("UIStroke")
     WindowUIStroke.Name = "WindowUIStroke"
     WindowUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     WindowUIStroke.Thickness = 1.2
     WindowUIStroke.Color = Color3.fromRGB(100, 100, 100)
-    WindowUIStroke.Parent = MasterOogway6147Window
+    WindowUIStroke.Parent = realmasteroogwayWindow
     
     local PageContainer = Instance.new("Frame")
     PageContainer.Name = "PageContainer"
@@ -622,7 +632,7 @@ function MasterOogway6147:Load(loadconfig)
     PageContainer.Position = UDim2.new(0, 8, 0, 42)
     PageContainer.BorderSizePixel = 0
     PageContainer.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
-    PageContainer.Parent = MasterOogway6147Window
+    PageContainer.Parent = realmasteroogwayWindow
     
     local PageContainerUICorner = Instance.new("UICorner")
     PageContainerUICorner.Name = "PageContainerUICorner"
@@ -652,136 +662,136 @@ function MasterOogway6147:Load(loadconfig)
     PageContainerInnerUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     PageContainerInnerUIListLayout.Parent = PageContainerInner
     
-    local MasterOogway6147Window_Outline = Instance.new("Frame")
-    MasterOogway6147Window_Outline.Name = "MasterOogway6147Window_Outline"
-    MasterOogway6147Window_Outline.ZIndex = 4
-    MasterOogway6147Window_Outline.Size = UDim2.new(0, 654, 0, 1)
-    MasterOogway6147Window_Outline.Position = UDim2.new(0, 0, 0, 34)
-    MasterOogway6147Window_Outline.BorderSizePixel = 0
-    MasterOogway6147Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
-    MasterOogway6147Window_Outline.Parent = MasterOogway6147Window
+    local realmasteroogwayWindow_Outline = Instance.new("Frame")
+    realmasteroogwayWindow_Outline.Name = "realmasteroogwayWindow_Outline"
+    realmasteroogwayWindow_Outline.ZIndex = 4
+    realmasteroogwayWindow_Outline.Size = UDim2.new(0, 654, 0, 1)
+    realmasteroogwayWindow_Outline.Position = UDim2.new(0, 0, 0, 34)
+    realmasteroogwayWindow_Outline.BorderSizePixel = 0
+    realmasteroogwayWindow_Outline.BackgroundColor3 = loadconfig.Color.Foreground
+    realmasteroogwayWindow_Outline.Parent = realmasteroogwayWindow
     
-    local MasterOogway6147WindowTopBar = Instance.new("Frame")
-    MasterOogway6147WindowTopBar.Name = "MasterOogway6147WindowTopBar"
-    MasterOogway6147WindowTopBar.ZIndex = 4
-    MasterOogway6147WindowTopBar.Size = UDim2.new(0, 654, 0, 34)
-    MasterOogway6147WindowTopBar.BorderSizePixel = 0
-    MasterOogway6147WindowTopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
-    MasterOogway6147WindowTopBar.Parent = MasterOogway6147Window
+    local realmasteroogwayWindowTopBar = Instance.new("Frame")
+    realmasteroogwayWindowTopBar.Name = "realmasteroogwayWindowTopBar"
+    realmasteroogwayWindowTopBar.ZIndex = 4
+    realmasteroogwayWindowTopBar.Size = UDim2.new(0, 654, 0, 34)
+    realmasteroogwayWindowTopBar.BorderSizePixel = 0
+    realmasteroogwayWindowTopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
+    realmasteroogwayWindowTopBar.Parent = realmasteroogwayWindow
     
-    local MasterOogway6147WindowTopBarUICorner = Instance.new("UICorner")
-    MasterOogway6147WindowTopBarUICorner.Name = "MasterOogway6147WindowTopBarUICorner"
-    MasterOogway6147WindowTopBarUICorner.CornerRadius = UDim.new(0, 6)
-    MasterOogway6147WindowTopBarUICorner.Parent = MasterOogway6147WindowTopBar
+    local realmasteroogwayWindowTopBarUICorner = Instance.new("UICorner")
+    realmasteroogwayWindowTopBarUICorner.Name = "realmasteroogwayWindowTopBarUICorner"
+    realmasteroogwayWindowTopBarUICorner.CornerRadius = UDim.new(0, 6)
+    realmasteroogwayWindowTopBarUICorner.Parent = realmasteroogwayWindowTopBar
     
-    local MasterOogway6147WindowTopBar_MasterOogway6147TItle = Instance.new("TextLabel")
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Name = "MasterOogway6147WindowTopBar_MasterOogway6147TItle"
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.ZIndex = 5
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Size = UDim2.new(0, 80, 0, 25)
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.BackgroundTransparency = 1
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Position = UDim2.new(0, 7.5, 0, 5)
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.BorderSizePixel = 0
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.FontSize = Enum.FontSize.Size14
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.TextSize = 14
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.TextColor3 = Color3.fromRGB(220, 220, 220)
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.TextScaled = true
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Text = loadconfig.HubName
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Font = Enum.Font.Gotham
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.TextXAlignment = Enum.TextXAlignment.Left
-    MasterOogway6147WindowTopBar_MasterOogway6147TItle.Parent = MasterOogway6147WindowTopBar
+    local realmasteroogwayWindowTopBar_realmasteroogwayTItle = Instance.new("TextLabel")
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Name = "realmasteroogwayWindowTopBar_realmasteroogwayTItle"
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.ZIndex = 5
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Size = UDim2.new(0, 80, 0, 25)
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.BackgroundTransparency = 1
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Position = UDim2.new(0, 7.5, 0, 5)
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.BorderSizePixel = 0
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.FontSize = Enum.FontSize.Size14
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.TextSize = 14
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.TextColor3 = Color3.fromRGB(220, 220, 220)
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.TextScaled = true
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Text = loadconfig.HubName
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Font = Enum.Font.Gotham
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.TextXAlignment = Enum.TextXAlignment.Left
+    realmasteroogwayWindowTopBar_realmasteroogwayTItle.Parent = realmasteroogwayWindowTopBar
     
-    local MasterOogway6147WindowTopBar_BetaTitle = Instance.new("TextLabel")
-    MasterOogway6147WindowTopBar_BetaTitle.Name = "MasterOogway6147WindowTopBar_BetaTitle"
-    MasterOogway6147WindowTopBar_BetaTitle.ZIndex = 5
-    MasterOogway6147WindowTopBar_BetaTitle.Size = UDim2.new(0, 53, 0, 22)
-    MasterOogway6147WindowTopBar_BetaTitle.Position = UDim2.new(0, 90, 0, 6)
-    MasterOogway6147WindowTopBar_BetaTitle.BorderSizePixel = 0
-    MasterOogway6147WindowTopBar_BetaTitle.BackgroundColor3 = loadconfig.Color.Foreground
-    MasterOogway6147WindowTopBar_BetaTitle.FontSize = Enum.FontSize.Size14
-    MasterOogway6147WindowTopBar_BetaTitle.TextSize = 14
-    MasterOogway6147WindowTopBar_BetaTitle.TextColor3 = loadconfig.Color.Background
-    MasterOogway6147WindowTopBar_BetaTitle.Text = "Beta"
-    MasterOogway6147WindowTopBar_BetaTitle.Font = Enum.Font.Gotham
-    MasterOogway6147WindowTopBar_BetaTitle.Parent = MasterOogway6147WindowTopBar
+    local realmasteroogwayWindowTopBar_BetaTitle = Instance.new("TextLabel")
+    realmasteroogwayWindowTopBar_BetaTitle.Name = "realmasteroogwayWindowTopBar_BetaTitle"
+    realmasteroogwayWindowTopBar_BetaTitle.ZIndex = 5
+    realmasteroogwayWindowTopBar_BetaTitle.Size = UDim2.new(0, 53, 0, 22)
+    realmasteroogwayWindowTopBar_BetaTitle.Position = UDim2.new(0, 90, 0, 6)
+    realmasteroogwayWindowTopBar_BetaTitle.BorderSizePixel = 0
+    realmasteroogwayWindowTopBar_BetaTitle.BackgroundColor3 = loadconfig.Color.Foreground
+    realmasteroogwayWindowTopBar_BetaTitle.FontSize = Enum.FontSize.Size14
+    realmasteroogwayWindowTopBar_BetaTitle.TextSize = 14
+    realmasteroogwayWindowTopBar_BetaTitle.TextColor3 = loadconfig.Color.Background
+    realmasteroogwayWindowTopBar_BetaTitle.Text = "Beta"
+    realmasteroogwayWindowTopBar_BetaTitle.Font = Enum.Font.Gotham
+    realmasteroogwayWindowTopBar_BetaTitle.Parent = realmasteroogwayWindowTopBar
     
-    local MasterOogway6147WindowTopBar_BetaTitleUICorner = Instance.new("UICorner")
-    MasterOogway6147WindowTopBar_BetaTitleUICorner.Name = "MasterOogway6147WindowTopBar_BetaTitleUICorner"
-    MasterOogway6147WindowTopBar_BetaTitleUICorner.CornerRadius = UDim.new(0, 4)
-    MasterOogway6147WindowTopBar_BetaTitleUICorner.Parent = MasterOogway6147WindowTopBar_BetaTitle
+    local realmasteroogwayWindowTopBar_BetaTitleUICorner = Instance.new("UICorner")
+    realmasteroogwayWindowTopBar_BetaTitleUICorner.Name = "realmasteroogwayWindowTopBar_BetaTitleUICorner"
+    realmasteroogwayWindowTopBar_BetaTitleUICorner.CornerRadius = UDim.new(0, 4)
+    realmasteroogwayWindowTopBar_BetaTitleUICorner.Parent = realmasteroogwayWindowTopBar_BetaTitle
     
-    local MasterOogway6147WindowTopBar_Title = Instance.new("TextLabel")
-    MasterOogway6147WindowTopBar_Title.Name = "MasterOogway6147WindowTopBar_Title"
-    MasterOogway6147WindowTopBar_Title.ZIndex = 5
-    MasterOogway6147WindowTopBar_Title.Size = UDim2.new(0, 202, 0, 35)
-    MasterOogway6147WindowTopBar_Title.BackgroundTransparency = 1
-    MasterOogway6147WindowTopBar_Title.Position = UDim2.new(0, 150, 0, 0)
-    MasterOogway6147WindowTopBar_Title.BorderSizePixel = 0
-    MasterOogway6147WindowTopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147WindowTopBar_Title.FontSize = Enum.FontSize.Size14
-    MasterOogway6147WindowTopBar_Title.TextSize = 14
-    MasterOogway6147WindowTopBar_Title.TextColor3 = loadconfig.Color.Foreground
-    MasterOogway6147WindowTopBar_Title.Text = CurrentPlaceName
-    MasterOogway6147WindowTopBar_Title.Font = Enum.Font.Gotham
-    MasterOogway6147WindowTopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
-    MasterOogway6147WindowTopBar_Title.Parent = MasterOogway6147WindowTopBar
+    local realmasteroogwayWindowTopBar_Title = Instance.new("TextLabel")
+    realmasteroogwayWindowTopBar_Title.Name = "realmasteroogwayWindowTopBar_Title"
+    realmasteroogwayWindowTopBar_Title.ZIndex = 5
+    realmasteroogwayWindowTopBar_Title.Size = UDim2.new(0, 202, 0, 35)
+    realmasteroogwayWindowTopBar_Title.BackgroundTransparency = 1
+    realmasteroogwayWindowTopBar_Title.Position = UDim2.new(0, 150, 0, 0)
+    realmasteroogwayWindowTopBar_Title.BorderSizePixel = 0
+    realmasteroogwayWindowTopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayWindowTopBar_Title.FontSize = Enum.FontSize.Size14
+    realmasteroogwayWindowTopBar_Title.TextSize = 14
+    realmasteroogwayWindowTopBar_Title.TextColor3 = loadconfig.Color.Foreground
+    realmasteroogwayWindowTopBar_Title.Text = CurrentPlaceName
+    realmasteroogwayWindowTopBar_Title.Font = Enum.Font.Gotham
+    realmasteroogwayWindowTopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
+    realmasteroogwayWindowTopBar_Title.Parent = realmasteroogwayWindowTopBar
 
-	local MasterOogway6147WindowTopBar_GameImage = Instance.new("ImageLabel")
-    MasterOogway6147WindowTopBar_GameImage.Name = "MasterOogway6147WindowTopBar_GameImage"
-    MasterOogway6147WindowTopBar_GameImage.ZIndex = 5
-    MasterOogway6147WindowTopBar_GameImage.Size = UDim2.new(0, 27.5, 0, 27.5)
-    MasterOogway6147WindowTopBar_GameImage.BackgroundTransparency = 1
-    MasterOogway6147WindowTopBar_GameImage.Position = UDim2.new(0, 500, 0, 3.5)
-    MasterOogway6147WindowTopBar_GameImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	MasterOogway6147WindowTopBar_GameImage.BackgroundTransparency = 1
-	MasterOogway6147WindowTopBar_GameImage.ImageTransparency = 0
-    MasterOogway6147WindowTopBar_GameImage.Image = "rbxassetid://"..CurrentPlaceImageId
-    MasterOogway6147WindowTopBar_GameImage.Parent = MasterOogway6147WindowTopBar
+	local realmasteroogwayWindowTopBar_GameImage = Instance.new("ImageLabel")
+    realmasteroogwayWindowTopBar_GameImage.Name = "realmasteroogwayWindowTopBar_GameImage"
+    realmasteroogwayWindowTopBar_GameImage.ZIndex = 5
+    realmasteroogwayWindowTopBar_GameImage.Size = UDim2.new(0, 27.5, 0, 27.5)
+    realmasteroogwayWindowTopBar_GameImage.BackgroundTransparency = 1
+    realmasteroogwayWindowTopBar_GameImage.Position = UDim2.new(0, 500, 0, 3.5)
+    realmasteroogwayWindowTopBar_GameImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	realmasteroogwayWindowTopBar_GameImage.BackgroundTransparency = 1
+	realmasteroogwayWindowTopBar_GameImage.ImageTransparency = 0
+    realmasteroogwayWindowTopBar_GameImage.Image = "rbxassetid://"..CurrentPlaceImageId
+    realmasteroogwayWindowTopBar_GameImage.Parent = realmasteroogwayWindowTopBar
     
-    local MasterOogway6147WindowTopBarCloseButton = Instance.new("ImageButton")
-    MasterOogway6147WindowTopBarCloseButton.Name = "MasterOogway6147WindowTopBarCloseButton"
-    MasterOogway6147WindowTopBarCloseButton.ZIndex = 5
-    MasterOogway6147WindowTopBarCloseButton.Size = UDim2.new(0, 18, 0, 18)
-    MasterOogway6147WindowTopBarCloseButton.BackgroundTransparency = 1
-    MasterOogway6147WindowTopBarCloseButton.Position = UDim2.new(0, 626, 0, 8)
-    MasterOogway6147WindowTopBarCloseButton.BorderSizePixel = 0
-    MasterOogway6147WindowTopBarCloseButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MasterOogway6147WindowTopBarCloseButton.ImageColor3 = Color3.fromRGB(220, 220, 220)
-    MasterOogway6147WindowTopBarCloseButton.Image = "http://www.roblox.com/asset/?id=6031094678"
-    MasterOogway6147WindowTopBarCloseButton.Parent = MasterOogway6147WindowTopBar
-    MasterOogway6147WindowTopBarCloseButton.MouseButton1Click:Connect(function()
-        game:GetService("TweenService"):Create(MasterOogway6147BetaShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
-        for i, v in pairs(MasterOogway6147BetaShadow.Parent:GetDescendants()) do
+    local realmasteroogwayWindowTopBarCloseButton = Instance.new("ImageButton")
+    realmasteroogwayWindowTopBarCloseButton.Name = "realmasteroogwayWindowTopBarCloseButton"
+    realmasteroogwayWindowTopBarCloseButton.ZIndex = 5
+    realmasteroogwayWindowTopBarCloseButton.Size = UDim2.new(0, 18, 0, 18)
+    realmasteroogwayWindowTopBarCloseButton.BackgroundTransparency = 1
+    realmasteroogwayWindowTopBarCloseButton.Position = UDim2.new(0, 626, 0, 8)
+    realmasteroogwayWindowTopBarCloseButton.BorderSizePixel = 0
+    realmasteroogwayWindowTopBarCloseButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    realmasteroogwayWindowTopBarCloseButton.ImageColor3 = Color3.fromRGB(220, 220, 220)
+    realmasteroogwayWindowTopBarCloseButton.Image = "http://www.roblox.com/asset/?id=6031094678"
+    realmasteroogwayWindowTopBarCloseButton.Parent = realmasteroogwayWindowTopBar
+    realmasteroogwayWindowTopBarCloseButton.MouseButton1Click:Connect(function()
+        TweenService:Create(realmasteroogwayBetaShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
+        for i, v in pairs(realmasteroogwayBetaShadow.Parent:GetDescendants()) do
             if v:IsA("ImageLabel") or v:IsA("ImageButton") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
             elseif v:IsA("Frame") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
             elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
             elseif v:IsA("UIStroke") then
-                game:GetService("TweenService"):Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
             end
         end
         wait(0.5)
-        MasterOogway6147Beta:Destroy()
+        realmasteroogwayBeta:Destroy()
     end)
     
-    local MasterOogway6147WindowTopBar_Version = Instance.new("TextLabel")
-    MasterOogway6147WindowTopBar_Version.Name = "MasterOogway6147WindowTopBar_Version"
-    MasterOogway6147WindowTopBar_Version.ZIndex = 5
-    MasterOogway6147WindowTopBar_Version.Size = UDim2.new(0, 82, 0, 35)
-    MasterOogway6147WindowTopBar_Version.BackgroundTransparency = 1
-    MasterOogway6147WindowTopBar_Version.Position = UDim2.new(0, 536, 0, 0)
-    MasterOogway6147WindowTopBar_Version.BorderSizePixel = 0
-    MasterOogway6147WindowTopBar_Version.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    MasterOogway6147WindowTopBar_Version.FontSize = Enum.FontSize.Size14
-    MasterOogway6147WindowTopBar_Version.TextSize = 14
-    MasterOogway6147WindowTopBar_Version.TextColor3 = loadconfig.Color.Foreground
-    MasterOogway6147WindowTopBar_Version.Text = loadconfig.Version or "Version 0"
-    MasterOogway6147WindowTopBar_Version.Font = Enum.Font.Gotham
-    MasterOogway6147WindowTopBar_Version.TextXAlignment = Enum.TextXAlignment.Right
-    MasterOogway6147WindowTopBar_Version.Parent = MasterOogway6147WindowTopBar
+    local realmasteroogwayWindowTopBar_Version = Instance.new("TextLabel")
+    realmasteroogwayWindowTopBar_Version.Name = "realmasteroogwayWindowTopBar_Version"
+    realmasteroogwayWindowTopBar_Version.ZIndex = 5
+    realmasteroogwayWindowTopBar_Version.Size = UDim2.new(0, 82, 0, 35)
+    realmasteroogwayWindowTopBar_Version.BackgroundTransparency = 1
+    realmasteroogwayWindowTopBar_Version.Position = UDim2.new(0, 536, 0, 0)
+    realmasteroogwayWindowTopBar_Version.BorderSizePixel = 0
+    realmasteroogwayWindowTopBar_Version.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    realmasteroogwayWindowTopBar_Version.FontSize = Enum.FontSize.Size14
+    realmasteroogwayWindowTopBar_Version.TextSize = 14
+    realmasteroogwayWindowTopBar_Version.TextColor3 = loadconfig.Color.Foreground
+    realmasteroogwayWindowTopBar_Version.Text = loadconfig.Version or "Version 0"
+    realmasteroogwayWindowTopBar_Version.Font = Enum.Font.Gotham
+    realmasteroogwayWindowTopBar_Version.TextXAlignment = Enum.TextXAlignment.Right
+    realmasteroogwayWindowTopBar_Version.Parent = realmasteroogwayWindowTopBar
     
     local ContainerHolder = Instance.new("Frame")
     ContainerHolder.Name = "ContainerHolder"
@@ -791,7 +801,7 @@ function MasterOogway6147:Load(loadconfig)
     ContainerHolder.Position = UDim2.new(0, 6, 0, 88)
     ContainerHolder.BorderSizePixel = 0
     ContainerHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ContainerHolder.Parent = MasterOogway6147Window
+    ContainerHolder.Parent = realmasteroogwayWindow
     
     local StartingWindow = Instance.new("Frame")
     StartingWindow.Name = "StartingWindow"
@@ -801,7 +811,7 @@ function MasterOogway6147:Load(loadconfig)
     StartingWindow.Position = UDim2.new(0, 5, 0, 5)
     StartingWindow.BorderSizePixel = 0
     StartingWindow.BackgroundColor3 = loadconfig.Color.Background
-    StartingWindow.Parent = MasterOogway6147BetaShadow
+    StartingWindow.Parent = realmasteroogwayBetaShadow
     
     local StartingWindowUICorner = Instance.new("UICorner")
     StartingWindowUICorner.Name = "StartingWindowUICorner"
@@ -918,8 +928,8 @@ function MasterOogway6147:Load(loadconfig)
         local UserInputService = game:GetService("UserInputService")
         local runService = (game:GetService("RunService"));
     
-        local gui = MasterOogway6147WindowTopBar
-        local guitodrag = MasterOogway6147BetaShadow
+        local gui = realmasteroogwayWindowTopBar
+        local guitodrag = realmasteroogwayBetaShadow
     
         local dragging
         local dragInput
@@ -974,32 +984,32 @@ function MasterOogway6147:Load(loadconfig)
     task.spawn(function()
         while true do
             if StartingWindow then
-            game:GetService("TweenService"):Create(A_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 272 + 2, 0, 20), Rotation = 45}):Play()
-            game:GetService("TweenService"):Create(C_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 316 + 2, 0, 20), Rotation = 45}):Play()
-            game:GetService("TweenService"):Create(E_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 360 + 2, 0, 20), Rotation = 45}):Play()
-            game:GetService("TweenService"):Create(B_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 294 + 2, 0, 60), Rotation = -90}):Play()
-            game:GetService("TweenService"):Create(D_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 338 + 2, 0, 60), Rotation = -90}):Play()
+            TweenService:Create(A_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 272 + 2, 0, 20), Rotation = 45}):Play()
+            TweenService:Create(C_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 316 + 2, 0, 20), Rotation = 45}):Play()
+            TweenService:Create(E_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 360 + 2, 0, 20), Rotation = 45}):Play()
+            TweenService:Create(B_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 294 + 2, 0, 60), Rotation = -90}):Play()
+            TweenService:Create(D_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 338 + 2, 0, 60), Rotation = -90}):Play()
             wait(0.8)
-            game:GetService("TweenService"):Create(A_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 272 + 2, 0, 60), Rotation = -90}):Play()
-            game:GetService("TweenService"):Create(C_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 316 + 2, 0, 60), Rotation = -90}):Play()
-            game:GetService("TweenService"):Create(E_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 360 + 2, 0, 60), Rotation = -90}):Play()
-            game:GetService("TweenService"):Create(B_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 294 + 2, 0, 20), Rotation = 45}):Play()
-            game:GetService("TweenService"):Create(D_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 338 + 2, 0, 20), Rotation = 45}):Play()
+            TweenService:Create(A_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 272 + 2, 0, 60), Rotation = -90}):Play()
+            TweenService:Create(C_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 316 + 2, 0, 60), Rotation = -90}):Play()
+            TweenService:Create(E_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 360 + 2, 0, 60), Rotation = -90}):Play()
+            TweenService:Create(B_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 294 + 2, 0, 20), Rotation = 45}):Play()
+            TweenService:Create(D_TweeningLoading, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0, 338 + 2, 0, 20), Rotation = 45}):Play()
             wait(0.8)
             end
         end
     end)
 
-    game:GetService("TweenService"):Create(MasterOogway6147BetaShadow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.4, Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
-    game:GetService("TweenService"):Create(MasterOogway6147BetaShadow.StartingWindow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    game:GetService("TweenService"):Create(StartingWindowUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+    TweenService:Create(realmasteroogwayBetaShadow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.4, Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+    TweenService:Create(realmasteroogwayBetaShadow.StartingWindow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+    TweenService:Create(StartingWindowUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
     wait(1.2)
     LoadingTweenFrame.Visible = true
-    game:GetService("TweenService"):Create(LoadingTweenFrame_Front, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+    TweenService:Create(LoadingTweenFrame_Front, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
     wait(3)
-    MasterOogway6147Window.Visible = true
+    realmasteroogwayWindow.Visible = true
     wait(3)
-    game:GetService("TweenService"):Create(LoadingTweenFrame_Front, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+    TweenService:Create(LoadingTweenFrame_Front, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
     wait(0.8)
     if LoadingTweenFrame then
         A_TweeningLoading:Destroy()
@@ -1013,15 +1023,15 @@ function MasterOogway6147:Load(loadconfig)
     wait(0.2)
     LoadingTweenFrame:Destroy()
     wait(0.5)
-    game:GetService("TweenService"):Create(StartingWindow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-    game:GetService("TweenService"):Create(StartingWindowUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
+    TweenService:Create(StartingWindow, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+    TweenService:Create(StartingWindowUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
     wait(1)
     StartingWindow:Destroy()
 
     local Window = {}
 
     function Window:Toggle()
-        MasterOogway6147Beta.Enabled = not MasterOogway6147Beta.Enabled
+        realmasteroogwayBeta.Enabled = not realmasteroogwayBeta.Enabled
     end
 
     function Window:Container(containerconfig)
@@ -1112,10 +1122,10 @@ function MasterOogway6147:Load(loadconfig)
 
         PageButton:GetPropertyChangedSignal("Text"):Connect(function() PageButton.Size = UDim2.new(0, PageButton.TextBounds.X + 10, 0, 34) end)
         if containerconfig.Open == true then
-            game:GetService("TweenService"):Create(PageButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(PageButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             Container.Visible = true
         else
-            game:GetService("TweenService"):Create(PageButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
+            TweenService:Create(PageButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
             Container.Visible = false
         end
         
@@ -1123,7 +1133,7 @@ function MasterOogway6147:Load(loadconfig)
         PageButton.MouseButton1Click:Connect(function()
             for i, v in pairs(PageContainerInner:GetChildren()) do
                 if v:IsA("TextButton") then
-                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
+                    TweenService:Create(v, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
                 end
             end
             for i, v in pairs(ContainerHolder:GetChildren()) do
@@ -1131,7 +1141,7 @@ function MasterOogway6147:Load(loadconfig)
                     v.Visible = false
                 end
             end
-            game:GetService("TweenService"):Create(PageButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(PageButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             Container.Visible = true
         end)
 
@@ -1175,40 +1185,38 @@ function MasterOogway6147:Load(loadconfig)
             ButtonUIStroke.Parent = Button
             ButtonUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(Button, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-            game:GetService("TweenService"):Create(Button, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-            game:GetService("TweenService"):Create(ButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(ButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
 
             Button.MouseButton1Click:Connect(function()
-                pcall(function()
-                    buttonconfig.Callback()
-                end)
+                pcall(buttonconfig.Callback)
             end)
             Button.MouseEnter:Connect(function()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36,36,36)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36,36,36)}):Play()
             end)
             Button.MouseLeave:Connect(function()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(220, 220, 220)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(220, 220, 220)}):Play()
             end)
             Button.MouseButton1Down:Connect(function()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = loadconfig.Color.Foreground}):Play()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = loadconfig.Color.Background}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = loadconfig.Color.Foreground}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = loadconfig.Color.Background}):Play()
             end)
             Button.MouseButton1Up:Connect(function()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
-                game:GetService("TweenService"):Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(220, 220, 220)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                TweenService:Create(Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = Color3.fromRGB(220, 220, 220)}):Play()
             end)
 
             local ButtonList = {}
 
             function ButtonList:ChangeText(newtext)
                 task.spawn(function()
-                    game:GetService("TweenService"):Create(Button, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    TweenService:Create(Button, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                     wait(0.4)
                     Button.Text = tostring(newtext)
                     wait(0.1)
-                    game:GetService("TweenService"):Create(Button, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                    TweenService:Create(Button, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
                 end)
             end
 
@@ -1250,8 +1258,8 @@ function MasterOogway6147:Load(loadconfig)
             ToggleButtonUIStroke.Parent = ToggleButton
             ToggleButtonUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-            game:GetService("TweenService"):Create(ToggleButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(ToggleButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(ToggleButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             ToggleButtonUICorner.CornerRadius = UDim.new(0, 4)
             ToggleButtonUICorner.Name = "ToggleButtonUICorner"
@@ -1272,7 +1280,7 @@ function MasterOogway6147:Load(loadconfig)
             ToggleTitle.TextXAlignment = Enum.TextXAlignment.Left
             ToggleTitle.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(ToggleTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             ToggleImagelabelOut.Name = "ToggleImagelabelOut"
             ToggleImagelabelOut.Parent = ToggleButton
@@ -1293,7 +1301,7 @@ function MasterOogway6147:Load(loadconfig)
             ToggleImagelabelOutUIStroke.Parent = ToggleImagelabelOut
             ToggleImagelabelOutUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             ToggleImagelabelOutUICorner.CornerRadius = UDim.new(0, 4)
             ToggleImagelabelOutUICorner.Name = "ToggleImagelabelOutUICorner"
@@ -1315,18 +1323,14 @@ function MasterOogway6147:Load(loadconfig)
             local function tog()
                 if toggled then
                     toggled = false
-                    game:GetService("TweenService"):Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                    game:GetService("TweenService"):Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
-                    pcall(function()
-                        toggleconfig.Callback(toggled)
-                    end)
+                    TweenService:Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                    TweenService:Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                    pcall(toggleconfig.Callback, toggled)
                 else
                     toggled = true
-                    game:GetService("TweenService"):Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-                    game:GetService("TweenService"):Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
-                    pcall(function()
-                        toggleconfig.Callback(toggled)
-                    end)
+                    TweenService:Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                    TweenService:Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
+                    pcall(toggleconfig.Callback, toggled)
                 end
             end
             if toggleconfig.Toggled == true then
@@ -1334,39 +1338,39 @@ function MasterOogway6147:Load(loadconfig)
             end
             ToggleButton.MouseButton1Click:Connect(tog)
             ToggleButton.MouseEnter:Connect(function()
-                game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36,36,36)}):Play()
+                TweenService:Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36,36,36)}):Play()
             end)
             ToggleButton.MouseLeave:Connect(function()
-                game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
-                game:GetService("TweenService"):Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
-                game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = toggleconfig.TextColor or Color3.fromRGB(220, 220, 220)}):Play()
+                TweenService:Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                TweenService:Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+                TweenService:Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = toggleconfig.TextColor or Color3.fromRGB(220, 220, 220)}):Play()
             end)
             ToggleButton.MouseButton1Down:Connect(function()
-                game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = loadconfig.Color.Foreground}):Play()
-                game:GetService("TweenService"):Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
-                game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = loadconfig.Color.Background}):Play()
+                TweenService:Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = loadconfig.Color.Foreground}):Play()
+                TweenService:Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
+                TweenService:Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = loadconfig.Color.Background}):Play()
             end)
             ToggleButton.MouseButton1Up:Connect(function()
-                game:GetService("TweenService"):Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
-                game:GetService("TweenService"):Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
-                game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = toggleconfig.TextColor or Color3.fromRGB(220, 220, 220)}):Play()
+                TweenService:Create(ToggleButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                TweenService:Create(ToggleImagelabelOutUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+                TweenService:Create(ToggleTitle, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = toggleconfig.TextColor or Color3.fromRGB(220, 220, 220)}):Play()
             end)
 
             local ToggleList = {}
 
             function ToggleList:ChangeTextColor(newcolor)
                 task.spawn(function()
-                    game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = newcolor or Color3.fromRGB(220, 220, 220)}):Play()
+                    TweenService:Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = newcolor or Color3.fromRGB(220, 220, 220)}):Play()
                 end)
             end
 
             function ToggleList:ChangeText(newtext)
                 task.spawn(function()
-                    game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    TweenService:Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                     wait(0.4)
                     ToggleTitle.Text = tostring(newtext)
                     wait(0.1)
-                    game:GetService("TweenService"):Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                    TweenService:Create(ToggleTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
                 end)
             end
 
@@ -1378,18 +1382,14 @@ function MasterOogway6147:Load(loadconfig)
                 task.spawn(function()
                     if newvalue == false then
                         toggled = false
-                        game:GetService("TweenService"):Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                        game:GetService("TweenService"):Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
-                        pcall(function()
-                            toggleconfig.Callback(toggled)
-                        end)
+                        TweenService:Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                        TweenService:Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                        pcall(toggleconfig.Callback, toggled)
                     else
                         toggled = true
-                        game:GetService("TweenService"):Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-                        game:GetService("TweenService"):Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
-                        pcall(function()
-                            toggleconfig.Callback(toggled)
-                        end)
+                        TweenService:Create(ToggleImagelabelOut, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                        TweenService:Create(ToggleImagelabelIn, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
+                        pcall(toggleconfig.Callback, toggled)
                     end
                 end)
             end
@@ -1431,8 +1431,8 @@ function MasterOogway6147:Load(loadconfig)
             OutlineUIStroke.Parent = Outline           
             OutlineUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(Outline, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-            game:GetService("TweenService"):Create(OutlineUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(Outline, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(OutlineUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
         end
 
         function Container:TextBox(textboxconfig)
@@ -1456,7 +1456,7 @@ function MasterOogway6147:Load(loadconfig)
             TextBoxFrame.TextSize = 14.000
             TextBoxFrame.BackgroundTransparency = 1
 
-            game:GetService("TweenService"):Create(TextBoxFrame, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(TextBoxFrame, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 
             if textboxconfig.Container == "Left" then
                 TextBoxFrame.Parent = ContainerLeft
@@ -1472,7 +1472,7 @@ function MasterOogway6147:Load(loadconfig)
             TextBoxFrameUIStroke.Parent = TextBoxFrame
             TextBoxFrameUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(TextBoxFrameUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(TextBoxFrameUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             TextBoxFrameUICorner.CornerRadius = UDim.new(0, 4)
             TextBoxFrameUICorner.Name = "TextBoxFrameUICorner"
@@ -1493,7 +1493,7 @@ function MasterOogway6147:Load(loadconfig)
             TextBoxFrame_Title.TextXAlignment = Enum.TextXAlignment.Left
             TextBoxFrame_Title.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(TextBoxFrame_Title, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(TextBoxFrame_Title, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             TextBoxFrameImageLabel.Name = "TextBoxFrameImageLabel"
             TextBoxFrameImageLabel.Parent = TextBoxFrame
@@ -1507,7 +1507,7 @@ function MasterOogway6147:Load(loadconfig)
             TextBoxFrameImageLabel.ImageColor3 = Color3.fromRGB(220, 220, 220)
             TextBoxFrameImageLabel.ImageTransparency = 1
 
-            game:GetService("TweenService"):Create(TextBoxFrameImageLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.500}):Play()
+            TweenService:Create(TextBoxFrameImageLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.500}):Play()
             
             TextBoxFrame_TextBox.Name = "TextBoxFrame_TextBox"
             TextBoxFrame_TextBox.Parent = TextBoxFrame
@@ -1530,40 +1530,36 @@ function MasterOogway6147:Load(loadconfig)
             TextBoxFrame_TextBox.ClearTextOnFocus = false
             TextBoxFrame_TextBox.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(TextBoxFrame_TextBox, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.500}):Play()
+            TweenService:Create(TextBoxFrame_TextBox, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.500}):Play()
 
             TextBoxFrame_TextBox.Focused:Connect(function()
-                game:GetService("TweenService"):Create(TextBoxFrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
+                TweenService:Create(TextBoxFrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
             end)
             TextBoxFrame_TextBox.FocusLost:Connect(function()
-                game:GetService("TweenService"):Create(TextBoxFrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
-                pcall(function()
-                    textboxconfig.Callback(TextBoxFrame_TextBox.Text)
-                end)
+                TweenService:Create(TextBoxFrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+                pcall(textboxconfig.Callback, TextBoxFrame_TextBox.Text)
             end)
 
             local TextBoxList = {}
 
             function TextBoxList:ChangeText(newtext)
                 task.spawn(function()
-                    game:GetService("TweenService"):Create(TextBoxFrame_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    TweenService:Create(TextBoxFrame_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                     wait(0.4)
                     TextBoxFrame_Title.Text = tostring(newtext)
                     wait(0.1)
-                    game:GetService("TweenService"):Create(TextBoxFrame_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                    TweenService:Create(TextBoxFrame_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
                 end)
             end
 
             function TextBoxList:ChangeValue(newvalue, valueconfig)
-                game:GetService("TweenService"):Create(TextBoxFrame_TextBox, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                TweenService:Create(TextBoxFrame_TextBox, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                 wait(0.4)
                 TextBoxFrame_TextBox.Text = newvalue
                 wait(0.1)
-                game:GetService("TweenService"):Create(TextBoxFrame_TextBox, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
+                TweenService:Create(TextBoxFrame_TextBox, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.5}):Play()
                 if valueconfig.RecallFunction then
-                    pcall(function()
-                        textboxconfig.Callback(TextBoxFrame_TextBox.Text)
-                    end)
+                    pcall(textboxconfig.Callback, TextBoxFrame_TextBox.Text)
                 end
             end
 
@@ -1589,7 +1585,7 @@ function MasterOogway6147:Load(loadconfig)
             Label.Text = ""
             Label.Font = Enum.Font.Gotham
             Label.BackgroundTransparency = 1
-            game:GetService("TweenService"):Create(Label, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(Label, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 
             if labelconfig.Container == "Left" then
                 Label.Parent = ContainerLeft
@@ -1620,7 +1616,7 @@ function MasterOogway6147:Load(loadconfig)
             LabelTextLabel.TextWrap = true
             LabelTextLabel.TextXAlignment = Enum.TextXAlignment.Left
             LabelTextLabel.Parent = Label
-            game:GetService("TweenService"):Create(LabelTextLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(LabelTextLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             local LabelUIStroke = Instance.new("UIStroke")
             LabelUIStroke.Name = "LabelUIStroke"
@@ -1629,7 +1625,7 @@ function MasterOogway6147:Load(loadconfig)
             LabelUIStroke.Color = Color3.fromRGB(55, 55, 55)
             LabelUIStroke.Parent = Label
             LabelUIStroke.Transparency = 1
-            game:GetService("TweenService"):Create(LabelUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(LabelUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             Label.Size = UDim2.new(0, 316, 0, LabelTextLabel.TextBounds.Y + 14)
             Label:GetPropertyChangedSignal("Text"):Connect(function() LabelTextLabel.Size = UDim2.new(0, 308, 0, LabelTextLabel.TextBounds.Y + 14) end)
@@ -1640,16 +1636,16 @@ function MasterOogway6147:Load(loadconfig)
 
             function LabelList:ChangeColor(newcolor)
                 newcolor = newcolor or Color.fromRGB(220, 220, 220)
-                game:GetService("TweenService"):Create(LabelTextLabel, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = newcolor}):Play()
+                TweenService:Create(LabelTextLabel, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextColor3 = newcolor}):Play()
             end
 
             function LabelList:ChangeValue(newvalue, valueconfig)
                 if valueconfig.Animation == true then
-                    game:GetService("TweenService"):Create(LabelTextLabel, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    TweenService:Create(LabelTextLabel, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                     wait(0.4)
                     LabelTextLabel.Text = newvalue
                     wait(0.1)
-                    game:GetService("TweenService"):Create(LabelTextLabel, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                    TweenService:Create(LabelTextLabel, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
                 else
                     LabelTextLabel.Text = newvalue
                 end
@@ -1685,7 +1681,7 @@ function MasterOogway6147:Load(loadconfig)
             KeybindButton.TextSize = 14.000
             KeybindButton.Transparency = 1
 
-            game:GetService("TweenService"):Create(KeybindButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(KeybindButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
             
             if keybindconfig.Container == "Left" then
                 KeybindButton.Parent = ContainerLeft
@@ -1712,7 +1708,7 @@ function MasterOogway6147:Load(loadconfig)
             KeybindButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
             KeybindButtonTitle.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(KeybindButtonTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(KeybindButtonTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             KeybindButtonImagelabel.Name = "KeybindButtonImagelabel"
             KeybindButtonImagelabel.Parent = KeybindButton
@@ -1726,7 +1722,7 @@ function MasterOogway6147:Load(loadconfig)
             KeybindButtonImagelabel.ImageColor3 = Color3.fromRGB(220, 220, 220)
             KeybindButtonImagelabel.ImageTransparency = 0.500
 
-            game:GetService("TweenService"):Create(KeybindButtonImagelabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.500}):Play()
+            TweenService:Create(KeybindButtonImagelabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0.500}):Play()
             
             KeybindButton_Current_Key.Name = "KeybindButton_Current_Key"
             KeybindButton_Current_Key.Parent = KeybindButton
@@ -1743,7 +1739,7 @@ function MasterOogway6147:Load(loadconfig)
             KeybindButton_Current_Key.TextTransparency = 1
             KeybindButton_Current_Key.TextXAlignment = Enum.TextXAlignment.Left
 
-            game:GetService("TweenService"):Create(KeybindButton_Current_Key, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.500}):Play()
+            TweenService:Create(KeybindButton_Current_Key, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0.500}):Play()
 
             local KeybindButtonUIStroke = Instance.new("UIStroke")
             KeybindButtonUIStroke.Name = "KeybindButtonUIStroke"
@@ -1756,7 +1752,7 @@ function MasterOogway6147:Load(loadconfig)
 
             local nilkeybind = false
 
-            game:GetService("TweenService"):Create(KeybindButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(KeybindButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             if keybindconfig.Key == nil then
                 local Key = nil
                 KeybindButton_Current_Key.Text = "None"
@@ -1770,7 +1766,7 @@ function MasterOogway6147:Load(loadconfig)
             KeybindButton.MouseButton1Click:connect(
                 function(e)
                     changingkeybind = true
-                    game:GetService("TweenService"):Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
+                    TweenService:Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
                     KeybindButton_Current_Key.Text = "..."
                     local a, b = game:GetService("UserInputService").InputBegan:wait()
                     if a.KeyCode.Name ~= "Unknown" then
@@ -1786,12 +1782,10 @@ function MasterOogway6147:Load(loadconfig)
                     if not pressed then
                             if current.KeyCode.Name == KeybindButton_Current_Key.Text then
                                 if changingkeybind == false then
-                                    game:GetService("TweenService"):Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
-                                    pcall(function()
-                                        keybindconfig.Callback()
-                                    end)
+                                    TweenService:Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+                                    pcall(keybindconfig.Callback)
                                 elseif changingkeybind == true then
-                                    game:GetService("TweenService"):Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+                                    TweenService:Create(KeybindButtonUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
                                     changingkeybind = false
                                 end
                             end
@@ -1807,11 +1801,11 @@ function MasterOogway6147:Load(loadconfig)
             end
 
             function KeybindList:ChangeValue(newvalue)
-                game:GetService("TweenService"):Create(KeybindButtonTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                TweenService:Create(KeybindButtonTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                 wait(0.4)
                 KeybindButtonTitle.Text = newvalue
                 wait(0.1)
-                game:GetService("TweenService"):Create(KeybindButtonTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                TweenService:Create(KeybindButtonTitle, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             end
 
             return KeybindList
@@ -1845,7 +1839,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButtonUICorner.CornerRadius = UDim.new(0, 4)
             SliderButtonUICorner.Parent = SliderButton
 
-            game:GetService("TweenService"):Create(SliderButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(SliderButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
             
             local SliderButtonUIStroke = Instance.new("UIStroke")
             SliderButtonUIStroke.Name = "SliderButtonUIStroke"
@@ -1855,7 +1849,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButtonUIStroke.Parent = SliderButton
             SliderButtonUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(SliderButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(SliderButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             local SliderButtonTitle = Instance.new("TextLabel")
             SliderButtonTitle.Name = "SliderButtonTitle"
@@ -1874,7 +1868,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButtonTitle.Parent = SliderButton
             SliderButtonTitle.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(SliderButtonTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(SliderButtonTitle, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             local SliderButton_Frame = Instance.new("Frame")
             SliderButton_Frame.Name = "SliderButton_Frame"
@@ -1887,7 +1881,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButton_Frame.Parent = SliderButton
             SliderButton_Frame.BackgroundTransparency = 1
 
-            game:GetService("TweenService"):Create(SliderButton_Frame, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(SliderButton_Frame, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
             
             local SliderButton_FrameUICorner = Instance.new("UICorner")
             SliderButton_FrameUICorner.Name = "SliderButton_FrameUICorner"
@@ -1902,7 +1896,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButton_FrameUIStroke.Parent = SliderButton_Frame
             SliderButton_FrameUIStroke.Transparency = 1
 
-            game:GetService("TweenService"):Create(SliderButton_FrameUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(SliderButton_FrameUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
             
             local SliderButton_FrameInnerFrame = Instance.new("Frame")
             SliderButton_FrameInnerFrame.Name = "SliderButton_FrameInnerFrame"
@@ -1949,7 +1943,7 @@ function MasterOogway6147:Load(loadconfig)
             SliderButton_Val.Parent = SliderButton
             SliderButton_Val.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(SliderButton_Val, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(SliderButton_Val, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             SliderButton.Parent = ContainerLeft
 
@@ -1974,31 +1968,19 @@ function MasterOogway6147:Load(loadconfig)
             -----Main Code-----
             
             SliderButton_Frame_InnerButton.MouseButton1Down:Connect(function()
-                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue)) or 0
-                task.spawn(function()
-                    pcall(function()
-                        callback(Value)
-                    end)
-                end)
+                Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue)) or 0
+                task.spawn(pcall, callback, Value)
                 SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                 moveconnection = mouse.Move:Connect(function()
                     SliderButton_Val.Text = Value
-                    Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
-                    task.spawn(function()
-                        pcall(function()
-                            callback(Value)
-                        end)
-                    end)
+                    Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
+                    task.spawn(pcall, callback, Value)
                     SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                 end)
                 releaseconnection = uis.InputEnded:Connect(function(Mouse)
                     if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-                        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
-                        task.spawn(function()
-                            pcall(function()
-                                callback(Value)
-                            end)
-                        end)
+                        Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
+                        task.spawn(pcall, callback, Value)
                         SliderButton_Val.Text = Value
                         SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                         moveconnection:Disconnect()
@@ -2006,6 +1988,53 @@ function MasterOogway6147:Load(loadconfig)
                     end
                 end)
             end)
+
+            return setmetatable({
+                RawSet = function(value)
+                    SliderButton_Val.Text = Value
+                    Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
+                    SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
+                end
+            }, {
+                __index = function(table, key)
+                    if key == "Value" then
+                        return Value
+                    elseif key == "Container" then
+                        if SliderButton.Parent == ContainerLeft then
+                            return "Left"
+                        elseif SliderButton.Parent == ContainerRight then
+                            return "Right"
+                        end
+                    elseif key == "Title" then
+                        return SliderButtonTitle.Text
+                    end
+                end,
+                
+                __newindex = function(table, key, value)
+                    if key == "Value" then
+                        SliderButton_Val.Text = value
+                        Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
+                        task.spawn(pcall, callback, Value)
+                        SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
+                    elseif key == "Container" then
+                        if value == "Left" then
+                            SliderButton.Parent = ContainerLeft
+                        elseif value == "Right" then
+                            SliderButton.Parent = ContainerRight
+                        end
+                    elseif key == "Title" then
+                        SliderButtonTitle.Text = value
+                    end
+                end,
+
+                __gc = function(table)
+                    return nil
+                end,
+
+                __call = function(table, key, value)
+                    return Value
+                end,
+            })
         end
 
         function Container:Dropdown(dropdownconfig)
@@ -2022,7 +2051,7 @@ function MasterOogway6147:Load(loadconfig)
             DropdownButton.Name = dropdownconfig.Title or "DropdownButton"
             DropdownButton.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
             DropdownButton.BorderSizePixel = 0
-            DropdownButton.Position = UDim2.new(0, 0, 1.53999996, 0)
+            DropdownButton.Position = UDim2.new(0, 0, 1.54, 0)
             DropdownButton.Size = UDim2.new(0, 316, 0, 46)
             DropdownButton.ZIndex = 7
             DropdownButton.AutoButtonColor = false
@@ -2038,7 +2067,7 @@ function MasterOogway6147:Load(loadconfig)
                 DropdownButton.Parent = ContainerRight
             end
 
-            game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            TweenService:Create(DropdownButton, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
             
             DropdownButtonUICorner.CornerRadius = UDim.new(0, 4)
             DropdownButtonUICorner.Name = "DropdownButtonUICorner"
@@ -2059,7 +2088,7 @@ function MasterOogway6147:Load(loadconfig)
             DropdownButton_Title.TextXAlignment = Enum.TextXAlignment.Left
             DropdownButton_Title.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(DropdownButton_Title, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(DropdownButton_Title, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             DropdownButton_CurrentText.Name = "DropdownButton_CurrentText"
             DropdownButton_CurrentText.Parent = DropdownButton
@@ -2077,7 +2106,7 @@ function MasterOogway6147:Load(loadconfig)
             DropdownButton_CurrentText.TextXAlignment = Enum.TextXAlignment.Left
             DropdownButton_CurrentText.TextTransparency = 1
 
-            game:GetService("TweenService"):Create(DropdownButton_CurrentText, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+            TweenService:Create(DropdownButton_CurrentText, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             
             DropdownButtonImageLabel.Name = "DropdownButtonImageLabel"
             DropdownButtonImageLabel.Parent = DropdownButton
@@ -2092,7 +2121,7 @@ function MasterOogway6147:Load(loadconfig)
             DropdownButtonImageLabel.ImageColor3 = Color3.fromRGB(220, 220, 220)
             DropdownButtonImageLabel.ImageTransparency = 1
 
-            game:GetService("TweenService"):Create(DropdownButtonImageLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
+            TweenService:Create(DropdownButtonImageLabel, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
             
             DropdownScrollingFrame.Name = "DropdownScrollingFrame"
             DropdownScrollingFrame.Parent = DropdownButton
@@ -2132,7 +2161,7 @@ function MasterOogway6147:Load(loadconfig)
             
             DropdownButtonUIStroke.Parent = DropdownButton
 
-            game:GetService("TweenService"):Create(DropdownButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            TweenService:Create(DropdownButtonUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
 
             local function ResizeDropdown()
                 DropdownScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, DropdownScrollingFrameInnerUIListLayout.AbsoluteContentSize.Y + DropdownScrollingFrameInnerUIListLayout.Padding.Offset + 8)
@@ -2148,25 +2177,23 @@ function MasterOogway6147:Load(loadconfig)
                     end
                 end
                 if DropdownScrollingFrame.Size.Y.Offset == 0 then
-                    game:GetService("TweenService"):Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = -45}):Play()
+                    TweenService:Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = -45}):Play()
                     if totallist > 6 then
-                        game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46 + 6 + 184 + 2)}):Play()
-                        game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 184), ScrollBarThickness = 6}):Play()
+                        TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46 + 6 + 184 + 2)}):Play()
+                        TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 184), ScrollBarThickness = 6}):Play()
                     else
-                        game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46 + 6 + DropdownScrollingFrameInnerUIListLayout.AbsoluteContentSize.Y + DropdownScrollingFrameInnerUIListLayout.Padding.Offset + 4)}):Play()
-                        game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, DropdownScrollingFrameInnerUIListLayout.AbsoluteContentSize.Y + DropdownScrollingFrameInnerUIListLayout.Padding.Offset + 4), ScrollBarThickness = 0}):Play()
+                        TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46 + 6 + DropdownScrollingFrameInnerUIListLayout.AbsoluteContentSize.Y + DropdownScrollingFrameInnerUIListLayout.Padding.Offset + 4)}):Play()
+                        TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, DropdownScrollingFrameInnerUIListLayout.AbsoluteContentSize.Y + DropdownScrollingFrameInnerUIListLayout.Padding.Offset + 4), ScrollBarThickness = 0}):Play()
                     end
                 else
-                    game:GetService("TweenService"):Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
-                    game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
-                    game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
+                    TweenService:Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
+                    TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
+                    TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
                 end
             end)
 
             if dropdownconfig.CallbackWhenExecuted == true then
-                pcall(function()
-                    dropdownconfig.Callback(DropdownButton_CurrentText.Text)
-                end)
+                pcall(dropdownconfig.Callback, DropdownButton_CurrentText.Text)
             end
 
             dropdownconfig.List = dropdownconfig.List or {}
@@ -2218,19 +2245,17 @@ function MasterOogway6147:Load(loadconfig)
                 DropdownListUIStroke.Parent = DropdownList
 
                 DropdownList.MouseEnter:Connect(function()
-                    game:GetService("TweenService"):Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36, 36, 36)}):Play()
+                    TweenService:Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36, 36, 36)}):Play()
                 end)
                 DropdownList.MouseLeave:Connect(function()
-                    game:GetService("TweenService"):Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                    TweenService:Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
                 end)
                 DropdownList.MouseButton1Click:Connect(function()
-                    game:GetService("TweenService"):Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
+                    TweenService:Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
                     DropdownButton_CurrentText.Text = DropdownListTextLabel.Text
-                    game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
-                    game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
-                    pcall(function()
-                        dropdownconfig.Callback(DropdownListTextLabel.Text)
-                    end)
+                    TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
+                    TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
+                    pcall(dropdownconfig.Callback, DropdownListTextLabel.Text)
                 end)
             end
 
@@ -2240,18 +2265,16 @@ function MasterOogway6147:Load(loadconfig)
                 return DropdownButton_CurrentText.Text
             end
             function DropdownList:ChangeText(newvalue)
-                game:GetService("TweenService"):Create(DropdownButton_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                TweenService:Create(DropdownButton_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
                 wait(0.4)
                 DropdownButton_Title.Text = newvalue
                 wait(0.1)
-                game:GetService("TweenService"):Create(DropdownButton_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                TweenService:Create(DropdownButton_Title, TweenInfo.new(0.4,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
             end
             function DropdownList:ChangeValue(newvalue, callbackwhenexecuted)
                 if callbackwhenexecuted then
                     DropdownButton_CurrentText.Text = newvalue
-                    pcall(function()
-                        dropdownconfig.Callback(newvalue)
-                    end)
+                    pcall(dropdownconfig.Callback, newvalue)
                 else
                     DropdownButton_CurrentText.Text = newvalue
                 end
@@ -2259,8 +2282,8 @@ function MasterOogway6147:Load(loadconfig)
             function DropdownList:Refresh(newtable)
                 local newtable = newtable or {}
 
-                game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
-                game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
+                TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
+                TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
 
                 wait(0.08)
 
@@ -2317,19 +2340,17 @@ function MasterOogway6147:Load(loadconfig)
                     DropdownListUIStroke.Parent = DropdownList
     
                     DropdownList.MouseEnter:Connect(function()
-                        game:GetService("TweenService"):Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36, 36, 36)}):Play()
+                        TweenService:Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(36, 36, 36)}):Play()
                     end)
                     DropdownList.MouseLeave:Connect(function()
-                        game:GetService("TweenService"):Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
+                        TweenService:Create(DropdownList, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundColor3 = Color3.fromRGB(11, 11, 11)}):Play()
                     end)
                     DropdownList.MouseButton1Click:Connect(function()
-                        game:GetService("TweenService"):Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
+                        TweenService:Create(DropdownButtonImageLabel, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = 0}):Play()
                         DropdownButton_CurrentText.Text = DropdownListTextLabel.Text
-                        game:GetService("TweenService"):Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
-                        game:GetService("TweenService"):Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
-                        pcall(function()
-                            dropdownconfig.Callback(DropdownListTextLabel.Text)
-                        end)
+                        TweenService:Create(DropdownButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 46)}):Play()
+                        TweenService:Create(DropdownScrollingFrame, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = UDim2.new(0, 316, 0, 0), ScrollBarThickness = 0}):Play()
+                        pcall(dropdownconfig.Callback, DropdownListTextLabel.Text)
                     end)
                 end
             end
@@ -2343,4 +2364,4 @@ function MasterOogway6147:Load(loadconfig)
     return Window
 end
 
-return MasterOogway6147
+return realmasteroogway
