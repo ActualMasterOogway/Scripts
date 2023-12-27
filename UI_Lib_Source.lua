@@ -18,7 +18,6 @@ function realmasteroogway:Load(loadconfig)
 			Key = ""
 		}
 	end
-	loadconfig.KeySystem.Enabled = not loadconfig.KeySystem.Enabled 
     local Config = {
         Key = loadconfig.KeySystem.Key,
         Callback = loadconfig.Callback or function() end
@@ -53,384 +52,154 @@ function realmasteroogway:Load(loadconfig)
 		end)
 	end
     local realmasteroogwayKey = Instance.new("ScreenGui")
-    realmasteroogwayKey.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    realmasteroogwayKey.Parent = game.CoreGui
-    realmasteroogwayKey.Name = rmdname(18)
-    realmasteroogwayKey.ResetOnSpawn = false
+    if loadconfig.KeySystem.Enabled then
+        realmasteroogwayKey.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        realmasteroogwayKey.Parent = game.CoreGui
+        realmasteroogwayKey.Name = rmdname(18)
+        realmasteroogwayKey.ResetOnSpawn = false
 
-    task.spawn(function()
-        while task.wait(1) do
-            if realmasteroogwayKey then
-                local e = math.random(10,20)
-                for i, v in next, realmasteroogwayKey:GetDescendants() do
-                    v.Name = rmdname(e)
-                    pcall(function()
-                        v.Size = UDim2.new(v.Size.X.Scale +  (v.Size.X.Offset/ v.Parent.AbsoluteSize.X), 0, v.Size.Y.Scale + (v.Size.Y.Offset/ v.Parent.AbsoluteSize.Y), 0)
-                        v.Position = UDim2.new(v.Position.X.Scale +  (v.Position.X.Offset/ v.Parent.AbsolutePosition.X), 0, v.Position.Y.Scale + (v.Position.Y.Offset/ v.Parent.AbsolutePosition.Y), 0)
-                    end)
+        task.spawn(function()
+            while task.wait(1) do
+                if realmasteroogwayKey then
+                    local e = math.random(10,20)
+                    for i, v in next, realmasteroogwayKey:GetDescendants() do
+                        v.Name = rmdname(e)
+                        pcall(function()
+                            v.Size = UDim2.new(v.Size.X.Scale +  (v.Size.X.Offset/ v.Parent.AbsoluteSize.X), 0, v.Size.Y.Scale + (v.Size.Y.Offset/ v.Parent.AbsoluteSize.Y), 0)
+                            v.Position = UDim2.new(v.Position.X.Scale +  (v.Position.X.Offset/ v.Parent.AbsolutePosition.X), 0, v.Position.Y.Scale + (v.Position.Y.Offset/ v.Parent.AbsolutePosition.Y), 0)
+                        end)
+                    end
                 end
             end
-        end
-    end)
+        end)
 
-    local realmasteroogwayKeyShadow = Instance.new("ImageLabel")
-    realmasteroogwayKeyShadow.Name = "realmasteroogwayKeyShadow"
-    realmasteroogwayKeyShadow.ZIndex = 2
-    realmasteroogwayKeyShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    realmasteroogwayKeyShadow.Size = UDim2.new(0.34375, 0, 0.1240740741, 0)
-    realmasteroogwayKeyShadow.ClipsDescendants = true
-    realmasteroogwayKeyShadow.BackgroundTransparency = 1
-    realmasteroogwayKeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
-    realmasteroogwayKeyShadow.BorderSizePixel = 0
-    realmasteroogwayKeyShadow.ScaleType = Enum.ScaleType.Slice
-    realmasteroogwayKeyShadow.ImageTransparency = 1
-    realmasteroogwayKeyShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    realmasteroogwayKeyShadow.TileSize = UDim2.new(1, 0, 2, 0)
-    realmasteroogwayKeyShadow.Image = "rbxassetid://1316045217"
-    realmasteroogwayKeyShadow.SliceCenter = Rect.new(50, 50, 50, 50)
-    realmasteroogwayKeyShadow.Parent = realmasteroogwayKey
-    
-    local realmasteroogwayKeyShadow_Window = Instance.new("Frame")
-    realmasteroogwayKeyShadow_Window.Name = "realmasteroogwayKeyShadow_Window"
-    realmasteroogwayKeyShadow_Window.ZIndex = 3
-    realmasteroogwayKeyShadow_Window.Size = UDim2.new(0.9848484848, 0, 0.9253731343, 0)
-    realmasteroogwayKeyShadow_Window.ClipsDescendants = true
-    realmasteroogwayKeyShadow_Window.Position = UDim2.new(0, 5, 0, 5)
-    realmasteroogwayKeyShadow_Window.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window.BackgroundColor3 = loadconfig.Color.Background
-    realmasteroogwayKeyShadow_Window.Parent = realmasteroogwayKeyShadow
-    
-    local realmasteroogwayKeyShadow_WindowUICorner = Instance.new("UICorner")
-    realmasteroogwayKeyShadow_WindowUICorner.Name = "realmasteroogwayKeyShadow_WindowUICorner"
-    realmasteroogwayKeyShadow_WindowUICorner.CornerRadius = UDim.new(0, 3)
-    realmasteroogwayKeyShadow_WindowUICorner.Parent = realmasteroogwayKeyShadow_Window
-    
-    local realmasteroogwayKeyShadow_WindowUIStroke = Instance.new("UIStroke")
-    realmasteroogwayKeyShadow_WindowUIStroke.Name = "realmasteroogwayKeyShadow_WindowUIStroke"
-    realmasteroogwayKeyShadow_WindowUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    realmasteroogwayKeyShadow_WindowUIStroke.Thickness = 1.2
-    realmasteroogwayKeyShadow_WindowUIStroke.Color = Color3.fromRGB(100, 100, 100)
-    realmasteroogwayKeyShadow_WindowUIStroke.Parent = realmasteroogwayKeyShadow_Window
-    
-    local realmasteroogwayKeyShadow_Window_Outline = Instance.new("Frame")
-    realmasteroogwayKeyShadow_Window_Outline.Name = "realmasteroogwayKeyShadow_Window_Outline"
-    realmasteroogwayKeyShadow_Window_Outline.ZIndex = 4
-    realmasteroogwayKeyShadow_Window_Outline.Size = UDim2.new(0, 650, 0, 1)
-    realmasteroogwayKeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 34)
-    realmasteroogwayKeyShadow_Window_Outline.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
-    realmasteroogwayKeyShadow_Window_Outline.Parent = realmasteroogwayKeyShadow_Window
-    
-    local realmasteroogwayKeyShadow_Window_TopBar = Instance.new("Frame")
-    realmasteroogwayKeyShadow_Window_TopBar.Name = "realmasteroogwayKeyShadow_Window_TopBar"
-    realmasteroogwayKeyShadow_Window_TopBar.ZIndex = 4
-    realmasteroogwayKeyShadow_Window_TopBar.Size = UDim2.new(0, 650, 0, 34)
-    realmasteroogwayKeyShadow_Window_TopBar.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_TopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
-    realmasteroogwayKeyShadow_Window_TopBar.Parent = realmasteroogwayKeyShadow_Window
-    
-    local realmasteroogwayKeyShadow_Window_TopBarWindowUICorner = Instance.new("UICorner")
-    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBarWindowUICorner"
-    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.CornerRadius = UDim.new(0, 6)
-    realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    
-    local realmasteroogwayKeyShadow_Window_TopBar_Title = Instance.new("TextLabel")
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Title"
-    realmasteroogwayKeyShadow_Window_TopBar_Title.ZIndex = 5
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Size = UDim2.new(0, 80, 0, 25)
-    realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundTransparency = 1
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Position = UDim2.new(0, 7.5, 0, 5)
-    realmasteroogwayKeyShadow_Window_TopBar_Title.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    realmasteroogwayKeyShadow_Window_TopBar_Title.FontSize = Enum.FontSize.Size14
-    realmasteroogwayKeyShadow_Window_TopBar_Title.TextSize = 14
-    realmasteroogwayKeyShadow_Window_TopBar_Title.TextScaled = true
-    realmasteroogwayKeyShadow_Window_TopBar_Title.TextColor3 = Color3.fromRGB(220, 220, 220)
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Text = loadconfig.HubName
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Font = Enum.Font.Gotham
-    realmasteroogwayKeyShadow_Window_TopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
-    realmasteroogwayKeyShadow_Window_TopBar_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    
-    local realmasteroogwayKeyShadow_Window_TopBar_Beta_Title = Instance.new("TextLabel")
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_Title"
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.ZIndex = 5
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Size = UDim2.new(0, 53, 0, 22)
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Position = UDim2.new(0, 90, 0, 6)
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BackgroundColor3 = loadconfig.Color.Foreground
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.FontSize = Enum.FontSize.Size14
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextSize = 14
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextColor3 = loadconfig.Color.Background
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Text = "Beta"
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Font = Enum.Font.Gotham
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    
-    local realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner = Instance.new("UICorner")
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner"
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.CornerRadius = UDim.new(0, 4)
-    realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_Beta_Title
-    
-    local realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title = Instance.new("TextLabel")
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title"
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.ZIndex = 5
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Size = UDim2.new(0, 76, 0, 35)
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundTransparency = 1
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Position = UDim2.new(0, 150, 0, 0)
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.FontSize = Enum.FontSize.Size14
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextSize = 14
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextColor3 = loadconfig.Color.Foreground
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Text = "Key System"
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Font = Enum.Font.Gotham
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextXAlignment = Enum.TextXAlignment.Left
-    realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    
-    local realmasteroogwayKeyShadow_Window_TopBar_Close_Button = Instance.new("ImageButton")
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_Close_Button"
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ZIndex = 5
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Size = UDim2.new(0, 18, 0, 18)
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundTransparency = 1
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Position = UDim2.new(0, 624, 0, 8)
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BorderSizePixel = 0
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ImageColor3 = Color3.fromRGB(220, 220, 220)
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Image = "http://www.roblox.com/asset/?id=6031094678"
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    realmasteroogwayKeyShadow_Window_TopBar_Close_Button.MouseButton1Click:Connect(function()
-        TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 1, 0)}):Play()
-        for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
-            if v:IsA("ImageLabel") or v:IsA("ImageButton") then
-                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
-            elseif v:IsA("Frame") then
-                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-            elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
-                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
-                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-            elseif v:IsA("UIStroke") then
-                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
-            end
-        end
-        wait(0.5)
-        realmasteroogwayKey:Destroy()
-        wait(0.5)
-    end)
-
-	local realmasteroogway_Current_LoadingTXT = Instance.new("TextLabel")
-    realmasteroogway_Current_LoadingTXT.Name = "realmasteroogway_Current_LoadingTXT"
-    realmasteroogway_Current_LoadingTXT.ZIndex = 5
-    realmasteroogway_Current_LoadingTXT.Size = UDim2.new(0, 120, 0, 35)
-    realmasteroogway_Current_LoadingTXT.BackgroundTransparency = 1
-    realmasteroogway_Current_LoadingTXT.BorderSizePixel = 0
-    realmasteroogway_Current_LoadingTXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    realmasteroogway_Current_LoadingTXT.FontSize = Enum.FontSize.Size14
-    realmasteroogway_Current_LoadingTXT.TextTransparency = 1
-    realmasteroogway_Current_LoadingTXT.TextSize = 14
-    realmasteroogway_Current_LoadingTXT.TextColor3 = loadconfig.Color.Foreground
-    realmasteroogway_Current_LoadingTXT.Text = "Correct Key!"
-    realmasteroogway_Current_LoadingTXT.Font = Enum.Font.Gotham
-    realmasteroogway_Current_LoadingTXT.TextXAlignment = Enum.TextXAlignment.Right
-    realmasteroogway_Current_LoadingTXT.Parent = realmasteroogwayKeyShadow_Window_TopBar
-    
-    if loadconfig.Discord.Join == true then
-		if loadconfig.Discord.Type == ("Button" or nil) then
-			realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 330, 0, 0)
-			local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button = Instance.new("TextButton")
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button"
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.ZIndex = 5
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Size = UDim2.new(0, 160, 0, 26)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Position = UDim2.new(0, 456, 0, 4)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BorderSizePixel = 0
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BackgroundColor3 = loadconfig.Color.Foreground
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.AutoButtonColor = false
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.FontSize = Enum.FontSize.Size14
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextSize = 14
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextColor3 = loadconfig.Color.Background
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Text = "Join Discord Server"
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Font = Enum.Font.Gotham
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Click:Connect(function()
-				if request then
-					request({
-						Url = 'http://127.0.0.1:6463/rpc?v=1',
-						Method = 'POST',
-						Headers = {
-							['Content-Type'] = 'application/json',
-							Origin = 'https://discord.com'
-						},
-						Body = game:GetService('HttpService'):JSONEncode({
-						cmd = 'INVITE_BROWSER',
-						nonce = game:GetService('HttpService'):GenerateGUID(false),
-						args = {code = loadconfig.Discord.InviteCode}
-						})
-					})
-				elseif syn then
-					syn.request({
-						Url = 'http://127.0.0.1:6463/rpc?v=1',
-						Method = 'POST',
-						Headers = {
-							['Content-Type'] = 'application/json',
-							Origin = 'https://discord.com'
-						},
-						Body = game:GetService('HttpService'):JSONEncode({
-						cmd = 'INVITE_BROWSER',
-						nonce = game:GetService('HttpService'):GenerateGUID(false),
-						args = {code = loadconfig.Discord.InviteCode}
-						})
-					})
-				else
-					print("Your executor does not support request() function and syn.request() function get a better executor")
-				end
-			end)
-
-			local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner = Instance.new("UICorner")
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner"
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.CornerRadius = UDim.new(0, 3)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button
-
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseEnter:Connect(function()
-				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
-			end)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseLeave:Connect(function()
-				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-			end)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Down:Connect(function()
-				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
-			end)
-			realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Up:Connect(function()
-				TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-			end)
-			TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
-		elseif loadconfig.Discord.Type == "Auto" then
-			if request then
-				request({
-					Url = 'http://127.0.0.1:6463/rpc?v=1',
-					Method = 'POST',
-					Headers = {
-						['Content-Type'] = 'application/json',
-						Origin = 'https://discord.com'
-					},
-					Body = game:GetService('HttpService'):JSONEncode({
-					cmd = 'INVITE_BROWSER',
-					nonce = game:GetService('HttpService'):GenerateGUID(false),
-					args = {code = loadconfig.Discord.InviteCode}
-					})
-				})
-			elseif syn then
-				syn.request({
-					Url = 'http://127.0.0.1:6463/rpc?v=1',
-					Method = 'POST',
-					Headers = {
-						['Content-Type'] = 'application/json',
-						Origin = 'https://discord.com'
-					},
-					Body = game:GetService('HttpService'):JSONEncode({
-					cmd = 'INVITE_BROWSER',
-					nonce = game:GetService('HttpService'):GenerateGUID(false),
-					args = {code = loadconfig.Discord.InviteCode}
-					})
-				})
-			else
-				print("Your executor does not support request() function and syn.request() function get a better executor")
-			end
-		end
-	end
-	if (loadconfig.Discord.Join == false or loadconfig.Discord.Type == "Auto") then
-		realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 500, 0, 0)
-	end
-    
-    local KeyFrame_Frame = Instance.new("Frame")
-    KeyFrame_Frame.Name = "KeyFrame_Frame"
-    KeyFrame_Frame.ZIndex = 4
-    KeyFrame_Frame.Size = UDim2.new(0, 638, 0, 34)
-    KeyFrame_Frame.Position = UDim2.new(0, 6, 0, 42)
-    KeyFrame_Frame.BorderSizePixel = 0
-    KeyFrame_Frame.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
-    KeyFrame_Frame.Parent = realmasteroogwayKeyShadow_Window
-    
-    local KeyFrame_FrameUICorner = Instance.new("UICorner")
-    KeyFrame_FrameUICorner.Name = "KeyFrame_FrameUICorner"
-    KeyFrame_FrameUICorner.CornerRadius = UDim.new(0, 4)
-    KeyFrame_FrameUICorner.Parent = KeyFrame_Frame
-    
-    local KeyFrame_FrameUIStroke = Instance.new("UIStroke")
-    KeyFrame_FrameUIStroke.Name = "KeyFrame_FrameUIStroke"
-    KeyFrame_FrameUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    KeyFrame_FrameUIStroke.Thickness = 1.2
-    KeyFrame_FrameUIStroke.Color = Color3.fromRGB(55, 55, 55)
-    KeyFrame_FrameUIStroke.Parent = KeyFrame_Frame
-    
-    local KeyFrame_Frame_TextBox = Instance.new("TextBox")
-    KeyFrame_Frame_TextBox.Name = "KeyFrame_Frame_TextBox"
-    KeyFrame_Frame_TextBox.ZIndex = 5
-    KeyFrame_Frame_TextBox.Size = UDim2.new(0, 628, 0, 34)
-    KeyFrame_Frame_TextBox.BackgroundTransparency = 1
-    KeyFrame_Frame_TextBox.Position = UDim2.new(0, 10, 0, 0)
-    KeyFrame_Frame_TextBox.BorderSizePixel = 0
-    KeyFrame_Frame_TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    KeyFrame_Frame_TextBox.FontSize = Enum.FontSize.Size14
-    KeyFrame_Frame_TextBox.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
-    KeyFrame_Frame_TextBox.TextSize = 14
-    KeyFrame_Frame_TextBox.TextColor3 = Color3.fromRGB(220, 220, 220)
-    KeyFrame_Frame_TextBox.Text = ""
-    KeyFrame_Frame_TextBox.PlaceholderText = "Key"
-    KeyFrame_Frame_TextBox.CursorPosition = -1
-    KeyFrame_Frame_TextBox.Font = Enum.Font.Gotham
-    KeyFrame_Frame_TextBox.TextXAlignment = Enum.TextXAlignment.Left
-    KeyFrame_Frame_TextBox.ClearTextOnFocus = false
-    KeyFrame_Frame_TextBox.Parent = KeyFrame_Frame
-    
-    local KeyFrame_Frame_SubmitButton = Instance.new("TextButton")
-    KeyFrame_Frame_SubmitButton.Name = "KeyFrame_Frame_SubmitButton"
-    KeyFrame_Frame_SubmitButton.ZIndex = 4
-    KeyFrame_Frame_SubmitButton.Size = UDim2.new(0, 80, 0, 34)
-    KeyFrame_Frame_SubmitButton.Position = UDim2.new(0, 564, 0, 42)
-    KeyFrame_Frame_SubmitButton.BorderSizePixel = 0
-    KeyFrame_Frame_SubmitButton.BackgroundColor3 = loadconfig.Color.Foreground
-    KeyFrame_Frame_SubmitButton.AutoButtonColor = false
-    KeyFrame_Frame_SubmitButton.FontSize = Enum.FontSize.Size14
-    KeyFrame_Frame_SubmitButton.TextSize = 14
-    KeyFrame_Frame_SubmitButton.TextColor3 = loadconfig.Color.Background
-    KeyFrame_Frame_SubmitButton.Text = "Submit"
-    KeyFrame_Frame_SubmitButton.Font = Enum.Font.Gotham
-    KeyFrame_Frame_SubmitButton.Parent = realmasteroogwayKeyShadow_Window
-    
-    local KeyFrame_Frame_SubmitButtonUICorner = Instance.new("UICorner")
-    KeyFrame_Frame_SubmitButtonUICorner.Name = "KeyFrame_Frame_SubmitButtonUICorner"
-    KeyFrame_Frame_SubmitButtonUICorner.CornerRadius = UDim.new(0, 3)
-    KeyFrame_Frame_SubmitButtonUICorner.Parent = KeyFrame_Frame_SubmitButton
-    
-    local KeyFrame_Frame_Description_TXT = Instance.new("TextLabel")
-    KeyFrame_Frame_Description_TXT.Name = "KeyFrame_Frame_Description_TXT"
-    KeyFrame_Frame_Description_TXT.ZIndex = 5
-    KeyFrame_Frame_Description_TXT.Size = UDim2.new(0, 632, 0, 48)
-    KeyFrame_Frame_Description_TXT.BackgroundTransparency = 1
-    KeyFrame_Frame_Description_TXT.Position = UDim2.new(0, 12, 0, 76)
-    KeyFrame_Frame_Description_TXT.BorderSizePixel = 0
-    KeyFrame_Frame_Description_TXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    KeyFrame_Frame_Description_TXT.FontSize = Enum.FontSize.Size14
-    KeyFrame_Frame_Description_TXT.TextSize = 14
-    KeyFrame_Frame_Description_TXT.TextColor3 = Color3.fromRGB(220, 220, 220)
-    KeyFrame_Frame_Description_TXT.Text = loadconfig.Information
-    KeyFrame_Frame_Description_TXT.TextWrapped = true
-    KeyFrame_Frame_Description_TXT.Font = Enum.Font.Gotham
-    KeyFrame_Frame_Description_TXT.TextWrap = true
-    KeyFrame_Frame_Description_TXT.TextXAlignment = Enum.TextXAlignment.Center
-    KeyFrame_Frame_Description_TXT.Parent = realmasteroogwayKeyShadow_Window
-
-    KeyFrame_Frame_TextBox.Focused:Connect(function()
-        TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
-    end)
-    KeyFrame_Frame_TextBox.FocusLost:Connect(function()
-        TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
-    end)
-
-    KeyFrame_Frame_SubmitButton.MouseButton1Click:Connect(function()
-        if KeyFrame_Frame_TextBox.Text == Config.Key then
-            TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-            wait(0.5)
-            TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
-            for i, v in pairs(realmasteroogwayKeyShadow.Parent:GetDescendants()) do
+        local realmasteroogwayKeyShadow = Instance.new("ImageLabel")
+        realmasteroogwayKeyShadow.Name = "realmasteroogwayKeyShadow"
+        realmasteroogwayKeyShadow.ZIndex = 2
+        realmasteroogwayKeyShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+        realmasteroogwayKeyShadow.Size = UDim2.new(0.34375, 0, 0.1240740741, 0)
+        realmasteroogwayKeyShadow.ClipsDescendants = true
+        realmasteroogwayKeyShadow.BackgroundTransparency = 1
+        realmasteroogwayKeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
+        realmasteroogwayKeyShadow.BorderSizePixel = 0
+        realmasteroogwayKeyShadow.ScaleType = Enum.ScaleType.Slice
+        realmasteroogwayKeyShadow.ImageTransparency = 1
+        realmasteroogwayKeyShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+        realmasteroogwayKeyShadow.TileSize = UDim2.new(1, 0, 2, 0)
+        realmasteroogwayKeyShadow.Image = "rbxassetid://1316045217"
+        realmasteroogwayKeyShadow.SliceCenter = Rect.new(50, 50, 50, 50)
+        realmasteroogwayKeyShadow.Parent = realmasteroogwayKey
+        
+        local realmasteroogwayKeyShadow_Window = Instance.new("Frame")
+        realmasteroogwayKeyShadow_Window.Name = "realmasteroogwayKeyShadow_Window"
+        realmasteroogwayKeyShadow_Window.ZIndex = 3
+        realmasteroogwayKeyShadow_Window.Size = UDim2.new(0.9848484848, 0, 0.9253731343, 0)
+        realmasteroogwayKeyShadow_Window.ClipsDescendants = true
+        realmasteroogwayKeyShadow_Window.Position = UDim2.new(0, 5, 0, 5)
+        realmasteroogwayKeyShadow_Window.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window.BackgroundColor3 = loadconfig.Color.Background
+        realmasteroogwayKeyShadow_Window.Parent = realmasteroogwayKeyShadow
+        
+        local realmasteroogwayKeyShadow_WindowUICorner = Instance.new("UICorner")
+        realmasteroogwayKeyShadow_WindowUICorner.Name = "realmasteroogwayKeyShadow_WindowUICorner"
+        realmasteroogwayKeyShadow_WindowUICorner.CornerRadius = UDim.new(0, 3)
+        realmasteroogwayKeyShadow_WindowUICorner.Parent = realmasteroogwayKeyShadow_Window
+        
+        local realmasteroogwayKeyShadow_WindowUIStroke = Instance.new("UIStroke")
+        realmasteroogwayKeyShadow_WindowUIStroke.Name = "realmasteroogwayKeyShadow_WindowUIStroke"
+        realmasteroogwayKeyShadow_WindowUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        realmasteroogwayKeyShadow_WindowUIStroke.Thickness = 1.2
+        realmasteroogwayKeyShadow_WindowUIStroke.Color = Color3.fromRGB(100, 100, 100)
+        realmasteroogwayKeyShadow_WindowUIStroke.Parent = realmasteroogwayKeyShadow_Window
+        
+        local realmasteroogwayKeyShadow_Window_Outline = Instance.new("Frame")
+        realmasteroogwayKeyShadow_Window_Outline.Name = "realmasteroogwayKeyShadow_Window_Outline"
+        realmasteroogwayKeyShadow_Window_Outline.ZIndex = 4
+        realmasteroogwayKeyShadow_Window_Outline.Size = UDim2.new(0, 650, 0, 1)
+        realmasteroogwayKeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 34)
+        realmasteroogwayKeyShadow_Window_Outline.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
+        realmasteroogwayKeyShadow_Window_Outline.Parent = realmasteroogwayKeyShadow_Window
+        
+        local realmasteroogwayKeyShadow_Window_TopBar = Instance.new("Frame")
+        realmasteroogwayKeyShadow_Window_TopBar.Name = "realmasteroogwayKeyShadow_Window_TopBar"
+        realmasteroogwayKeyShadow_Window_TopBar.ZIndex = 4
+        realmasteroogwayKeyShadow_Window_TopBar.Size = UDim2.new(0, 650, 0, 34)
+        realmasteroogwayKeyShadow_Window_TopBar.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_TopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
+        realmasteroogwayKeyShadow_Window_TopBar.Parent = realmasteroogwayKeyShadow_Window
+        
+        local realmasteroogwayKeyShadow_Window_TopBarWindowUICorner = Instance.new("UICorner")
+        realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBarWindowUICorner"
+        realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.CornerRadius = UDim.new(0, 6)
+        realmasteroogwayKeyShadow_Window_TopBarWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        
+        local realmasteroogwayKeyShadow_Window_TopBar_Title = Instance.new("TextLabel")
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Title"
+        realmasteroogwayKeyShadow_Window_TopBar_Title.ZIndex = 5
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Size = UDim2.new(0, 80, 0, 25)
+        realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundTransparency = 1
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Position = UDim2.new(0, 7.5, 0, 5)
+        realmasteroogwayKeyShadow_Window_TopBar_Title.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_TopBar_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        realmasteroogwayKeyShadow_Window_TopBar_Title.FontSize = Enum.FontSize.Size14
+        realmasteroogwayKeyShadow_Window_TopBar_Title.TextSize = 14
+        realmasteroogwayKeyShadow_Window_TopBar_Title.TextScaled = true
+        realmasteroogwayKeyShadow_Window_TopBar_Title.TextColor3 = Color3.fromRGB(220, 220, 220)
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Text = loadconfig.HubName
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Font = Enum.Font.Gotham
+        realmasteroogwayKeyShadow_Window_TopBar_Title.TextXAlignment = Enum.TextXAlignment.Left
+        realmasteroogwayKeyShadow_Window_TopBar_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        
+        local realmasteroogwayKeyShadow_Window_TopBar_Beta_Title = Instance.new("TextLabel")
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_Title"
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.ZIndex = 5
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Size = UDim2.new(0, 53, 0, 22)
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Position = UDim2.new(0, 90, 0, 6)
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.BackgroundColor3 = loadconfig.Color.Foreground
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.FontSize = Enum.FontSize.Size14
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextSize = 14
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.TextColor3 = loadconfig.Color.Background
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Text = "Beta"
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Font = Enum.Font.Gotham
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        
+        local realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner = Instance.new("UICorner")
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner"
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.CornerRadius = UDim.new(0, 4)
+        realmasteroogwayKeyShadow_Window_TopBar_Beta_TitleWindowUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_Beta_Title
+        
+        local realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title = Instance.new("TextLabel")
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Name = "realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title"
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.ZIndex = 5
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Size = UDim2.new(0, 76, 0, 35)
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundTransparency = 1
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Position = UDim2.new(0, 150, 0, 0)
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.FontSize = Enum.FontSize.Size14
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextSize = 14
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextColor3 = loadconfig.Color.Foreground
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Text = "Key System"
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Font = Enum.Font.Gotham
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.TextXAlignment = Enum.TextXAlignment.Left
+        realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        
+        local realmasteroogwayKeyShadow_Window_TopBar_Close_Button = Instance.new("ImageButton")
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_Close_Button"
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ZIndex = 5
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Size = UDim2.new(0, 18, 0, 18)
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundTransparency = 1
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Position = UDim2.new(0, 624, 0, 8)
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BorderSizePixel = 0
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.ImageColor3 = Color3.fromRGB(220, 220, 220)
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Image = "http://www.roblox.com/asset/?id=6031094678"
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        realmasteroogwayKeyShadow_Window_TopBar_Close_Button.MouseButton1Click:Connect(function()
+            TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 1, 0)}):Play()
+            for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
                 if v:IsA("ImageLabel") or v:IsA("ImageButton") then
                     TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
                 elseif v:IsA("Frame") then
@@ -444,114 +213,346 @@ function realmasteroogway:Load(loadconfig)
             end
             wait(0.5)
             realmasteroogwayKey:Destroy()
-            wait(1)
-            guiloaded = true
-        else
-            --[[do nothing]]
-        end
+            wait(0.5)
+        end)
 
-        KeyFrame_Frame_SubmitButton.MouseEnter:Connect(function()
-            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
-        end)
-        KeyFrame_Frame_SubmitButton.MouseLeave:Connect(function()
-            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-        end)
-        KeyFrame_Frame_SubmitButton.MouseButton1Down:Connect(function()
-            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
-        end)
-        KeyFrame_Frame_SubmitButton.MouseButton1Up:Connect(function()
-            TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-        end)
-    end)
-
-    for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
-        if v:IsA("ImageLabel") or v:IsA("ImageButton") then
-            v.ImageTransparency = 1
-        elseif v:IsA("Frame") then
-            v.BackgroundTransparency = 1
-        elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
-            v.BackgroundTransparency = 1
-            v.TextTransparency = 1
-        elseif v:IsA("UIStroke") then
-            v.Transparency = 1
-        end
-    end
-    
-    TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.5, 0), ImageTransparency = 0.4}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Close_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Beta_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0, TextTransparency = 0}):Play()
-    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
-    TweenService:Create(KeyFrame_Frame, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
-    TweenService:Create(KeyFrame_Frame_TextBox, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
-    TweenService:Create(KeyFrame_Frame_Description_TXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
-    
-    for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
-        if v:IsA("UIStroke") then
-            TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
-        end
-    end
-    
-    task.spawn(function()
-        local UserInputService = game:GetService("UserInputService")
-        local runService = (game:GetService("RunService"));
-    
-        local gui = realmasteroogwayKeyShadow_Window_TopBar
-        local guitodrag = realmasteroogwayKeyShadow
-    
-        local dragging
-        local dragInput
-        local dragStart
-        local startPos
-    
-        function Lerp(a, b, m)
-            return a + (b - a) * m
-        end;
-    
-        local lastMousePos
-        local lastGoalPos
-        local DRAG_SPEED = (loadconfig.DragSpeed); -- // The speed of the UI darg.
-        function Update(dt)
-            if not (startPos) then return end;
-            if not (dragging) and (lastGoalPos) then
-                realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
-                return 
-            end;
-    
-            local delta = (lastMousePos - UserInputService:GetMouseLocation())
-            local xGoal = (startPos.X.Offset - delta.X);
-            local yGoal = (startPos.Y.Offset - delta.Y);
-            lastGoalPos = UDim2.new(startPos.X.Scale, xGoal, startPos.Y.Scale, yGoal)
-            realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
-        end;
-    
-        gui.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = true
-                dragStart = input.Position
-                startPos = realmasteroogwayKeyShadow.Position
-                lastMousePos = UserInputService:GetMouseLocation()
-    
-                input.Changed:Connect(function()
-                    if input.UserInputState == Enum.UserInputState.End then
-                        dragging = false
+        local realmasteroogway_Current_LoadingTXT = Instance.new("TextLabel")
+        realmasteroogway_Current_LoadingTXT.Name = "realmasteroogway_Current_LoadingTXT"
+        realmasteroogway_Current_LoadingTXT.ZIndex = 5
+        realmasteroogway_Current_LoadingTXT.Size = UDim2.new(0, 120, 0, 35)
+        realmasteroogway_Current_LoadingTXT.BackgroundTransparency = 1
+        realmasteroogway_Current_LoadingTXT.BorderSizePixel = 0
+        realmasteroogway_Current_LoadingTXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        realmasteroogway_Current_LoadingTXT.FontSize = Enum.FontSize.Size14
+        realmasteroogway_Current_LoadingTXT.TextTransparency = 1
+        realmasteroogway_Current_LoadingTXT.TextSize = 14
+        realmasteroogway_Current_LoadingTXT.TextColor3 = loadconfig.Color.Foreground
+        realmasteroogway_Current_LoadingTXT.Text = "Correct Key!"
+        realmasteroogway_Current_LoadingTXT.Font = Enum.Font.Gotham
+        realmasteroogway_Current_LoadingTXT.TextXAlignment = Enum.TextXAlignment.Right
+        realmasteroogway_Current_LoadingTXT.Parent = realmasteroogwayKeyShadow_Window_TopBar
+        
+        if loadconfig.Discord.Join == true then
+            if loadconfig.Discord.Type == ("Button" or nil) then
+                realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 330, 0, 0)
+                local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button = Instance.new("TextButton")
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button"
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.ZIndex = 5
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Size = UDim2.new(0, 160, 0, 26)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Position = UDim2.new(0, 456, 0, 4)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BorderSizePixel = 0
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.BackgroundColor3 = loadconfig.Color.Foreground
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.AutoButtonColor = false
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.FontSize = Enum.FontSize.Size14
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextSize = 14
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.TextColor3 = loadconfig.Color.Background
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Text = "Join Discord Server"
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Font = Enum.Font.Gotham
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.Parent = realmasteroogwayKeyShadow_Window_TopBar
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Click:Connect(function()
+                    if request then
+                        request({
+                            Url = 'http://127.0.0.1:6463/rpc?v=1',
+                            Method = 'POST',
+                            Headers = {
+                                ['Content-Type'] = 'application/json',
+                                Origin = 'https://discord.com'
+                            },
+                            Body = game:GetService('HttpService'):JSONEncode({
+                            cmd = 'INVITE_BROWSER',
+                            nonce = game:GetService('HttpService'):GenerateGUID(false),
+                            args = {code = loadconfig.Discord.InviteCode}
+                            })
+                        })
+                    elseif syn then
+                        syn.request({
+                            Url = 'http://127.0.0.1:6463/rpc?v=1',
+                            Method = 'POST',
+                            Headers = {
+                                ['Content-Type'] = 'application/json',
+                                Origin = 'https://discord.com'
+                            },
+                            Body = game:GetService('HttpService'):JSONEncode({
+                            cmd = 'INVITE_BROWSER',
+                            nonce = game:GetService('HttpService'):GenerateGUID(false),
+                            args = {code = loadconfig.Discord.InviteCode}
+                            })
+                        })
+                    else
+                        print("Your executor does not support request() function and syn.request() function get a better executor")
                     end
                 end)
+
+                local realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner = Instance.new("UICorner")
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Name = "realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner"
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.CornerRadius = UDim.new(0, 3)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_ButtonUICorner.Parent = realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button
+
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseEnter:Connect(function()
+                    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
+                end)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseLeave:Connect(function()
+                    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                end)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Down:Connect(function()
+                    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
+                end)
+                realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button.MouseButton1Up:Connect(function()
+                    TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+                end)
+                TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_CopyDiscord_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
+            elseif loadconfig.Discord.Type == "Auto" then
+                if request then
+                    request({
+                        Url = 'http://127.0.0.1:6463/rpc?v=1',
+                        Method = 'POST',
+                        Headers = {
+                            ['Content-Type'] = 'application/json',
+                            Origin = 'https://discord.com'
+                        },
+                        Body = game:GetService('HttpService'):JSONEncode({
+                        cmd = 'INVITE_BROWSER',
+                        nonce = game:GetService('HttpService'):GenerateGUID(false),
+                        args = {code = loadconfig.Discord.InviteCode}
+                        })
+                    })
+                elseif syn then
+                    syn.request({
+                        Url = 'http://127.0.0.1:6463/rpc?v=1',
+                        Method = 'POST',
+                        Headers = {
+                            ['Content-Type'] = 'application/json',
+                            Origin = 'https://discord.com'
+                        },
+                        Body = game:GetService('HttpService'):JSONEncode({
+                        cmd = 'INVITE_BROWSER',
+                        nonce = game:GetService('HttpService'):GenerateGUID(false),
+                        args = {code = loadconfig.Discord.InviteCode}
+                        })
+                    })
+                else
+                    print("Your executor does not support request() function and syn.request() function get a better executor")
+                end
             end
+        end
+        if (loadconfig.Discord.Join == false or loadconfig.Discord.Type == "Auto") then
+            realmasteroogway_Current_LoadingTXT.Position = UDim2.new(0, 500, 0, 0)
+        end
+        
+        local KeyFrame_Frame = Instance.new("Frame")
+        KeyFrame_Frame.Name = "KeyFrame_Frame"
+        KeyFrame_Frame.ZIndex = 4
+        KeyFrame_Frame.Size = UDim2.new(0, 638, 0, 34)
+        KeyFrame_Frame.Position = UDim2.new(0, 6, 0, 42)
+        KeyFrame_Frame.BorderSizePixel = 0
+        KeyFrame_Frame.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
+        KeyFrame_Frame.Parent = realmasteroogwayKeyShadow_Window
+        
+        local KeyFrame_FrameUICorner = Instance.new("UICorner")
+        KeyFrame_FrameUICorner.Name = "KeyFrame_FrameUICorner"
+        KeyFrame_FrameUICorner.CornerRadius = UDim.new(0, 4)
+        KeyFrame_FrameUICorner.Parent = KeyFrame_Frame
+        
+        local KeyFrame_FrameUIStroke = Instance.new("UIStroke")
+        KeyFrame_FrameUIStroke.Name = "KeyFrame_FrameUIStroke"
+        KeyFrame_FrameUIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        KeyFrame_FrameUIStroke.Thickness = 1.2
+        KeyFrame_FrameUIStroke.Color = Color3.fromRGB(55, 55, 55)
+        KeyFrame_FrameUIStroke.Parent = KeyFrame_Frame
+        
+        local KeyFrame_Frame_TextBox = Instance.new("TextBox")
+        KeyFrame_Frame_TextBox.Name = "KeyFrame_Frame_TextBox"
+        KeyFrame_Frame_TextBox.ZIndex = 5
+        KeyFrame_Frame_TextBox.Size = UDim2.new(0, 628, 0, 34)
+        KeyFrame_Frame_TextBox.BackgroundTransparency = 1
+        KeyFrame_Frame_TextBox.Position = UDim2.new(0, 10, 0, 0)
+        KeyFrame_Frame_TextBox.BorderSizePixel = 0
+        KeyFrame_Frame_TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        KeyFrame_Frame_TextBox.FontSize = Enum.FontSize.Size14
+        KeyFrame_Frame_TextBox.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
+        KeyFrame_Frame_TextBox.TextSize = 14
+        KeyFrame_Frame_TextBox.TextColor3 = Color3.fromRGB(220, 220, 220)
+        KeyFrame_Frame_TextBox.Text = ""
+        KeyFrame_Frame_TextBox.PlaceholderText = "Key"
+        KeyFrame_Frame_TextBox.CursorPosition = -1
+        KeyFrame_Frame_TextBox.Font = Enum.Font.Gotham
+        KeyFrame_Frame_TextBox.TextXAlignment = Enum.TextXAlignment.Left
+        KeyFrame_Frame_TextBox.ClearTextOnFocus = false
+        KeyFrame_Frame_TextBox.Parent = KeyFrame_Frame
+        
+        local KeyFrame_Frame_SubmitButton = Instance.new("TextButton")
+        KeyFrame_Frame_SubmitButton.Name = "KeyFrame_Frame_SubmitButton"
+        KeyFrame_Frame_SubmitButton.ZIndex = 4
+        KeyFrame_Frame_SubmitButton.Size = UDim2.new(0, 80, 0, 34)
+        KeyFrame_Frame_SubmitButton.Position = UDim2.new(0, 564, 0, 42)
+        KeyFrame_Frame_SubmitButton.BorderSizePixel = 0
+        KeyFrame_Frame_SubmitButton.BackgroundColor3 = loadconfig.Color.Foreground
+        KeyFrame_Frame_SubmitButton.AutoButtonColor = false
+        KeyFrame_Frame_SubmitButton.FontSize = Enum.FontSize.Size14
+        KeyFrame_Frame_SubmitButton.TextSize = 14
+        KeyFrame_Frame_SubmitButton.TextColor3 = loadconfig.Color.Background
+        KeyFrame_Frame_SubmitButton.Text = "Submit"
+        KeyFrame_Frame_SubmitButton.Font = Enum.Font.Gotham
+        KeyFrame_Frame_SubmitButton.Parent = realmasteroogwayKeyShadow_Window
+        
+        local KeyFrame_Frame_SubmitButtonUICorner = Instance.new("UICorner")
+        KeyFrame_Frame_SubmitButtonUICorner.Name = "KeyFrame_Frame_SubmitButtonUICorner"
+        KeyFrame_Frame_SubmitButtonUICorner.CornerRadius = UDim.new(0, 3)
+        KeyFrame_Frame_SubmitButtonUICorner.Parent = KeyFrame_Frame_SubmitButton
+        
+        local KeyFrame_Frame_Description_TXT = Instance.new("TextLabel")
+        KeyFrame_Frame_Description_TXT.Name = "KeyFrame_Frame_Description_TXT"
+        KeyFrame_Frame_Description_TXT.ZIndex = 5
+        KeyFrame_Frame_Description_TXT.Size = UDim2.new(0, 632, 0, 48)
+        KeyFrame_Frame_Description_TXT.BackgroundTransparency = 1
+        KeyFrame_Frame_Description_TXT.Position = UDim2.new(0, 12, 0, 76)
+        KeyFrame_Frame_Description_TXT.BorderSizePixel = 0
+        KeyFrame_Frame_Description_TXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        KeyFrame_Frame_Description_TXT.FontSize = Enum.FontSize.Size14
+        KeyFrame_Frame_Description_TXT.TextSize = 14
+        KeyFrame_Frame_Description_TXT.TextColor3 = Color3.fromRGB(220, 220, 220)
+        KeyFrame_Frame_Description_TXT.Text = loadconfig.Information
+        KeyFrame_Frame_Description_TXT.TextWrapped = true
+        KeyFrame_Frame_Description_TXT.Font = Enum.Font.Gotham
+        KeyFrame_Frame_Description_TXT.TextWrap = true
+        KeyFrame_Frame_Description_TXT.TextXAlignment = Enum.TextXAlignment.Center
+        KeyFrame_Frame_Description_TXT.Parent = realmasteroogwayKeyShadow_Window
+
+        KeyFrame_Frame_TextBox.Focused:Connect(function()
+            TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = loadconfig.Color.Foreground}):Play()
         end)
-    
-        gui.InputChanged:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-                dragInput = input
+        KeyFrame_Frame_TextBox.FocusLost:Connect(function()
+            TweenService:Create(KeyFrame_FrameUIStroke, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Color = Color3.fromRGB(55, 55, 55)}):Play()
+        end)
+
+        KeyFrame_Frame_SubmitButton.MouseButton1Click:Connect(function()
+            if KeyFrame_Frame_TextBox.Text == Config.Key then
+                TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+                wait(0.5)
+                TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.6, 0)}):Play()
+                for i, v in pairs(realmasteroogwayKeyShadow.Parent:GetDescendants()) do
+                    if v:IsA("ImageLabel") or v:IsA("ImageButton") then
+                        TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 1}):Play()
+                    elseif v:IsA("Frame") then
+                        TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                    elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
+                        TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
+                        TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+                    elseif v:IsA("UIStroke") then
+                        TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 1}):Play()
+                    end
+                end
+                wait(0.5)
+                realmasteroogwayKey:Destroy()
+                wait(1)
+                guiloaded = true
+            else
+                --[[do nothing]]
             end
+
+            KeyFrame_Frame_SubmitButton.MouseEnter:Connect(function()
+                TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.2}):Play()
+            end)
+            KeyFrame_Frame_SubmitButton.MouseLeave:Connect(function()
+                TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            end)
+            KeyFrame_Frame_SubmitButton.MouseButton1Down:Connect(function()
+                TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0.5}):Play()
+            end)
+            KeyFrame_Frame_SubmitButton.MouseButton1Up:Connect(function()
+                TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.08,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+            end)
         end)
-    
-        runService.Heartbeat:Connect(Update)
-    end)
+
+        for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
+            if v:IsA("ImageLabel") or v:IsA("ImageButton") then
+                v.ImageTransparency = 1
+            elseif v:IsA("Frame") then
+                v.BackgroundTransparency = 1
+            elseif v:IsA("TextBox") or v:IsA("TextLabel") or v:IsA("TextButton") then
+                v.BackgroundTransparency = 1
+                v.TextTransparency = 1
+            elseif v:IsA("UIStroke") then
+                v.Transparency = 1
+            end
+        end
+        
+        TweenService:Create(realmasteroogwayKeyShadow, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Position = UDim2.new(0.5, 0, 0.5, 0), ImageTransparency = 0.4}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Close_Button, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency = 0}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_Beta_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0, TextTransparency = 0}):Play()
+        TweenService:Create(realmasteroogwayKeyShadow_Window_TopBar_KeySystem_Title, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+        TweenService:Create(realmasteroogway_Current_LoadingTXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 1}):Play()
+        TweenService:Create(KeyFrame_Frame, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
+        TweenService:Create(KeyFrame_Frame_TextBox, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+        TweenService:Create(KeyFrame_Frame_SubmitButton, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0, BackgroundTransparency = 0}):Play()
+        TweenService:Create(KeyFrame_Frame_Description_TXT, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{TextTransparency = 0}):Play()
+        
+        for i, v in pairs(realmasteroogwayKey:GetDescendants()) do
+            if v:IsA("UIStroke") then
+                TweenService:Create(v, TweenInfo.new(0.5,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
+            end
+        end
+        
+        task.spawn(function()
+            local UserInputService = game:GetService("UserInputService")
+            local runService = (game:GetService("RunService"));
+        
+            local gui = realmasteroogwayKeyShadow_Window_TopBar
+            local guitodrag = realmasteroogwayKeyShadow
+        
+            local dragging
+            local dragInput
+            local dragStart
+            local startPos
+        
+            function Lerp(a, b, m)
+                return a + (b - a) * m
+            end;
+        
+            local lastMousePos
+            local lastGoalPos
+            local DRAG_SPEED = (loadconfig.DragSpeed); -- // The speed of the UI darg.
+            function Update(dt)
+                if not (startPos) then return end;
+                if not (dragging) and (lastGoalPos) then
+                    realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
+                    return 
+                end;
+        
+                local delta = (lastMousePos - UserInputService:GetMouseLocation())
+                local xGoal = (startPos.X.Offset - delta.X);
+                local yGoal = (startPos.Y.Offset - delta.Y);
+                lastGoalPos = UDim2.new(startPos.X.Scale, xGoal, startPos.Y.Scale, yGoal)
+                realmasteroogwayKeyShadow.Position = UDim2.new(startPos.X.Scale, Lerp(realmasteroogwayKeyShadow.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(realmasteroogwayKeyShadow.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
+            end;
+        
+            gui.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    dragging = true
+                    dragStart = input.Position
+                    startPos = realmasteroogwayKeyShadow.Position
+                    lastMousePos = UserInputService:GetMouseLocation()
+        
+                    input.Changed:Connect(function()
+                        if input.UserInputState == Enum.UserInputState.End then
+                            dragging = false
+                        end
+                    end)
+                end
+            end)
+        
+            gui.InputChanged:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                    dragInput = input
+                end
+            end)
+        
+            runService.Heartbeat:Connect(Update)
+        end)
+    end
     local guicontinue = false
     if loadconfig.KeySystem.Enabled == false then
         guicontinue = true
