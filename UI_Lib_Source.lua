@@ -552,7 +552,7 @@ function realmasteroogway:Load(loadconfig)
     
         runService.Heartbeat:Connect(Update)
     end)
-
+    local guicontinue = false
     if loadconfig.KeySystem.Enabled == false then
         guicontinue = true
     end
