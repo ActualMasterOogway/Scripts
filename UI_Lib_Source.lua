@@ -52,7 +52,7 @@ function realmasteroogway:Load(loadconfig)
 		end)
 	end
     local realmasteroogwayKey = Instance.new("ScreenGui")
-    if loadconfig.KeySystem.Enabled then
+    if loadconfig.KeySystem.Enabled == true then
         realmasteroogwayKey.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         realmasteroogwayKey.Parent = game.CoreGui
         realmasteroogwayKey.Name = rmdname(18)
@@ -553,14 +553,10 @@ function realmasteroogway:Load(loadconfig)
             runService.Heartbeat:Connect(Update)
         end)
     end
-    local guicontinue = false
+
+    repeat task.wait() until guiloaded or loadconfig.KeySystem.Enabled == false
+
     if loadconfig.KeySystem.Enabled == false then
-        guicontinue = true
-    end
-
-    repeat task.wait() until guiloaded or guicontinue
-
-    if guicontinue then
         if realmasteroogwayKey then
             realmasteroogwayKey:Destroy()
         end
