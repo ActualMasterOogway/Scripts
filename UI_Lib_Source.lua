@@ -40,7 +40,7 @@ function realmasteroogway:Load(loadconfig)
 		ScreenGui.IgnoreGuiInset = true
 		ScreenGui.Enabled = false
 		TextButton.Parent = ScreenGui
-		TextButton.Size = UDim2.new()
+		TextButton.Size = UDim2.new(0, 0, 0, 0)
 		TextButton.BackgroundTransparency = 1
 		TextButton.Modal = true
 		TextButton.Text = ""
@@ -77,10 +77,10 @@ function realmasteroogway:Load(loadconfig)
     realmasteroogwayKeyShadow.Name = "realmasteroogwayKeyShadow"
     realmasteroogwayKeyShadow.ZIndex = 2
     realmasteroogwayKeyShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    realmasteroogwayKeyShadow.Size = UDim2.new(0.34375, 0, 0.125, 0) -- 660 135
+    realmasteroogwayKeyShadow.Size = UDim2.new(0.34375, 0, 0.1240740741, 0)
     realmasteroogwayKeyShadow.ClipsDescendants = true
     realmasteroogwayKeyShadow.BackgroundTransparency = 1
-    realmasteroogwayKeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0) -- 960 648
+    realmasteroogwayKeyShadow.Position = UDim2.new(0.5, 0, 0.6, 0)
     realmasteroogwayKeyShadow.BorderSizePixel = 0
     realmasteroogwayKeyShadow.ScaleType = Enum.ScaleType.Slice
     realmasteroogwayKeyShadow.ImageTransparency = 1
@@ -93,9 +93,9 @@ function realmasteroogway:Load(loadconfig)
     local realmasteroogwayKeyShadow_Window = Instance.new("Frame")
     realmasteroogwayKeyShadow_Window.Name = "realmasteroogwayKeyShadow_Window"
     realmasteroogwayKeyShadow_Window.ZIndex = 3
-    realmasteroogwayKeyShadow_Window.Size = UDim2.new(0.9848484848, 0, 0.9259259259, 0) -- 650 125
+    realmasteroogwayKeyShadow_Window.Size = UDim2.new(0.9848484848, 0, 0.9253731343, 0)
     realmasteroogwayKeyShadow_Window.ClipsDescendants = true
-    realmasteroogwayKeyShadow_Window.Position = UDim2.new(0.005208333333, 0, 0.007716049383, 0) -- 5 5
+    realmasteroogwayKeyShadow_Window.Position = UDim2.new(0, 5, 0, 5)
     realmasteroogwayKeyShadow_Window.BorderSizePixel = 0
     realmasteroogwayKeyShadow_Window.BackgroundColor3 = loadconfig.Color.Background
     realmasteroogwayKeyShadow_Window.Parent = realmasteroogwayKeyShadow
@@ -115,8 +115,8 @@ function realmasteroogway:Load(loadconfig)
     local realmasteroogwayKeyShadow_Window_Outline = Instance.new("Frame")
     realmasteroogwayKeyShadow_Window_Outline.Name = "realmasteroogwayKeyShadow_Window_Outline"
     realmasteroogwayKeyShadow_Window_Outline.ZIndex = 4
-    realmasteroogwayKeyShadow_Window_Outline.Size = UDim2.new(1, 0, 0.008, 0) -- 650 1
-    realmasteroogwayKeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 0.272) -- 0 34
+    realmasteroogwayKeyShadow_Window_Outline.Size = UDim2.new(0, 650, 0, 1)
+    realmasteroogwayKeyShadow_Window_Outline.Position = UDim2.new(0, 0, 0, 34)
     realmasteroogwayKeyShadow_Window_Outline.BorderSizePixel = 0
     realmasteroogwayKeyShadow_Window_Outline.BackgroundColor3 = loadconfig.Color.Foreground
     realmasteroogwayKeyShadow_Window_Outline.Parent = realmasteroogwayKeyShadow_Window
@@ -124,7 +124,7 @@ function realmasteroogway:Load(loadconfig)
     local realmasteroogwayKeyShadow_Window_TopBar = Instance.new("Frame")
     realmasteroogwayKeyShadow_Window_TopBar.Name = "realmasteroogwayKeyShadow_Window_TopBar"
     realmasteroogwayKeyShadow_Window_TopBar.ZIndex = 4
-    realmasteroogwayKeyShadow_Window_TopBar.Size = UDim2.new(1, 0, 0, 0.272) -- 650 34
+    realmasteroogwayKeyShadow_Window_TopBar.Size = UDim2.new(0, 650, 0, 34)
     realmasteroogwayKeyShadow_Window_TopBar.BorderSizePixel = 0
     realmasteroogwayKeyShadow_Window_TopBar.BackgroundColor3 = Color3.fromRGB(11, 11, 11)
     realmasteroogwayKeyShadow_Window_TopBar.Parent = realmasteroogwayKeyShadow_Window
@@ -553,7 +553,7 @@ function realmasteroogway:Load(loadconfig)
         runService.Heartbeat:Connect(Update)
     end)
 
-    if loadconfig.KeySystem.Enabled == true then
+    if loadconfig.KeySystem.Enabled == false then
         guicontinue = true
     end
 
@@ -1050,7 +1050,7 @@ function realmasteroogway:Load(loadconfig)
         Container.Position = UDim2.new(0, -4, 0, -8)
         Container.Size = UDim2.new(0, 650, 0, 370)
         Container.ZIndex = 5
-        Container.CanvasSize = UDim2.new()
+        Container.CanvasSize = UDim2.new(0, 0, 0, 0)
         Container.ScrollBarThickness = 0
         Container.Visible = false
         
@@ -1435,7 +1435,7 @@ function realmasteroogway:Load(loadconfig)
             TweenService:Create(OutlineUIStroke, TweenInfo.new(0.8,Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Transparency = 0}):Play()
         end
 
-        function Container:TextBox(textboxconfig: table)
+        function Container:TextBox(textboxconfig)
             textboxconfig.Callback = textboxconfig.Callback or function() end
             local TextBoxFrame = Instance.new("TextButton")
             local TextBoxFrameUICorner = Instance.new("UICorner")
@@ -1914,7 +1914,7 @@ function realmasteroogway:Load(loadconfig)
             SliderButton_Frame_InnerButton.Name = "SliderButton_Frame_InnerButton"
             SliderButton_Frame_InnerButton.ZIndex = 10
             SliderButton_Frame_InnerButton.Size = UDim2.new(0, 296, 0, 4)
-            SliderButton_Frame_InnerButton.Position = UDim2.new()
+            SliderButton_Frame_InnerButton.Position = UDim2.new(0, 0, 0, 0)
             SliderButton_Frame_InnerButton.BorderSizePixel = 0
             SliderButton_Frame_InnerButton.BackgroundColor3 = loadconfig.Color.Foreground
             SliderButton_Frame_InnerButton.AutoButtonColor = false
@@ -1961,24 +1961,23 @@ function realmasteroogway:Load(loadconfig)
             local mouse = game.Players.LocalPlayer:GetMouse()
             local uis = game:GetService("UserInputService")
             local Value = minvalue
-            local releaseconnection = nil
-            local moveconnection
+            
+            
             
             
             -----Main Code-----
             
             SliderButton_Frame_InnerButton.MouseButton1Down:Connect(function()
                 Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue)) or 0
-                SliderButton_Val.Text = Value
                 task.spawn(pcall, callback, Value)
                 SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
-                moveconnection = mouse.Move:Connect(function()
+                local moveconnection = mouse.Move:Connect(function()
                     SliderButton_Val.Text = Value
                     Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
                     task.spawn(pcall, callback, Value)
                     SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                 end)
-                releaseconnection = uis.InputEnded:Connect(function(Mouse)
+                local releaseconnection = nil; releaseconnection = uis.InputEnded:Connect(function(Mouse)
                     if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
                         Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
                         task.spawn(pcall, callback, Value)
@@ -1990,20 +1989,14 @@ function realmasteroogway:Load(loadconfig)
                 end)
             end)
 
-            SliderButton_Frame_InnerButton.MouseButton1Click:Connect(function()
-                moveconnection:Disconnect()
-                releaseconnection:Disconnect()
-            end)
-
             return setmetatable({
-                RawSet = function(value, ...)
-                    assert(tonumber(value), 'i really expected a number instead of a '..typeof(value).." to be honest :shrug:")
-                    SliderButton_Val.Text = value
-                    Value = tonumber(value)
-                    SliderButton_FrameInnerFrame:TweenSize(UDim2.new(Value / maxvalue, 0, 0, 4), "InOut", "Quad", 0.05, true)
+                RawSet = function(value)
+                    SliderButton_Val.Text = Value
+                    Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
+                    SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                 end
             }, {
-                __index = function(table, key, ...)
+                __index = function(table, key)
                     if key == "Value" then
                         return Value
                     elseif key == "Container" then
@@ -2017,13 +2010,12 @@ function realmasteroogway:Load(loadconfig)
                     end
                 end,
                 
-                __newindex = function(table, key, value, ...)
+                __newindex = function(table, key, value)
                     if key == "Value" then
-                        assert(tonumber(value), 'i really expected a number instead of a '..typeof(value).." to be honest :shrug:")
                         SliderButton_Val.Text = value
-                        Value = value
+                        Value = math_floor((((tonumber(maxvalue) - tonumber(minvalue)) / 296) * SliderButton_FrameInnerFrame.AbsoluteSize.X) + tonumber(minvalue))
                         task.spawn(pcall, callback, Value)
-                        SliderButton_FrameInnerFrame:TweenSize(UDim2.new(Value / maxvalue, 0, 0, 4), "InOut", "Quad", 0.05, true)
+                        SliderButton_FrameInnerFrame:TweenSize(UDim2.new(0, math.clamp(mouse.X - SliderButton_FrameInnerFrame.AbsolutePosition.X, 0, 296), 0, 4), "InOut", "Quad", 0.05, true)
                     elseif key == "Container" then
                         if value == "Left" then
                             SliderButton.Parent = ContainerLeft
@@ -2035,11 +2027,11 @@ function realmasteroogway:Load(loadconfig)
                     end
                 end,
 
-                __gc = function(table, ...)
+                __gc = function(table)
                     return nil
                 end,
 
-                __call = function(table, ...)
+                __call = function(table, key, value)
                     return Value
                 end,
             })
@@ -2141,7 +2133,7 @@ function realmasteroogway:Load(loadconfig)
             DropdownScrollingFrame.Size = UDim2.new(0, 316, 0, 0)
             DropdownScrollingFrame.ZIndex = 8
             DropdownScrollingFrame.BottomImage = "http://www.roblox.com/asset/?id=10083890741"
-            DropdownScrollingFrame.CanvasSize = UDim2.new()
+            DropdownScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
             DropdownScrollingFrame.MidImage = "http://www.roblox.com/asset/?id=10083890741"
             DropdownScrollingFrame.ScrollBarThickness = 0
             DropdownScrollingFrame.TopImage = "http://www.roblox.com/asset/?id=10083890741"
