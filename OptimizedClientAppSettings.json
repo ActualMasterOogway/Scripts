@@ -70,5 +70,6 @@
   "FFlagGlobalWindRendering": "False",
   "FIntGeometryBufferMaxElementsGrass": "0",
   "FFlagCoreGuiTypeSelfViewPresent": "False",
-  "DFFlagFacialAnimationStreaming2": "False"
+  "DFFlagFacialAnimationStreaming2": "False",
+  "DFIntTaskSchedulerTargetFps": 500
 }
