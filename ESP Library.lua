@@ -65,7 +65,6 @@ end
 -- Functions
 
 function ESP:Add(root, options)
-    if self.__index.__index.__index ~= ESP.__index then return error("Expected ':' not '.' calling member function Add", 5) end
     if self.Containers[root] then
         self:Remove(root)
     end
@@ -137,7 +136,6 @@ function ESP:Add(root, options)
 end
 
 function ESP:Remove(root)
-    if self.__index.__index.__index ~= ESP.__index then return error("Expected ':' not '.' calling member function Remove", 5) end
     local container = self.Containers[root]
 
     if container then
