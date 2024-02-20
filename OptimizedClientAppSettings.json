@@ -1,4 +1,5 @@
 {
+  "DFFlagDebugEnableInterpolationVisualizer": "True",
   "FFlagHandleAltEnterFullscreenManually": "False",
   "FLogNetwork": "7",
   "FFlagDisableNewIGMinDUA": "True",
