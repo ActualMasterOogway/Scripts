@@ -18,7 +18,6 @@ local Plr, searchCache, tpQueue, clipboard, modules = game.Players.LocalPlayer, 
     ["Simulation"] = "https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua", -- aliens are among us, we live in a simulation
     ["QuickList"] = "https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua",
     ["Stringify"] = "https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua",
-    ["Hydroxide"] = "",
     [""] = "",
 }
 
