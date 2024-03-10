@@ -17,7 +17,9 @@ local Plr, searchCache, tpQueue, clipboard, modules = game.Players.LocalPlayer, 
     ["ZZLib"] = "https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua",
     ["Simulation"] = "https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua", -- aliens are among us, we live in a simulation
     ["QuickList"] = "https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua",
-    [""] = ""
+    ["Stringify"] = "https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua",
+    ["Hydroxide"] = "",
+    [""] = "",
 }
 
 local function searchFunc(names: table, e): table
@@ -333,10 +335,10 @@ local Functions = {
                 return unpack(ret)
             end)
         end)(),
-    LoadAsync = function(url)
+    LoadAsync = function(self, url)
         return Krnl and Krnl.LoadAsync and Krnl:LoadAsync(url) or loadstring(game:HttpGetAsync(url))()
     end,
-    Require = function(moduleName)
+    Require = function(self, moduleName)
         if modules[moduleName] then
             if typeof(modules[moduleName]) == "string" then
                 local e = loadstring(game:HttpGetAsync(moduleName))()
@@ -388,6 +390,18 @@ Functions.GetMT = function(...) local mt = getrawmetatable(...) Functions.SetRea
 Functions.JSDecode = function(...) return Functions.Service.HttpService:JSONDecode(...) end
 
 Functions.JSEncode = function(...) return Functions.Service.HttpService:JSONEncode(...) end
+
+Functions.GetFingerprint = function()
+    for i, v in next, Functions.JSDecode(Functions.Request({Url = "https://httpbin.org/get", Method = "GET"}).Body).headers do
+        if type(i) == "string" and (i:lower():match("fingerprint") or i:lower():match("hwid") or i:lower():match("identifier")) then
+            return v
+        end
+    end
+end
+
+Functions.GetClientID = function()
+    return Functions.Service.RbxAnalyticsService:GetClientId()
+end
 
 Functions.ProtectInstance = searchFunc{"protect_gui"} or
 function(...) return ...end
