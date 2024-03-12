@@ -1,38 +1,37 @@
 -- // Variables \\ --
 
--- Babyhamsta bypasses https://web.archive.org/web/20240309210243/https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua"))()
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua"))() -- Babyhamsta bypasses https://web.archive.org/web/20240309210243/https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Bypasses.lua
 
 local Plr, searchCache, tpQueue, clipboard, modules = game.Players.LocalPlayer, {}, {}, "", {
     -- // Krnl Built In Ones \\ --
 
-    ["Hook"] = "https://gist.githubusercontent.com/richie0866/dfff74c366c141a681b580f613f7962f/raw/d89456887e62a8d5a36da0317f25454c433fa0bb/Hook.lua",
-    ["Promise"] = "https://gist.github.com/richie0866/f7c56370664cd8b6d13b02e70529fc86/raw/6e945905b6a1106276cf8b128893c2b50997a00f/Promise.lua",
-    ["Thread"] = "https://gist.githubusercontent.com/richie0866/89a30f80b1562678a2d554c18c0a022f/raw/b53d733b2a52788648008d3bd7e553ea286f1d1e/Thread.lua",
-    ["Maid"] = "https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua",
-    ["Signal"] = "https://gist.githubusercontent.com/richie0866/98879ede8725238d6eb8523774ec31b9/raw/7a4a57334056de0fe84f602315ba5c45524b57d9/Signal.lua",
+    ["Hook"] = "https://gist.githubusercontent.com/richie0866/dfff74c366c141a681b580f613f7962f/raw/d89456887e62a8d5a36da0317f25454c433fa0bb/Hook.lua", -- https://web.archive.org/web/20240310095759/https://gist.githubusercontent.com/richie0866/dfff74c366c141a681b580f613f7962f/raw/d89456887e62a8d5a36da0317f25454c433fa0bb/Hook.lua
+    ["Promise"] = "https://gist.github.com/richie0866/f7c56370664cd8b6d13b02e70529fc86/raw/6e945905b6a1106276cf8b128893c2b50997a00f/Promise.lua", -- https://web.archive.org/web/20240310095553/https://gist.githubusercontent.com/richie0866/f7c56370664cd8b6d13b02e70529fc86/raw/6e945905b6a1106276cf8b128893c2b50997a00f/Promise.lua
+    ["Thread"] = "https://gist.githubusercontent.com/richie0866/89a30f80b1562678a2d554c18c0a022f/raw/b53d733b2a52788648008d3bd7e553ea286f1d1e/Thread.lua", --https://web.archive.org/web/20240310095750/https://gist.githubusercontent.com/richie0866/89a30f80b1562678a2d554c18c0a022f/raw/b53d733b2a52788648008d3bd7e553ea286f1d1e/Thread.lua
+    ["Maid"] = "https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua", -- https://web.archive.org/web/20240310095606/https://raw.githubusercontent.com/Quenty/NevermoreEngine/version2/Modules/Shared/Events/Maid.lua
+    ["Signal"] = "https://gist.githubusercontent.com/richie0866/98879ede8725238d6eb8523774ec31b9/raw/7a4a57334056de0fe84f602315ba5c45524b57d9/Signal.lua", -- https://web.archive.org/web/20240310095651/https://gist.githubusercontent.com/richie0866/98879ede8725238d6eb8523774ec31b9/raw/7a4a57334056de0fe84f602315ba5c45524b57d9/Signal.lua
 
     -- // Custom Ones \\ --
 
-    ["ZZLib"] = "https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua",
-    ["Simulation"] = "https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua", -- aliens are among us, we live in a simulation
-    ["QuickList"] = "https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua",
-    ["Stringify"] = "https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua",
-    [""] = "",
+    ["ZZLib"] = "https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua", -- https://web.archive.org/web/20240310095658/https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua
+    ["Simulation"] = "https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua", -- https://web.archive.org/web/20240310095806/https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua aliens are among us, we live in a simulation
+    ["QuickList"] = "https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua", -- https://web.archive.org/web/20240310095716/https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua
+    ["Stringify"] = "https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua", -- https://web.archive.org/web/20240310144054/https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua
+    ["ESP"] = "https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua", -- https://web.archive.org/web/20240312144743/https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua
 }
 
-local function searchFunc(names: table, e): table
+local function searchVar(names: table, type, e): table
     local tbl = e or getgenv()
     searchCache[tbl] = true
     for i,v in next, tbl do
         local Type = typeof(v)
-        if Type == "table" and searchCache[v] == nil then
-            local foundRecursive = searchFunc(names, v)
+        if Type == (type or "function") and table.find(names, i) then
+            return v
+        elseif Type == "table" and searchCache[v] == nil then
+            local foundRecursive = searchVar(names, v)
             if foundRecursive then
                 return foundRecursive
             end
-        elseif Type == "function" and table.find(names, i) then
-            return v
         end
     end
     return false
@@ -41,7 +40,7 @@ end
 -- https://web.archive.org/web/20240310100022/https://api.irisapp.ca/SourceViewer/Viewer.php?Script=https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua
 
 local Functions = {
-    IsExecClosure = searchFunc {
+    IsExecClosure = searchVar {
         "is_fluxus_closure",
         "is_sentinel_closure",
         "is_krnl_closure",
@@ -54,7 +53,7 @@ local Functions = {
     } or function()
             return false
         end,
-    SetThreadIdentity = searchFunc {
+    SetThreadIdentity = searchVar {
         "setthreadidentity",
         "set_thread_identity",
         "setthreadcontext",
@@ -62,7 +61,7 @@ local Functions = {
     } or function()
             return 0
         end,
-    GetThreadIdentity = searchFunc {
+    GetThreadIdentity = searchVar {
         "getthreadidentity",
         "get_thread_identity",
         "getthreadcontext",
@@ -70,31 +69,31 @@ local Functions = {
     } or function()
             return 0
         end,
-    Request = searchFunc {
+    Request = searchVar {
         "request",
         "http_request",
         "httprequest"
     } or function()
             return {Body = "404: Not Found", Success = false}
         end,
-    GetAsset = searchFunc {
+    GetAsset = searchVar {
         "getcustomasset"
     } or function()
             return ""
         end,
-    GetHUI = searchFunc {
+    GetHUI = searchVar {
         "gethui",
         "get_hidden_ui"
     } or function(...)
             return game.CoreGui
         end,
-    SetReadOnly = searchFunc {
+    SetReadOnly = searchVar {
         "setreadonly",
         "make_writeable"
     } or function(...)
             return ...
         end,
-    IsReadOnly = searchFunc {
+    IsReadOnly = searchVar {
         "isreadonly",
         "is_readonly",
         "is_read_only",
@@ -104,7 +103,7 @@ local Functions = {
     } or function()
             return true
         end,
-    GetSignalConnections = searchFunc {
+    GetSignalConnections = searchVar {
         "getconnections",
         "get_connections",
         "getsignalcons", 
@@ -115,7 +114,7 @@ local Functions = {
         end,
     CloneData = function(data)
         local cloneRef, cloneFun =
-            searchFunc {
+            searchVar {
                 "cloneref",
                 "clonereference"
             } or (function() -- took inspiration from https://github.com/Babyhamsta/RBLX_Scripts/blob/main/Universal/CloneRef.lua
@@ -142,7 +141,7 @@ local Functions = {
                     end
                 end
             end)(),
-            searchFunc {
+            searchVar {
                 "clonefunc",
                 "clonefunction"
             }
@@ -161,7 +160,7 @@ local Functions = {
         end,
     Clipboard = setmetatable({
         Set = function(node, spaces)
-            local SetCB, copyType = searchFunc {
+            local SetCB, copyType = searchVar {
                 "setclipboard",
                 "set_clipboard",
                 "set_clip_board",
@@ -244,7 +243,7 @@ local Functions = {
             SetCB(node)
             clipboard = node
         end,
-        Get = searchFunc {
+        Get = searchVar {
             "getclipboard",
             "get_clipboard",
             "get_clip_board"
@@ -254,7 +253,7 @@ local Functions = {
         }, {}),
     Executor = (function() -- im mentally ill
             local exploitcheck =
-                searchFunc {
+                searchVar {
                     "identifyexecutor",
                     "getexecutor",
                     "getexecutorname"
@@ -264,11 +263,11 @@ local Functions = {
                 end
             return exploitcheck()
         end)(),
-    IsRobloxActive = searchFunc {
+    IsRobloxActive = searchVar {
         "iswindowactive",
         "isrbxactive"
     },
-    SecureCall = searchFunc {
+    SecureCall = searchVar {
         "KRNL_SAFE_CALL",
         "securecall",
         "secure_call"
@@ -347,9 +346,22 @@ local Functions = {
                 return modules[moduleName]
             end
         else
-            error(`"Attempt to require an unsupported module (Krnl:Require('{moduleName}'))`)
+            error(debug.traceback(`Attempt to require an unsupported module (UN:Require('{moduleName}'))`))
         end
-    end
+    end,
+    Base64 = searchVar({
+            "base64",
+            "Base64"
+        }, "table") or 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Reselim/Base64/master/Base64.lua"))(), -- https://web.archive.org/web/20240312134234/https://raw.githubusercontent.com/Reselim/Base64/master/Base64.lua
+    Crypt = searchVar({
+            "crypt",
+            "Crypt"
+        }, "table") or 
+        -- TODO: Implement custom crypt Library
+        {
+        
+        }
 }
 
 -- // Misc Functions \\ --
@@ -378,7 +390,7 @@ local Egame, Esettings, Eusersettings, rget, rset = game, settings(), UserSettin
 Functions.Service = setmetatable({}, {__index = function(self, ServiceName)
 	local Service = rget(self, ServiceName)
     if Service == nil then
-        Service = Egame:GetService(ServiceName) or Esettings:GetService(ServiceName) or Eusersettings:GetService(ServiceName)
+        Service = Egame:GetService(ServiceName) or Esettings:GetService(ServiceName) or Eusersettings:GetService(ServiceName) or Functions[ServiceName]
         rset(self, ServiceName, Service)
     end
     return Service
@@ -402,13 +414,13 @@ Functions.GetClientID = function()
     return Functions.Service.RbxAnalyticsService:GetClientId()
 end
 
-Functions.ProtectInstance = searchFunc{"protect_gui"} or
+Functions.ProtectInstance = searchVar{"protect_gui"} or
 function(...) return ...end
 
 Functions.Teleport = setmetatable({
     Queue = setmetatable(tpQueue, {
         __call = function(Script)
-            local queueTPf = searchFunc{"queue_on_teleport"}
+            local queueTPf = searchVar{"queue_on_teleport"}
             if queueTPf then
                 queueTPf(Script)
                 tpQueue[#tpQueue + 1] = Script
@@ -431,7 +443,7 @@ Functions.Teleport = setmetatable({
         end
     }),
     ClearQueue = function()
-        local cleartpq = searchFunc{"clear_teleport_queue"}
+        local cleartpq = searchVar{"clear_teleport_queue"}
         if cleartpq then
             cleartpq()
             tpQueue = {}
