@@ -19,7 +19,8 @@ local waitForChild = game.WaitForChild
 local GetPivot = Char.GetPivot
 local WTVP = Camera.WorldToViewportPoint
 local Con1, Con2
-local Instance_new, Color3_new, math_max = Instance.new, Color3.new, math.max
+local Instance_new, Color3_new, math_max, findFirstChildOfClass, findFirstChild = Instance.new, Color3.new, math.max, game.FindFirstChildOfClass, game.FindFirstChild
+local cf0 = CFrame.new()
 
 local ESP = setmetatable({
     Containers = {},
@@ -80,7 +81,6 @@ function ESP:Add(root, options)
     if self.Containers[root] then
         self:Remove(root)
     end
-
     -- Container
     
     local player, Settings = getPlayerFromRoot(root), self()
@@ -96,47 +96,37 @@ function ESP:Add(root, options)
         Connections = {},
         Draw = {},
     }
-
     -- Draw
-
     local nameLabel = Drawing_new("Text")
     local statsLabel = Drawing_new("Text")
     local tracer = Drawing_new("Line")
     local outline = Instance_new("Highlight")
-
     nameLabel.Center = true
     nameLabel.Color = container.Color
     nameLabel.Outline = true
     nameLabel.Size = Settings.TextSize
     nameLabel.Text = container.Name
-
     statsLabel.Center = true
     statsLabel.Outline = true
     statsLabel.Color = Color3_new(1, 1, 1)
     statsLabel.Size = Settings.TextSize
-
     tracer.Visible = false
     tracer.Color = container.Color
     tracer.From = Settings.Tracer.From
     tracer.Thickness = Settings.Tracer.Thickness
-
     outline.Enabled = false
     outline.FillColor = container.Color
     outline.FillTransparency = 0.75
     outline.OutlineColor = container.Color
     outline.OutlineTransparency = 0
     outline.Parent = container.OutlineFocus
-
     -- Connections
-
     if player then
         container.Connections.changeTeam = player:GetPropertyChangedSignal("Team"):Connect(function()
             self:Remove(root)
         end)
     end
-
     -- Indexing
-
     container.Draw[#container.Draw + 1] = { Type = "Text", Name = "Name", Obj = nameLabel }
     container.Draw[#container.Draw + 1] = { Type = "Text", Name = "Stats", Obj = statsLabel }
     container.Draw[#container.Draw + 1] = { Type = "Line", Name = "Tracer", Obj = tracer }
@@ -149,7 +139,6 @@ end
 function ESP:Remove(root)
     if self ~= ESP then return error(debug.traceback("Expected ':' not '.' calling member function Remove"), 5) end
     local container = self.Containers[root]
-
     if container then
         container.Active = false
         
@@ -162,7 +151,6 @@ function ESP:Remove(root)
             v.Obj[v.Type == "Outline" and "Destroy" or "Remove"](v.Obj)
             v = nil
         end
-
         self.Containers[root] = nil
     end
 end
@@ -178,18 +166,16 @@ function ESP:Unload()
 end
 
 -- Scripts
-
 Con1 = Plr.CharacterAdded:Connect(onCharacterAdded)
 Con2 = Players.PlayerRemoving:Connect(function(player) if player == Plr then Drawing_clear() end end)
-
 ESP.__index = ESP
 
 ESP.UpdateConnection = RunService.Stepped:Connect(function()
     for root, container in next, ESP.Containers do
         if isAlive(root) then
-        	local rootPos = (isA(root, "BasePart") and root.CFrame or isA(root, "Model") and GetPivot(root)).Position
-            local screenPos, onScreen, Settings = getWTVP(rootPos), ESP()
-
+        	local rootPos = (isA(root, "PVInstance") and GetPivot(root) or isA(root, "Player") and root.Character and findFirstChild(root.Character, "HumanoidRootPart") and root.Character.HumanoidRootPart.CFrame or cf0).Position
+            local screenPos, onScreen = getWTVP(rootPos)
+            local Settings = ESP()
             if onScreen and container.Active and (Root.Position - rootPos).Magnitude < container.MaxDistance then
                 local texts = 0
                 for _, v in next, container.Draw do
@@ -201,7 +187,6 @@ ESP.UpdateConnection = RunService.Stepped:Connect(function()
                 for i = 1, #container.Draw do
                     local v = container.Draw[i]
                     local color = container.Color or Settings.Rainbow and Color3.fromHSV(tick() % 5 / 5, 1, 1) or Color3.new(1,1,1)
-
                     if v.Type ~= "Outline" then
                         if v.Type == "Text" then
                             v.Obj.Size = Settings.TextSize
@@ -211,10 +196,9 @@ ESP.UpdateConnection = RunService.Stepped:Connect(function()
                                 v.Obj.Text = container.Name
     
                             elseif v.Name == "Stats" then
-                                local dist = Settings.Distance and "[ ".. (math_floor((rootPos - Root.Position).Magnitude)).. " ]" or ""
-                                local Phealth = Settings.Health.Enabled and Settings.Health.Percentage and root:FindFirstChildOfClass("Humanoid") and "\n [ ".. (math_floor(100 / root:FindFirstChildOfClass("Humanoid").MaxHealth * root:FindFirstChildOfClass("Humanoid").Health * 10) / 10).. "% ]" or ""
-                                local Rhealth = Settings.Health.Enabled and Settings.Health.RealValue and root:FindFirstChildOfClass("Humanoid") and "\n [ "..(math_floor(root:FindFirstChildOfClass("Humanoid").Health / 100) * 100).."/"..(math_floor(root:FindFirstChildOfClass("Humanoid").MaxHealth / 100) * 100).." ]" or ""
-
+                                local dist, humanoid = Settings.Distance and "[ ".. (math_floor((rootPos - Root.Position).Magnitude)).. " ]" or "", findFirstChildOfClass(root, "Humanoid")
+                                local Phealth = Settings.Health.Enabled and Settings.Health.Percentage and humanoid and "\n [ ".. (math_floor(100 / humanoid.MaxHealth * humanoid.Health * 10) / 10).. "% ]" or ""
+                                local Rhealth = Settings.Health.Enabled and Settings.Health.RealValue and humanoid and "\n [ "..(math_floor(humanoid.Health / 100) * 100).."/"..(math_floor(humanoid.MaxHealth / 100) * 100).." ]" or ""
                                 v.Obj.Text = dist..Rhealth..Phealth
                             end
     
@@ -236,9 +220,7 @@ ESP.UpdateConnection = RunService.Stepped:Connect(function()
                         end
                         
                         v.Obj.Enabled = Settings.Outline
-
                         -- Refresh outline visibility
-
                         v.Obj.Parent = game
                         v.Obj.Parent = container.OutlineFocus
                     end
