@@ -22,15 +22,17 @@ local Plr, searchCache, tpQueue, clipboard, modules = game.Players.LocalPlayer, 
 
 local function searchVar(names: table, type, e): table
     local tbl = e or getgenv()
-    searchCache[tbl] = true
-    for i,v in next, tbl do
-        local Type = typeof(v)
-        if Type == (type or "function") and table.find(names, i) then
-            return v
-        elseif Type == "table" and searchCache[v] == nil then
-            local foundRecursive = searchVar(names, v)
-            if foundRecursive then
-                return foundRecursive
+    if not searchCache[tbl] then
+        searchCache[tbl] = true
+        for i,v in next, tbl do
+            local Type = typeof(v)
+            if Type == (type or "function") and table.find(names, i) then
+                return v
+            elseif Type == "table" then
+                local foundRecursive = searchVar(names, v)
+                if foundRecursive then
+                    return foundRecursive
+                end
             end
         end
     end
@@ -361,7 +363,14 @@ local Functions = {
         -- TODO: Implement custom crypt Library
         {
         
-        }
+    },
+    SaveInstance = searchVar{
+        "saveinstance",
+        "SaveInstance",
+        "Saveinstance",
+        "saveInstance"
+    } or
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true))() -- https://web.archive.org/web/20240313165954/https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau
 }
 
 -- // Misc Functions \\ --
@@ -497,6 +506,7 @@ makefolder("realmasteroogway_debris")
 Functions.Service.Players.PlayerRemoving:Connect(function(player)
     if player == Plr then
         delfolder("realmasteroogway_debris")
+        Drawing.clear()
     end
 end)
 
