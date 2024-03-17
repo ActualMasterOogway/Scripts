@@ -72,9 +72,9 @@
   "FIntGeometryBufferMaxElementsGrass": "0",
   "FFlagCoreGuiTypeSelfViewPresent": "False",
   "DFFlagFacialAnimationStreaming2": "False",
-  "DFIntTaskSchedulerTargetFps": 500,
+  "DFIntTaskSchedulerTargetFps": 240,
   "DFFlagEnableDynamicHeadByDefault": "False",
   "FFlagAdServiceEnabled": "False",
-  "FFlagEnableInGameMenuChrome": "True".
+  "FFlagEnableInGameMenuChrome": "True",
   "FIntCameraMaxZoomDistance": "99999"
 }
