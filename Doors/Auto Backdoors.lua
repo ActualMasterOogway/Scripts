@@ -1,4 +1,4 @@
--- made by realmasteroogway 
+-- made by realmasteroogway
 -- .gg/6h4pG5Py7P
 
 -- \\ Services / Variables // --
@@ -46,7 +46,7 @@ local function GetAsset(Room, Name)
     return asset
 end
 
-local function CreatePath(part: PVInstance, Condition, Y)
+local function CreatePath(part: PVInstance, Y, Condition)
     local targetPos = (typeof(part) == "Vector3" and part or part:GetPivot().Position) - Vector3.new(0, Y or 10, 0)
 
     while (Condition and Condition()) or (Collision.Position.Y - targetPos.Y) > 0.2 and task.wait() do
@@ -78,11 +78,11 @@ end
 
 -- \\ Walk // --
 
-for i = 1, 51 do
+for i = 1, 51 do -- hi kiwibird, here to take some "inspiration" or what?
     local Room, blitz = GetRoom(), workspace:FindFirstChild("BackdoorRush")
 
     if blitz and blitz:GetPivot().Position.Y >= Collision.Position.Y + 5 then
-        CreatePath(RootPart, nil, 20)
+        CreatePath(RootPart, 20)
         blitz = workspace:FindFirstChild("BackdoorRush")
         if blitz then
             repeat task.wait() until blitz:GetPivot().Position.Y <= Collision.Position.Y + 10
@@ -102,7 +102,7 @@ for i = 1, 51 do
     end
     if Key then
         local Prompt = Room.Door.Lock:FindFirstChildOfClass("ProximityPrompt")
-        CreatePath((Room.Door.Door.CFrame * CFrame.new(0, 0, 3)).Position, nil, 9)
+        CreatePath((Room.Door.Door.CFrame * CFrame.new(0, 0, 3)).Position, 9)
         CamScript.Disabled = true
         workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Room.Door.Lock.Position)
         VIM:SendKeyEvent(true, Prompt.KeyboardKeyCode, false, game)
@@ -111,7 +111,7 @@ for i = 1, 51 do
         CamScript.Disabled = false
     else
         if LatestRoom.Value == 50 then
-            CreatePath((Room.Backdoors_Exit.Door.CFrame * CFrame.new(0, 0, 3)).Position, nil, -2)
+            CreatePath((Room.Backdoors_Exit.Door.CFrame * CFrame.new(0, 0, 3)).Position, -2)
             setupFly(false)
             break
         else
