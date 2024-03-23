@@ -28,13 +28,15 @@ local Plr, searchCache, tpQueue, clipboard, modules =
 local function searchVar(names: table, type, e): table
     local tbl = e or getgenv()
     if not searchCache[tbl] then
-        searchCache[tbl] = true
+        if e then
+            searchCache[tbl] = true
+        end
         for i, v in next, tbl do
             local Type = typeof(v)
             if Type == (type or "function") and table.find(names, i) then
                 return v
             elseif Type == "table" then
-                local foundRecursive = searchVar(names, v)
+                local foundRecursive = searchVar(names, nil, v)
                 if foundRecursive then
                     return foundRecursive
                 end
@@ -43,6 +45,104 @@ local function searchVar(names: table, type, e): table
     end
     return false
 end
+
+export type HttpRequest = {
+    Url: string,
+    Method: string,
+    Body: string?,
+    Headers: table?,
+    Cookies: table?
+}
+
+export type HttpResponse = {
+    Body: string,
+    StatusCode: number,
+    StatusMessage: string,
+    Success: boolean,
+    Headers: table
+}
+
+export type Clipboard = {
+    Set: (data: string, tableSpaces: boolean?) -> nil,
+    Get: () -> string
+}
+
+export type Base64 = {
+    encode: (data: string) -> string,
+    decode: (data: string) -> string
+}
+
+export type Crypt = {}
+
+export type OTH = {}
+
+export type userdata = userdata
+
+export type Function = Function
+
+export type Functions = {
+    IsExecClosure: (func: Function) -> boolean,
+    SetThreadIdentity: (identity: number) -> nil,
+    GetThreadIdentity: () -> number,
+    Request: (options: {
+        Url: string,
+        Method: string,
+        Body: string?,
+        Headers: table?,
+        Cookies: table?
+    }) -> {
+        Body: string,
+        StatusCode: number,
+        StatusMessage: string,
+        Success: boolean,
+        Headers: table
+    },
+    GetAsset: (path: string, noCache: boolean?) -> string,
+    GetHUI: () -> CoreGui,
+    SetReadOnly: (table: table, value: boolean) -> nil,
+    IsReadOnly: (table: table) -> boolean,
+    GetSignalConnections: (signal: RBXScriptConnection, context: number?) -> table,
+    Clipboard: {
+        Set: (data: string, tableSpaces: boolean?) -> nil,
+        Get: () -> string
+    },
+    Executor: string,
+    IsRobloxActive: () -> boolean,
+    SecureCall: (func: Function, script: LuaSourceContainer, args: any) -> nil,
+    Base64: {
+        encode: (data: string) -> string,
+        decode: (data: string) -> string
+    },
+    Crypt: {
+
+    },
+    SaveInstance: (instance: Instance | table, options: table?) -> boolean,
+    ProtectInstance: (target: Instance) -> nil,
+    IsNetOwner: (instance: PVInstance) -> boolean,
+    OTH: OTH,
+    Service: {
+        [string]: Instance
+    },
+    Teleport: (placeId: number, player: Instance?, teleportData: any?, customLoadingScreen: Instance?) -> nil | {
+        Queue: (code: string) -> nil,
+        ClearQueue: () -> nil
+    },
+    UpValue: {
+        Set: (func: Function, upValue: number, newValue: any) -> nil,
+        Get: (func: Function, upValue: number) -> any,
+        Gets: (func: Function) -> table<upvalue, value>
+    },
+    CloneData: (toClone: Instance | Function | userdata) -> tuple<Instance | Function | userdata, boolean>,
+    Require: (moduleName: string) -> table,
+    GetMT: (instance: Instance) -> table,
+    JSDecode: (data: string) -> table,
+    JSEncode: (data: table) -> string,
+    GetFingerprint: () -> string,
+    GetClientID: () -> string,
+    GetPlayerByName: (name: string) -> Player,
+    LoadCustomAsset: (asset: string) -> string,
+    LoadCustomInstance: (asset: string) -> Instance
+}
 
 local Functions = {
     IsExecClosure = searchVar {
@@ -63,7 +163,11 @@ local Functions = {
         "setthreadidentity",
         "set_thread_identity",
         "setthreadcontext",
-        "set_thread_context"
+        "set_thread_context",
+        "setidentity",
+        "set_identity",
+        "setcontext",
+        "set_context"
     } or function()
             return 0
         end,
@@ -71,7 +175,11 @@ local Functions = {
         "getthreadidentity",
         "get_thread_identity",
         "getthreadcontext",
-        "get_thread_context"
+        "get_thread_context",
+        "getidentity",
+        "get_identity",
+        "getcontext",
+        "get_context"
     } or function()
             return 0
         end,
@@ -89,13 +197,18 @@ local Functions = {
         end,
     GetHUI = searchVar {
         "gethui",
-        "get_hidden_ui"
+        "get_hidden_ui",
+        "gethiddenui"
     } or function(...)
             return game.CoreGui
         end,
     SetReadOnly = searchVar {
         "setreadonly",
-        "make_writeable"
+        "set_readonly",
+        "make_writeable",
+        "makewriteable",
+        "makereadonly",
+        "make_readonly"
     } or function(...)
             return ...
         end,
@@ -128,7 +241,9 @@ local Functions = {
                     "set_clip_board",
                     "toclipboard",
                     "to_clipboard",
-                    "to_clip_board"
+                    "to_clip_board",
+                    "copystring",
+                    "copy_string"
                 }, 
                 typeof(node)
             if copyType == "table" then
@@ -138,53 +253,53 @@ local Functions = {
                 local output_str = `\{{space}`
                 while true do
                     local size = 0
-                    for k,v in next, node do
+                    for i,v in next, node do
                         size = size + 1
                     end 
                     local cur_index = 1
-                    for k,v in next, node do
-                        if (cache[node] == nil) or (cur_index >= cache[node]) then
-                            if (string.find(output_str,"}",output_str:len())) then
-                                output_str = output_str .. ","..space
+                    for i,v in next, node do
+                        if cache[node] == nil or cur_index >= cache[node] then
+                            if (string.find(output_str, "}", output_str:len())) then
+                                output_str = output_str..","..space
                             elseif not (string.find(output_str, space, output_str:len())) then
-                                output_str = output_str .. space
+                                output_str = output_str..space
                             end
                             output[#output + 1] = output_str
                             output_str = ""
                             local key
-                            if (type(k) == "number" or type(k) == "boolean") then
-                                key = "["..tostring(k).."]"
+                            if (type(i) == "number" or type(i) == "boolean") then
+                                key = "["..tostring(i).."]"
                             else
-                                key = "[\""..tostring(k).."\"]"
+                                key = "[\""..tostring(i).."\"]"
                             end
         
                             if (type(v) == "number" or type(v) == "boolean") then
-                                output_str = output_str .. string.rep('\t',depth) .. key .. " = "..tostring(v)
+                                output_str = output_str..string.rep('\t', depth)..key.." = "..tostring(v)
                             elseif (type(v) == "table") then
-                                output_str = output_str .. string.rep('\t',depth) .. key .. " = {"..space
+                                output_str = output_str..string.rep('\t', depth)..key.." = {"..space
                                 stack[#stack + 1] = node
                                 stack[#stack + 1] = v
-                                cache[node] = cur_index+1
+                                cache[node] = cur_index + 1
                                 break
                             else
-                                output_str = output_str .. string.rep('\t',depth) .. key .. " = \""..tostring(v).."\""
+                                output_str = output_str..string.rep('\t', depth)..key.." = \""..tostring(v).."\""
                             end
         
                             if (cur_index == size) then
-                                output_str = output_str .. space .. string.rep('\t',depth-1) .. "}"
+                                output_str = output_str..space..string.rep('\t', depth-1).."}"
                             else
-                                output_str = output_str .. ","
+                                output_str = output_str..","
                             end
                         else
                             if (cur_index == size) then
-                                output_str = output_str .. space .. string.rep('\t',depth-1) .. "}"
+                                output_str = output_str..space..string.rep('\t', depth-1).."}"
                             end
                         end
         
                         cur_index = cur_index + 1
                     end
                     if (size == 0) then
-                        output_str = output_str .. space .. string.rep('\t',depth-1) .. "}"
+                        output_str = output_str..space..string.rep('\t', depth-1).."}"
                     end
                     if (#stack > 0) then
                         node = stack[#stack]
@@ -217,7 +332,6 @@ local Functions = {
         {}
     ),
     Executor = (function()
-        -- im mentally ill
         local exploitcheck =
             searchVar {
             "identifyexecutor",
@@ -272,7 +386,7 @@ local Functions = {
                             table.remove(Lines, 1)
                             table.remove(Lines, #Lines - 1)
 
-                            return table.concat(Lines, "\n") .. "\n"
+                            return table.concat(Lines, "\n").."\n"
                         end
                     end
                     return stackTrace:match "[^\n\r]*\n?(.*)"
@@ -282,7 +396,7 @@ local Functions = {
             return newcclosure(
                 function(Function, Script, ...)
                     local old_env = getfenv()
-                    toProtect[Function] = Script:GetFullName() .. ":"
+                    toProtect[Function] = Script:GetFullName()..":"
                     local spoof_env = select(2, pcall(getsenv, Script))
                     spoof_env = (type(spoof_env) == "string" or not spoof_env) and getrenv() or spoof_env
                     spoof_env.script = spoof_env.script or Script
@@ -329,9 +443,7 @@ local Functions = {
         "Saveinstance",
         "saveInstance"
     } or
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true))(
-
-        ), -- https://web.archive.org/web/20240313165954/https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true))(), -- https://web.archive.org/web/20240313165954/https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau
     ProtectInstance = searchVar {
         "protect_gui",
         "protectgui",
@@ -339,7 +451,22 @@ local Functions = {
         "protectui"
     } or function(...) -- TODO: add custom protector (hook all finding methods, signals, and stop indexing) (a.k.a https://web.archive.org/web/20240310100022/https://api.irisapp.ca/SourceViewer/Viewer.php?Script=https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua)
             return ...
-        end
+        end,
+    IsNetOwner = searchVar {
+        "isnetworkowner", 
+        "is_network_owner"
+    } or function (instance: PVInstance)
+            return instance.ClassName == "Model" and instance.PrimaryPart and instance.PrimaryPart.RecieveAge == 0 or instance:IsA("BasePart") and instance.RecieveAge == 0
+        end,
+    OTH = searchVar(
+        {
+            "oth",
+            "OTH",
+            "Oth" -- ro exec moment, i should probably make the searchVar function make everything lowercase or smth
+        },
+        "table"
+    ) or -- TODO: Implement custom OTH Library
+        {}
 }
 
 -- // Misc Functions \\ --
@@ -349,13 +476,13 @@ local function convertToAsset(str)
         return Functions.GetAsset(str)
     elseif str:find("rbxassetid") or tonumber(str) then
         local numberId = str:gsub("%D", "")
-        return "rbxassetid://" .. numberId
+        return "rbxassetid://"..numberId
     elseif str:find("http") then
         local req = Functions.Request({Url = str, Method = "GET"})
 
         if req.Success then
-            local name = "customObject_" .. tick() .. ".txt"
-            writefile("realmasteroogway_debris\\" .. name, req.Body)
+            local name = "customObject_"..tick()..".txt"
+            writefile("realmasteroogway_debris\\"..name, req.Body)
             return Functions.GetAsset(name)
         end
     end
@@ -429,7 +556,10 @@ Functions.Teleport = setmetatable(
             tpQueue,
             {
                 __call = function(Script)
-                    local queueTPf = searchVar {"queue_on_teleport"}
+                    local queueTPf = searchVar {
+                        "queue_on_teleport",
+                        "queueonteleport"
+                    }
                     if queueTPf then
                         queueTPf(Script)
                         tpQueue[#tpQueue + 1] = Script
@@ -453,7 +583,10 @@ Functions.Teleport = setmetatable(
             }
         ),
         ClearQueue = function()
-            local cleartpq = searchVar {"clear_teleport_queue"}
+            local cleartpq = searchVar {
+                "clear_teleport_queue",
+                "clearteleportqueue"
+            }
             if cleartpq then
                 cleartpq()
                 tpQueue = {}
@@ -468,6 +601,21 @@ Functions.Teleport = setmetatable(
         end
     }
 )
+
+Functions.UpValue = setmetatable({
+    Set = searchVar{
+        "setupvalue",
+        "set_up_value"
+    },
+    Get = searchVar{
+        "getupvalue",
+        "get_up_value"
+    },
+    Gets = searchVar{
+        "getupvalues",
+        "get_up_values"
+    }
+})
 
 function Functions:CloneData(data)
     if typeof(data) == "Instance" and data.Parent ~= game then
@@ -491,7 +639,7 @@ end
 function Functions:Require(moduleName)
     if modules[moduleName] then
         if typeof(modules[moduleName]) == "string" then
-            local newlyLoadedModule = self:LoadAsync(moduleName)
+            local newlyLoadedModule = self:LoadAsync(modules[moduleName])
             modules[moduleName] = newlyLoadedModule
             return newlyLoadedModule
         else
@@ -517,10 +665,7 @@ end
 
 function Functions:GetFingerprint()
     for i, v in next, self.JSDecode(self.Request({Url = "https://httpbin.org/get", Method = "GET"}).Body).headers do
-        if
-            typeof(i) == "string" and
-                (i:lower():match("fingerprint") or i:lower():match("hwid") or i:lower():match("identifier"))
-         then
+        if typeof(i) == "string" and (i:lower():match("fingerprint") or i:lower():match("hwid") or i:lower():match("identifier")) then
             return v
         end
     end
@@ -548,9 +693,8 @@ end -- vynixu i luv u https://github.com/RegularVynixu/Utilities/blob/main/Funct
 
 function Functions:LoadCustomInstance(str)
     local r = ""
-    if str ~= "" then
-        local asset = convertToAsset(str)
-        local success, result = pcall(game.GetObjects, game, asset)
+    if str and str ~= "" then
+        local success, result = pcall(game.GetObjects, game, convertToAsset(str))
         r = result
         if success then
             return result[1]
@@ -560,6 +704,32 @@ function Functions:LoadCustomInstance(str)
     warn("Something went wrong attempting to load custom instance", r, debug.traceback(""))
 end -- vynixu W https://github.com/RegularVynixu/Utilities/blob/main/Functions.lua
 
+if game.PlaceId == 6839171747 then
+    Functions.Doors = {__index = Functions}
+
+    local deathHintFunc = (function()
+        local getFuncInfo, typeOf, collectgarbage = debug.getinfo, typeof, getgc
+        for i,v in next, collectgarbage(false) do
+            if typeOf(v) == "function" then
+                local info = getFuncInfo(v)
+                if info.currentline == 54 and info.nups == 2 and info.is_vararg == 0 then
+                    return v
+                end
+            end
+        end
+    end)()
+
+    function Functions.Doors:DeathHint(hints, type: string)
+        local funcs = self.__index
+        if hints ~= nil then
+            funcs.UpValue.Set(deathHintFunc, 1, hints)
+            if type ~= nil then
+                funcs.UpValue.Set(deathHintFunc, 2, type)
+            end
+        end
+    end
+end
+
 -- Scripts
 
 if isfolder("realmasteroogway_debris") then
@@ -567,13 +737,13 @@ if isfolder("realmasteroogway_debris") then
 end
 makefolder("realmasteroogway_debris")
 
-Functions.Service.Players.PlayerRemoving:Connect(
-    function(player)
-        if player == Plr then
-            delfolder("realmasteroogway_debris")
-            Drawing.clear()
-        end
+Functions.Service.Players.PlayerRemoving:Connect(function(player)
+    if player == Plr then
+        delfolder("realmasteroogway_debris")
+        Drawing.clear()
     end
-)
-
+end)
+for i,v in next, Functions.GetSignalConnections(Functions.Service.Players.PlayerRemoving) do
+    print(i,v)
+end
 return Functions
