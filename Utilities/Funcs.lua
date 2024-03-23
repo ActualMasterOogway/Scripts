@@ -617,6 +617,25 @@ Functions.UpValue = setmetatable({
     }
 }, {})
 
+Functions.Remote = {
+    Fire = setmetatable({
+        Server = Instance.new("RemoteFunction").InvokeServer,
+        ActualInvokeFrFr = Instance.new("BindableFunction").Invoke
+    }, {
+        __call = function(self, ...)
+            return self.ActualInvokeFrFr(...)
+        end
+    }),
+    Invoke = setmetatable({
+        Server = Instance.new("RemoteEvent").FireServer,
+        ActualFireFrFr = Instance.new("BindableEvent").Fire
+    }, {
+        __call = function(self, ...)
+            return self.ActualFireFrFr(...)
+        end
+    })
+}
+
 function Functions:CloneData(data)
     if typeof(data) == "Instance" and data.Parent ~= game then
         local oldArchivable = data.Archivable
@@ -708,7 +727,7 @@ if game.PlaceId == 6839171747 then
     Functions.Doors = {__index = Functions}
 
     local deathHintFunc = (function()
-        local getFuncInfo, typeOf, collectgarbage = debug.getinfo, typeof, getgc
+        local getFuncInfo, typeOf, collectgarbage = debug.getinfo or getinfo, typeof, getgc
         for i,v in next, collectgarbage(false) do
             if typeOf(v) == "function" then
                 local info = getFuncInfo(v)
@@ -743,7 +762,5 @@ Functions.Service.Players.PlayerRemoving:Connect(function(player)
         Drawing.clear()
     end
 end)
-for i,v in next, Functions.GetSignalConnections(Functions.Service.Players.PlayerRemoving) do
-    print(i,v)
-end
+
 return Functions
