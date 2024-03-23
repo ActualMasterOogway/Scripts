@@ -619,19 +619,19 @@ Functions.UpValue = setmetatable({
 
 Functions.Remote = {
     Fire = setmetatable({
-        Server = Instance.new("RemoteFunction").InvokeServer,
-        ActualInvokeFrFr = Instance.new("BindableFunction").Invoke
-    }, {
-        __call = function(self, ...)
-            return self.ActualInvokeFrFr(...)
-        end
-    }),
-    Invoke = setmetatable({
         Server = Instance.new("RemoteEvent").FireServer,
         ActualFireFrFr = Instance.new("BindableEvent").Fire
     }, {
         __call = function(self, ...)
             return self.ActualFireFrFr(...)
+        end
+    }),
+    Invoke = setmetatable({
+        Server = Instance.new("RemoteFunction").InvokeServer,
+        ActualInvokeFrFr = Instance.new("BindableFunction").Invoke
+    }, {
+        __call = function(self, ...)
+            return self.ActualInvokeFrFr(...)
         end
     })
 }
