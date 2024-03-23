@@ -615,7 +615,7 @@ Functions.UpValue = setmetatable({
         "getupvalues",
         "get_up_values"
     }
-})
+}, {})
 
 function Functions:CloneData(data)
     if typeof(data) == "Instance" and data.Parent ~= game then
