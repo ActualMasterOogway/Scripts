@@ -20,9 +20,10 @@ local Plr, searchCache, tpQueue, clipboard, modules =
 
         ["ZZLib"] = "https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua", -- https://web.archive.org/web/20240310095658/https://gist.githubusercontent.com/richie0866/dd558b64ba9e6da2b4e81a296ccb4d82/raw/a3fab8d1075c7477577a262ed84617d32b40f55b/zzlib.lua
         ["Simulation"] = "https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua", -- https://web.archive.org/web/20240310095806/https://gist.githubusercontent.com/richie0866/152b1491856bdca1bdc89d2ff0bfe871/raw/9b7e25f5531743615d77d83855b13fdac002088f/Simulation.lua aliens are among us, we live in a simulation
+        ["Smart Create"] = "https://gist.githubusercontent.com/Ashp116/ffacfd7ed7ceaede1dad1807ab3e17bb/raw/163663d284d912d9b09ee2df1b8c28eab597cabc/SmartCreate.lua", -- https://web.archive.org/web/20240324081732/https://gist.githubusercontent.com/Ashp116/ffacfd7ed7ceaede1dad1807ab3e17bb/raw/163663d284d912d9b09ee2df1b8c28eab597cabc/SmartCreate.lua
         ["QuickList"] = "https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua", -- https://web.archive.org/web/20240310095716/https://raw.githubusercontent.com/ActualMasterOogway/QuickList/main/QuickList.lua
         ["Stringify"] = "https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua", -- https://web.archive.org/web/20240310144054/https://raw.githubusercontent.com/Partixel/R-Stringify/master/MainModule.ModuleScript.lua
-        ["ESP"] = "https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua" -- https://web.archive.org/web/20240312144743/https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua
+        ["ESP"] = "https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua" -- https://web.archive.org/web/20240312144743/https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua,
     }
 
 local function searchVar(names: table, type, e): table
@@ -43,6 +44,7 @@ local function searchVar(names: table, type, e): table
             end
         end
     end
+    task.wait()
     return false
 end
 
@@ -617,7 +619,7 @@ Functions.UpValue = setmetatable({
     }
 }, {})
 
-Functions.Remote = {
+Functions.Remote = setmetatable({
     Fire = setmetatable({
         Server = Instance.new("RemoteEvent").FireServer,
         ActualFireFrFr = Instance.new("BindableEvent").Fire
@@ -634,7 +636,16 @@ Functions.Remote = {
             return self.ActualInvokeFrFr(...)
         end
     })
-}
+}, {
+    __call = function(self, remote, ...)
+        return typeof(remote) == "Instance" and (
+            remote.ClassName == "RemoteEvent" and self.Fire.Server(remote, ...) or
+            remote.ClassName == "BindableEvent" and self.Fire(remote, ...) or
+            remote.ClassName == "RemoteFunction" and self.Invoke.Server(remote, ...) or
+            remote.ClassName == "BindableFunction" and self.Invoke(remote, ...)
+        )
+    end
+})
 
 function Functions:CloneData(data)
     if typeof(data) == "Instance" and data.Parent ~= game then
