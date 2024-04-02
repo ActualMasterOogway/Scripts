@@ -26,6 +26,8 @@ local Plr, searchCache, tpQueue, clipboard, modules =
         ["ESP"] = "https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua" -- https://web.archive.org/web/20240312144743/https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Utilities/Vynixu%20ESP%20Edited.lua,
     }
 
+local debounce = 0
+
 local function searchVar(names: table, type, e): table
     local tbl = e or getgenv()
     if not searchCache[tbl] then
@@ -44,7 +46,10 @@ local function searchVar(names: table, type, e): table
             end
         end
     end
-    task.wait()
+    debounce += 1
+    if debounce % 15 == 0 then
+        task.wait()
+    end
     return false
 end
 
@@ -639,10 +644,10 @@ Functions.Remote = setmetatable({
 }, {
     __call = function(self, remote, ...)
         return typeof(remote) == "Instance" and (
-            remote.ClassName == "RemoteEvent" and self.Fire.Server(remote, ...) or
-            remote.ClassName == "BindableEvent" and self.Fire(remote, ...) or
-            remote.ClassName == "RemoteFunction" and self.Invoke.Server(remote, ...) or
-            remote.ClassName == "BindableFunction" and self.Invoke(remote, ...)
+            remote.ClassName:find("RemoteEvent") and self.Fire.Server(remote, ...) or
+            remote.ClassName:find("BindableEvent") and self.Fire(remote, ...) or
+            remote.ClassName:find("RemoteFunction") and self.Invoke.Server(remote, ...) or
+            remote.ClassName:find("BindableFunction") and self.Invoke(remote, ...)
         )
     end
 })
@@ -735,13 +740,14 @@ function Functions:LoadCustomInstance(str)
 end -- vynixu W https://github.com/RegularVynixu/Utilities/blob/main/Functions.lua
 
 if game.PlaceId == 6839171747 then
-    Functions.Doors = {__index = Functions}
+    Functions.Doors = setmetatable(Functions, {})
 
     local deathHintFunc = (function()
-        local getFuncInfo, typeOf, collectgarbage = debug.getinfo or getinfo, typeof, getgc
-        for i,v in next, collectgarbage(false) do
-            if typeOf(v) == "function" then
-                local info = getFuncInfo(v)
+        local getinfo, typeof, functions = debug.getinfo or getinfo, typeof, getgc(false)
+        for i = 1, #functions do
+            local v = functions[i]
+            if typeof(v) == "function" then
+                local info = getinfo(v)
                 if info.currentline == 54 and info.nups == 2 and info.is_vararg == 0 then
                     return v
                 end
@@ -749,8 +755,8 @@ if game.PlaceId == 6839171747 then
         end
     end)()
 
-    function Functions.Doors:DeathHint(hints, type: string)
-        local funcs = self.__index
+    function Functions.Doors:DeathHint(hints: table, type: string)
+        local funcs = self
         if hints ~= nil then
             funcs.UpValue.Set(deathHintFunc, 1, hints)
             if type ~= nil then
