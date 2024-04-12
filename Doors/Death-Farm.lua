@@ -14,6 +14,7 @@ for i,Err in pairs(game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("pr
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
 end
+
 if game.PlaceId == 6839171747 then
     repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true task.wait(1.25)
     local Hum: Humanoid = game.Players.LocalPlayer.Character.Humanoid
@@ -32,9 +33,12 @@ if game.PlaceId == 6839171747 then
     Hum.Parent:WaitForChild("Collision").CanCollide = false
     task.wait(.6)
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
-    Hum:MoveTo((workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position)
-    while (Hum.RootPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude > 1.3 and task.wait() do
-        print("not finished walking, grrrr", (Hum.RootPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude)
+
+    local targetPosition = (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position
+
+    while (Hum.RootPart.Position - targetPosition).Magnitude > 1.3 and task.wait() do
+        Hum.Parent.Collision.AssemblyLinearVelocity = (targetPosition - Hum.Parent.Collision.Position).Unit * 20.5
+        print("not finished walking, grrrr", (Hum.RootPart.Position - targetPosition).Magnitude)
     end
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = true
     task.wait()
