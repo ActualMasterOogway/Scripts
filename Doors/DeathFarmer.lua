@@ -28,6 +28,7 @@ if game.PlaceId == 6839171747 then
     fireproximityprompt(workspace.CurrentRooms["0"].StarterElevator.Model.Model.SkipButton.SkipPrompt)
     Hum.WalkSpeed = 21
     Hum.Parent:WaitForChild("Collision").CanCollide = false
+    task.wait(.6)
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
     Hum:MoveTo((workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position)
     Hum.MoveToFinished:Wait()
