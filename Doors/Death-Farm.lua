@@ -33,7 +33,8 @@ if game.PlaceId == 6839171747 then
     task.wait(.6)
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
     Hum:MoveTo((workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position)
-    Hum.MoveToFinished:Wait()
+    while (Hum.PrimaryPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude > 0.5 and task.wait() do
+    end
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = true
     task.wait()
     workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, workspace.CurrentRooms["0"].Door.Door.Position)
