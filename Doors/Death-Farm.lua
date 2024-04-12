@@ -4,13 +4,13 @@ local QTP = (syn and syn.queue_on_teleport) or queue_on_teleport
 repeat task.wait() until game.CoreGui task.wait(0.25)
 game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay").DescendantAdded:Connect(function(Err)
 	if Err.Name == "ErrorTitle" then task.wait(1.25)
-		QTP(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+		task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
 end)
 for i,Err in pairs(game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay"):GetDescendants()) do
 	if Err.Name == "ErrorTitle" then task.wait(1.25)
-		QTP(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+		task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
         game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
 	end
 end
@@ -49,7 +49,7 @@ if game.PlaceId == 6839171747 then
     game:GetService("VirtualInputManager"):SendKeyEvent(false, workspace.CurrentRooms["0"].Door.Lock.UnlockPrompt.KeyboardKeyCode, false, game)
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
     Hum.Health = 0
-    QTP(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
     game.ReplicatedStorage.RemotesFolder.PlayAgain:FireServer()
 elseif game.PlaceId == 6516141723 then
     repeat task.wait() until game:IsLoaded() and game.Players and game.Workspace and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChild("Health") and game.Players.LocalPlayer.Character:FindFirstChild("Sheesh") and game.Workspace:FindFirstChild("Lobby") and game.Workspace:FindFirstChild("Lobby"):FindFirstChild("LobbyElevators") local FoundFreeElevator = false task.wait(.5)
@@ -63,7 +63,7 @@ elseif game.PlaceId == 6516141723 then
         end
     end)
     repeat task.wait() until FoundFreeElevator ~= false task.wait()
-    QTP(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
     while true do
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FoundFreeElevator.CFrame
         firetouchinterest(FoundFreeElevator:FindFirstChild("TouchInterest"), game.Players.LocalPlayer.Character.Head, 0) 
@@ -71,6 +71,6 @@ elseif game.PlaceId == 6516141723 then
         task.wait()
     end
 else
-    QTP(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
     game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer)
 end
