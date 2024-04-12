@@ -23,6 +23,7 @@ if game.PlaceId == 6839171747 then
         task.wait()
         fireproximityprompt(workspace.CurrentRooms["0"].Assets.KeyObtain.ModulePrompt)
     end
+    task.wait(.6)
     game.ReplicatedStorage.RemotesFolder.PreRunShop:FireServer({})
     task.wait(.1)
     fireproximityprompt(workspace.CurrentRooms["0"].StarterElevator.Model.Model.SkipButton.SkipPrompt)
