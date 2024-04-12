@@ -33,7 +33,7 @@ if game.PlaceId == 6839171747 then
     task.wait(.6)
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
     Hum:MoveTo((workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position)
-    while (Hum.RootPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude > 0.75 and task.wait() do
+    while (Hum.RootPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude > 1.3 and task.wait() do
         print("not finished walking, grrrr", (Hum.RootPart.Position - (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position).Magnitude)
     end
     game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = true
