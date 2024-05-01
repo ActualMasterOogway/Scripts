@@ -3605,12 +3605,20 @@ function Library:CreateWindow(Settings)
 	return Window
 end
 
+local SCRIPT_RUNNING = true
+
+function Library:Wait(amount)
+	task.wait(amount)
+	return SCRIPT_RUNNING
+end
+
 
 function Library:Destroy()
 	Library:Unload()
 end
 
 function Library:Unload(Configuration)
+	SCRIPT_RUNNING = false
 	if typeof(Configuration.PostUnloadCallback) == "function" or typeof(Configuration.PostUnloadCallback) == "string" then
 		local success, result = typeof(Configuration.PostUnloadCallback) == "function" and pcall(Configuration.PostUnloadCallback) or typeof(Configuration.PostUnloadCallback) == "string" and pcall(loadstring(Configuration.PostUnloadCallback))
 		if not success then
