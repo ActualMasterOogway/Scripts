@@ -14,12 +14,12 @@ local Drawing_new = Drawing.new
 local Drawing_clear = Drawing.clear
 local Vec2New = Vector2.new
 local isA = game.IsA
-local findFirstAncestorOfClass = game.FindFirstAncestorOfClass
+local FindFirstAncestorOfClass = game.FindFirstAncestorOfClass
 local waitForChild = game.WaitForChild
 local GetPivot = Char.GetPivot
 local WTVP = Camera.WorldToViewportPoint
 local Con1, Con2
-local Instance_new, Color3_new, math_max, findFirstChildOfClass, findFirstChild = Instance.new, Color3.new, math.max, game.FindFirstChildOfClass, game.FindFirstChild
+local Instance_new, Color3_new, math_max, FindFirstChildOfClass, FindFirstChild = Instance.new, Color3.new, math.max, game.FindFirstChildOfClass, game.FindFirstChild
 local cf0 = CFrame.new()
 
 local ESP = setmetatable({
@@ -55,7 +55,7 @@ local function onCharacterAdded(char)
 end
 
 local function getPlayerFromRoot(root)
-    return root and Players:GetPlayerFromCharacter(isA(root, "Model") or findFirstAncestorOfClass(root, "Model"))
+    return root and Players:GetPlayerFromCharacter(isA(root, "Model") or FindFirstAncestorOfClass(root, "Model"))
 end
 
 local function getWTVP(vec3)
@@ -67,7 +67,7 @@ end
 local function isAlive(root)
     if root.Parent == nil then
         return false
-    elseif root.Parent:FindFirstChildOfClass("Humanoid") and root.Parent.Humanoid.Health <= 0 or root:FindFirstChildOfClass("Humanoid") and root:FindFirstChildOfClass("Humanoid").Health <= 0 then
+    elseif FindFirstChildOfClass(root.Parent, "Humanoid") and root.Parent.Humanoid.Health <= 0 or FindFirstChildOfClass(root, "Humanoid") and root.Humanoid.Health <= 0 then
         return false
     end
     return true
@@ -173,7 +173,7 @@ ESP.__index = ESP
 ESP.UpdateConnection = RunService.Stepped:Connect(function()
     for root, container in next, ESP.Containers do
         if isAlive(root) then
-        	local rootPos = (isA(root, "PVInstance") and GetPivot(root) or isA(root, "Player") and root.Character and findFirstChild(root.Character, "HumanoidRootPart") and root.Character.HumanoidRootPart.CFrame or cf0).Position
+        	local rootPos = (isA(root, "PVInstance") and GetPivot(root) or isA(root, "Player") and root.Character and FindFirstChild(root.Character, "HumanoidRootPart") and root.Character.HumanoidRootPart.CFrame or cf0).Position
             local screenPos, onScreen = getWTVP(rootPos)
             local Settings = ESP()
             if onScreen and container.Active and (Root.Position - rootPos).Magnitude < container.MaxDistance then
@@ -196,7 +196,7 @@ ESP.UpdateConnection = RunService.Stepped:Connect(function()
                                 v.Obj.Text = container.Name
     
                             elseif v.Name == "Stats" then
-                                local dist, humanoid = Settings.Distance and "[ ".. (math_floor((rootPos - Root.Position).Magnitude)).. " ]" or "", findFirstChildOfClass(root, "Humanoid")
+                                local dist, humanoid = Settings.Distance and "[ ".. (math_floor((rootPos - Root.Position).Magnitude)).. " ]" or "", FindFirstChildOfClass(root, "Humanoid")
                                 local Phealth = Settings.Health.Enabled and Settings.Health.Percentage and humanoid and "\n [ ".. (math_floor(100 / humanoid.MaxHealth * humanoid.Health * 10) / 10).. "% ]" or ""
                                 local Rhealth = Settings.Health.Enabled and Settings.Health.RealValue and humanoid and "\n [ "..(math_floor(humanoid.Health / 100) * 100).."/"..(math_floor(humanoid.MaxHealth / 100) * 100).." ]" or ""
                                 v.Obj.Text = dist..Rhealth..Phealth
