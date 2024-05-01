@@ -116,7 +116,7 @@ local LocalPlayer = game:GetService('Players').LocalPlayer
 local TextService = game:GetService("TextService") 
 -- Interface Management
 local Dictionaryfield = script:FindFirstChild("Dictionaryfield") or game:GetObjects("rbxassetid://11637506633")[1]
-
+Library.UI = Dictionaryfield
 Dictionaryfield.Enabled = false
 -- Tasks
 local spawn = task.spawn
@@ -152,8 +152,7 @@ if game["Run Service"]:IsStudio() then
 end
 
 if shared.LastDictionaryField then
-	shared.LastDictionaryField.Name = 'Old Dictionaryfield'
-	shared.LastDictionaryField.Enabled = false
+	shared.LastDictionaryField:Unload()
 end
 
 local ParentObject = function(Gui)
@@ -170,7 +169,7 @@ local ParentObject = function(Gui)
 	if not success and failure then
 		Gui.Parent = LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
 	end
-	shared.LastDictionaryField = Dictionaryfield
+	shared.LastDictionaryField = Library
 end
 
 ParentObject(Dictionaryfield)
@@ -3612,14 +3611,13 @@ function Library:Wait(amount)
 	return SCRIPT_RUNNING
 end
 
-
 function Library:Destroy()
 	Library:Unload()
 end
 
 function Library:Unload(Configuration)
 	SCRIPT_RUNNING = false
-	if typeof(Configuration.PostUnloadCallback) == "function" or typeof(Configuration.PostUnloadCallback) == "string" then
+	if Configuration and typeof(Configuration.PostUnloadCallback) == "function" or typeof(Configuration.PostUnloadCallback) == "string" then
 		local success, result = typeof(Configuration.PostUnloadCallback) == "function" and pcall(Configuration.PostUnloadCallback) or typeof(Configuration.PostUnloadCallback) == "string" and pcall(loadstring(Configuration.PostUnloadCallback))
 		if not success then
 			print("Dictionaryfield | Unload Callback Callback Error ", result)
@@ -3631,7 +3629,7 @@ function Library:Unload(Configuration)
 		end
 	end
 	Dictionaryfield:Destroy()
-	if typeof(Configuration.AfterUnloadCallback) == "function" or typeof(Configuration.AfterUnloadCallback) == "string" then
+	if Configuration and typeof(Configuration.AfterUnloadCallback) == "function" or typeof(Configuration.AfterUnloadCallback) == "string" then
 		local success, result = typeof(Configuration.AfterUnloadCallback) == "function" and pcall(Configuration.AfterUnloadCallback) or typeof(Configuration.AfterUnloadCallback) == "string" and pcall(loadstring(Configuration.AfterUnloadCallback))
 		if not success then
 			print("Dictionaryfield | Unload Callback Callback Error ", result)
