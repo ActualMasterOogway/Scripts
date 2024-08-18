@@ -1,5 +1,4 @@
 -- made by realmasteroogway
--- .gg/6h4pG5Py7P
 
 -- \\ Services / Variables // --
 
