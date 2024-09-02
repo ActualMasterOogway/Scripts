@@ -26,7 +26,6 @@ if not ExecutedFromStart then
     local NM; NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
         if not checkcaller() and getnamecallmethod() == "FireServer" and self.Name == "ExitWarpEffect" then
             go:Fire()
-            hookmetamethod(game, "__namecall", NM)
         end
         return NM(self, ...)
     end))
