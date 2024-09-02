@@ -21,16 +21,16 @@ local function GetSectorByName(Name: string)
 end
 
 if not ExecutedFromStart then
-    local go = Instance.new("BindableEvent")
+    local go = false
 
     local NM; NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
         if not checkcaller() and getnamecallmethod() == "FireServer" and self.Name == "ExitWarpEffect" then
-            go:Fire()
+            go = true
         end
         return NM(self, ...)
     end))
 
-    go.Event:Wait()
+    repeat task.wait() until go
 
     task.wait(2.35)
 end
