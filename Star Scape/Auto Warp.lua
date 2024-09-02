@@ -1,4 +1,7 @@
+local ExecutedFromStart = true
+
 if not game:IsLoaded() then
+    ExecutedFromStart = false
 	game.Loaded:Wait()
 end
 
@@ -15,6 +18,22 @@ local function GetSectorByName(Name: string)
             return v
         end
     end
+end
+
+if not ExecutedFromStart then
+    local go = Instance.new("BindableEvent")
+
+    local NM; NM = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+        if not checkcaller() and getnamecallmethod() == "FireServer" and self.Name == "ExitWarpEffect" then
+            go:Fire()
+            hookmetamethod(game, "__namecall", NM)
+        end
+        return NM(self, ...)
+    end))
+
+    go.Event:Wait()
+
+    task.wait(2.35)
 end
 
 local Routes = require(game:GetService("ReplicatedStorage"):WaitForChild("Source", 60):WaitForChild("Client", 60):WaitForChild("Helpers", 60):WaitForChild("Routes", 60))
