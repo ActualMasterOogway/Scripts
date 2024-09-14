@@ -1,4 +1,4 @@
-repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true or game:GetService("ReplicatedStorage"):FindFirstChild("GameData"):FindFirstChild("LatestRoom").Value ~= 0 task.wait(1.25)
+repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true or (game:GetService("ReplicatedStorage"):FindFirstChild("GameData") and game:GetService("ReplicatedStorage"):FindFirstChild("GameData"):FindFirstChild("LatestRoom") and game:GetService("ReplicatedStorage"):FindFirstChild("GameData"):FindFirstChild("LatestRoom").Value ~= 0) task.wait(1.25)
 
 local MainUI = game:GetService("Players").LocalPlayer.PlayerGui.MainUI
 
@@ -95,9 +95,9 @@ local Con; Con = workspace.ChildAdded:Connect(function(__: Instance)
             end
         end)
 
-        Char.Humanoid.Died:Wait();
+        Char.Humanoid.Died:Wait()
 
-        (queue_on_teleport or syn and syn.queue_on_teleport)(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+        task.spawn(queue_on_teleport or syn and syn.queue_on_teleport, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
 
         Main.remotes.PlayAgain:FireServer()
 
