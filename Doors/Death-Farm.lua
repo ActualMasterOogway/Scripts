@@ -1,76 +1,106 @@
--- loader:
--- loadstring(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))()
-local QTP = (syn and syn.queue_on_teleport) or queue_on_teleport
-repeat task.wait() until game.CoreGui task.wait(0.25)
-game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay").DescendantAdded:Connect(function(Err)
-	if Err.Name == "ErrorTitle" then task.wait(1.25)
-		task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
-        game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
-	end
+repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true or game:GetService("ReplicatedStorage"):FindFirstChild("GameData"):FindFirstChild("LatestRoom").Value ~= 0 task.wait(1.25)
+
+local MainUI = game:GetService("Players").LocalPlayer.PlayerGui.MainUI
+
+local Main = require(MainUI.Initiator:FindFirstChildOfClass("ModuleScript"))
+
+local Char = (game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()) :: Model & {
+    HumanoidRootPart: Part,
+    Humanoid: Humanoid
+}
+
+Char.HumanoidRootPart:GetPropertyChangedSignal("Anchored"):Connect(function()
+    if Char.HumanoidRootPart.Anchored then
+        Char.HumanoidRootPart.Anchored = false
+    end
 end)
-for i,Err in pairs(game.CoreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay"):GetDescendants()) do
-	if Err.Name == "ErrorTitle" then task.wait(1.25)
-		task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
-        game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer) return
-	end
+
+Main.freemouse = false
+MainUI.ItemShop.Visible = false
+
+local LatestRoom = game:GetService("ReplicatedStorage"):FindFirstChild("GameData"):FindFirstChild("LatestRoom")
+
+local function HasTool(Name: string)
+    return Char:FindFirstChild(Name) or (game.Players.LocalPlayer.Backpack :: Backpack):FindFirstChild(Name)
 end
 
-if game.PlaceId == 6839171747 then
-    repeat task.wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop") and game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("MainUI"):FindFirstChild("ItemShop").Visible == true task.wait(1.25)
-    local Hum: Humanoid = game.Players.LocalPlayer.Character.Humanoid
-    while not Hum.Parent:FindFirstChild("Key") and task.wait() do
-        game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
-        Hum.Parent:PivotTo(workspace.CurrentRooms["0"].Assets.KeyObtain.Hitbox.CFrame)
-        task.wait()
-        fireproximityprompt(workspace.CurrentRooms["0"].Assets.KeyObtain.ModulePrompt)
-    end
-    task.wait(.6)
-    print("e")
-    game.ReplicatedStorage.RemotesFolder.PreRunShop:FireServer({})
-    task.wait(.1)
-    fireproximityprompt(workspace.CurrentRooms["0"].StarterElevator.Model.Model.SkipButton.SkipPrompt)
-    Hum.WalkSpeed = 21
-    Hum.Parent:WaitForChild("Collision").CanCollide = false
-    task.wait(.6)
-    game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
+local function Fuck_A_PVInstance_Until_You_Own_It(Instance: PVInstance, ToolName: string?, PP: ProximityPrompt?, TouchInterest: TouchTransmitter?)
+    local Position_Before_Fucking_A_PVInstance = Char:GetPivot()
 
-    local targetPosition = (workspace.CurrentRooms["0"].Door.Door.CFrame * CFrame.new(0, 0, 5)).Position
+    while not HasTool(ToolName or Instance.Name) and task.wait() do
+        Char:PivotTo(Instance:GetPivot())
 
-    while (Hum.RootPart.Position - targetPosition).Magnitude > 1.3 and task.wait() do
-        Hum.Parent.Collision.AssemblyLinearVelocity = (targetPosition - Hum.Parent.Collision.Position).Unit * 20.5
-        print("not finished walking, grrrr", (Hum.RootPart.Position - targetPosition).Magnitude)
-    end
-    game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = true
-    task.wait()
-    workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, workspace.CurrentRooms["0"].Door.Door.Position)
-    task.wait()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true, workspace.CurrentRooms["0"].Door.Lock.UnlockPrompt.KeyboardKeyCode, false, game)
-    game.ReplicatedStorage.GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
-    game:GetService("VirtualInputManager"):SendKeyEvent(false, workspace.CurrentRooms["0"].Door.Lock.UnlockPrompt.KeyboardKeyCode, false, game)
-    game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.Camera.Disabled = false
-    Hum.Health = 0
-    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
-    game.ReplicatedStorage.RemotesFolder.PlayAgain:FireServer()
-elseif game.PlaceId == 6516141723 then
-    repeat task.wait() until game:IsLoaded() and game.Players and game.Workspace and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChild("Health") and game.Players.LocalPlayer.Character:FindFirstChild("Sheesh") and game.Workspace:FindFirstChild("Lobby") and game.Workspace:FindFirstChild("Lobby"):FindFirstChild("LobbyElevators") local FoundFreeElevator = false task.wait(.5)
-    task.spawn(function()
-        while FoundFreeElevator == false do task.wait()
-            for i,v in pairs(game:GetService("Workspace").Lobby.LobbyElevators:GetDescendants()) do
-                if v:IsA("TextLabel") and v.Text == "0 / 1" and v.Parent.Parent.Name == "DoorHitbox" then
-                    FoundFreeElevator = v.Parent.Parent
-                end
-            end
+        if PP and fireproximityprompt then
+            fireproximityprompt(PP, 3.685159)
         end
-    end)
-    repeat task.wait() until FoundFreeElevator ~= false task.wait()
-    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
-    while true do
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FoundFreeElevator.CFrame
-        firetouchinterest(FoundFreeElevator:FindFirstChild("TouchInterest"), game.Players.LocalPlayer.Character.Head, 0) 
-        firetouchinterest(FoundFreeElevator:FindFirstChild("TouchInterest"), game.Players.LocalPlayer.Character.Head, 1) 
-        task.wait()
+
+        if TouchInterest and firetouchinterest then
+            firetouchinterest(TouchInterest.Parent, Char.HumanoidRootPart, 0)
+            firetouchinterest(TouchInterest.Parent, Char.HumanoidRootPart, 1)
+        end
     end
-else
-    task.spawn(QTP, game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
-    game:GetService("TeleportService"):Teleport(6516141723, game.Players.LocalPlayer)
+
+    Char:PivotTo(Position_Before_Fucking_A_PVInstance)
 end
+
+local function Has_The_Room_Which_Is_Being_Sexed_A_Key_Question_Mark(Room: PVInstance)
+    local Key = false
+
+    for i,v in next, Room:WaitForChild("Assets"):GetDescendants() do
+        if v.Name == "KeyObtain" then
+            Key = v
+        end
+    end
+
+    return Key
+end
+
+local function Sex_This_Room_Exclamation_Mark(Room: PVInstance)
+    local Key_Which_Is_About_To_Get_Fucked = Has_The_Room_Which_Is_Being_Sexed_A_Key_Question_Mark(Room)
+
+    local RoomNum, Door = tonumber(Room.Name), Room.Door
+
+    if Key_Which_Is_About_To_Get_Fucked then
+        Fuck_A_PVInstance_Until_You_Own_It(Key_Which_Is_About_To_Get_Fucked, "Key", Key_Which_Is_About_To_Get_Fucked.ModulePrompt, Key_Which_Is_About_To_Get_Fucked.Hitbox.TouchInterest)
+
+        Door.Lock.UnlockPrompt.HoldDuration = 0
+    end
+
+    while LatestRoom.Value == RoomNum and task.wait() do
+        Char:PivotTo(Door.Door:GetPivot())
+
+        Door.ClientOpen:FireServer()
+
+        if Key_Which_Is_About_To_Get_Fucked and fireproximityprompt then
+            fireproximityprompt(Door.Lock.UnlockPrompt, 2.183619)
+        end
+    end
+end
+
+local Thread = task.spawn(function()
+    while task.wait() do
+        Sex_This_Room_Exclamation_Mark(workspace.CurrentRooms[LatestRoom.Value])
+    end
+end)
+
+local Con; Con = workspace.ChildAdded:Connect(function(__: Instance)
+    local v: Model = __ :: Model
+
+    if v.Name:match("Moving") then
+        task.cancel(Thread)
+
+        Thread = task.spawn(function()
+            while task.wait() do
+                Char:PivotTo(v:GetPivot())
+            end
+        end)
+
+        Char.Humanoid.Died:Wait()
+
+        (queue_on_teleport or syn and syn.queue_on_teleport)(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
+
+        Main.remotes.PlayAgain:FireServer()
+
+        Con:Disconnect()
+    end
+end)
