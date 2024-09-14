@@ -95,7 +95,7 @@ local Con; Con = workspace.ChildAdded:Connect(function(__: Instance)
             end
         end)
 
-        Char.Humanoid.Died:Wait()
+        Char.Humanoid.Died:Wait();
 
         (queue_on_teleport or syn and syn.queue_on_teleport)(game:HttpGet("https://raw.githubusercontent.com/ActualMasterOogway/Scripts/main/Doors/Death-Farm.lua"))
 
