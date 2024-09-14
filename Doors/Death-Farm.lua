@@ -61,7 +61,7 @@ local function Sex_This_Room_Exclamation_Mark(Room: PVInstance)
     local RoomNum, Door = tonumber(Room.Name), Room.Door
 
     if Key_Which_Is_About_To_Get_Fucked then
-        Fuck_A_PVInstance_Until_You_Own_It(Key_Which_Is_About_To_Get_Fucked, "Key", Key_Which_Is_About_To_Get_Fucked.ModulePrompt, Key_Which_Is_About_To_Get_Fucked.Hitbox.TouchInterest)
+        Fuck_A_PVInstance_Until_You_Own_It(Key_Which_Is_About_To_Get_Fucked, "Key", Key_Which_Is_About_To_Get_Fucked:WaitForChild("ModulePrompt"), Key_Which_Is_About_To_Get_Fucked.Hitbox:FindFirstChild("TouchInterest"))
 
         Door.Lock.UnlockPrompt.HoldDuration = 0
     end
