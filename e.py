@@ -10,8 +10,12 @@ from tqdm.asyncio import tqdm # Async-compatible tqdm
 if os.name == 'nt': # 'nt' is for Windows
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 # The byte sequence you are looking for (shortened as in your edit)
-TARGET_BYTES_HEX = "EF C7 45 F7 06"
-TARGET_BYTES = bytes.fromhex(TARGET_BYTES_HEX.replace(" ", ""))
+TARGET_BYTES_HEX_1 = "EF C7 45 F7 06"
+TARGET_BYTES_1 = bytes.fromhex(TARGET_BYTES_HEX_1.replace(" ", ""))
+
+# Additional byte sequence to look for
+TARGET_BYTES_HEX_2 = "0D 1B CD 24 05"
+TARGET_BYTES_2 = bytes.fromhex(TARGET_BYTES_HEX_2.replace(" ", ""))
 
 # URL for Roblox deployment history
 DEPLOY_HISTORY_URL = "https://setup.rbxcdn.com/DeployHistory.txt"
@@ -130,14 +134,14 @@ async def download_file_async(session, url, local_path, pbar_position=0):
         if await aio_os.path.exists(local_path): await aio_os.remove(local_path)
         return False
 
-async def search_bytes_in_file_async(file_path, bytes_to_find):
-    """Searches for bytes in a file asynchronously."""
+async def search_bytes_in_file_async(file_path, bytes_to_find_1, bytes_to_find_2):
+    """Searches for two byte sequences in a file asynchronously."""
     # print(f"    Searching bytes in {os.path.basename(file_path)}...") # Can be verbose
     try:
         async with aiofiles.open(file_path, 'rb') as f:
             content = await f.read()
-        if bytes_to_find in content:
-            # print(f"    !!!! FOUND TARGET BYTES in {os.path.basename(file_path)} !!!!")
+        if bytes_to_find_1 in content and bytes_to_find_2 in content:
+            # print(f"    !!!! FOUND BOTH TARGET BYTES in {os.path.basename(file_path)} !!!!")
             return True
         return False
     except Exception as e:
@@ -225,10 +229,10 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
 
             if extracted_member_name:
                 # print(f"    [V{pbar_pos}] Searching in extracted {TARGET_EXE_IN_ZIP}...")
-                if await search_bytes_in_file_async(extracted_exe_path_local, TARGET_BYTES):
+                if await search_bytes_in_file_async(extracted_exe_path_local, TARGET_BYTES_1, TARGET_BYTES_2):
                     if not FOUND_EVENT.is_set(): # Critical check before setting
                         FOUND_EVENT.set() # Signal all other tasks
-                        print(f"\n\n>>>> SUCCESS: Bytes found by worker for version {version_guid} <<<<")
+                        print(f"\n\n>>>> SUCCESS: Both byte sequences found by worker for version {version_guid} <<<<")
                         return {
                             "version_guid": version_guid,
                             "zip_url": zip_url,
@@ -263,8 +267,10 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
         return None # Did not find in this version, or was superseded
 
 async def main():
-    print(f"Target bytes (hex): {TARGET_BYTES_HEX}")
-    print(f"Target bytes (raw): {TARGET_BYTES}\n")
+    print(f"Target bytes 1 (hex): {TARGET_BYTES_HEX_1}")
+    print(f"Target bytes 1 (raw): {TARGET_BYTES_1}")
+    print(f"Target bytes 2 (hex): {TARGET_BYTES_HEX_2}")
+    print(f"Target bytes 2 (raw): {TARGET_BYTES_2}\n")
     print(f"Max concurrent downloads: {CONCURRENT_DOWNLOADS}\n")
 
     if not await aio_os.path.exists(DOWNLOAD_DIR):
@@ -307,7 +313,7 @@ async def main():
 
     if found_details_final:
         print("\n" + "="*60)
-        print(f"SUCCESS: Bytes found in version {found_details_final['version_guid']}")
+        print(f"SUCCESS: Both byte sequences found in version {found_details_final['version_guid']}")
         print(f"  Downloaded Zip URL: {found_details_final['zip_url']}")
         print(f"  Local Zip Path: {found_details_final['zip_path']}")
         print(f"  Extracted From Zip: '{found_details_final['extracted_member']}' -> {found_details_final['extracted_exe_path']}")
@@ -315,7 +321,7 @@ async def main():
         print("="*60)
     else:
         print("\n--- Search Complete ---")
-        print("Target bytes were not found in any of the checked Roblox Studio versions.")
+        print("Target byte sequences (both) were not found in any of the checked Roblox Studio versions.")
 
     # Final cleanup of the main download directory if it exists and is empty
     # (and wasn't the one containing the found file)
