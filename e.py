@@ -7,32 +7,14 @@ import aiohttp
 import aiofiles
 import aiofiles.os as aio_os # For async os operations
 from tqdm.asyncio import tqdm # Async-compatible tqdm
-import concurrent.futures # Needed for executor
 if os.name == 'nt': # 'nt' is for Windows
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-# The byte sequence pattern you are looking for with wildcards ('?')
-TARGET_AOB_PATTERN_HEX_STRING = "E8 ? ? ? ? 8B 77 14 8B 86 ? ? ? ? 05 ? ? ? ? 89 85"
+# The byte sequence you are looking for (shortened as in your edit)
+TARGET_BYTES_HEX = "40 57 48 83 EC 20 48 8B F9 48 85 C9 74 ?? 48 8B 49" # Updated hex string with wildcard
 
-# Convert the hex string pattern into a list of integers (bytes), using None for wildcards
-# This allows for byte-by-byte comparison with wildcards.
-def parse_aob_pattern(hex_string):
-    pattern_list = []
-    for byte_str in hex_string.split():
-        if byte_str == '?':
-            pattern_list.append(None) # Use None to represent a wildcard
-        else:
-            try:
-                pattern_list.append(int(byte_str, 16))
-            except ValueError:
-                print(f"Warning: Invalid hex byte in pattern: {byte_str}")
-                return None # Indicate error
-    return pattern_list
-
-TARGET_AOB_PATTERN_LIST = parse_aob_pattern(TARGET_AOB_PATTERN_HEX_STRING)
-
-if TARGET_AOB_PATTERN_LIST is None:
-    print("Error parsing AOB pattern. Exiting.")
-    exit() # Exit if pattern is invalid
+# NOTE: The hex string contains "??", which represents a wildcard byte.
+# We now have a custom search function to handle this.
+# We no longer convert the hex string directly to bytes here.
 
 # URL for Roblox deployment history
 DEPLOY_HISTORY_URL = "https://setup.rbxcdn.com/DeployHistory.txt"
@@ -42,9 +24,9 @@ DOWNLOAD_BASE_URL = "http://setup.rbxcdn.com/"
 # Directory to store downloads temporarily
 DOWNLOAD_DIR = "roblox_version_downloads"
 # Specific executable to look for inside the zip
-TARGET_EXE_IN_ZIP = "RobloxPlayerBeta.exe"
+TARGET_EXE_IN_ZIP = "RobloxStudioBeta.exe"
 
-CONCURRENT_DOWNLOADS = 3
+CONCURRENT_DOWNLOADS = 10
 FOUND_EVENT = asyncio.Event() # Global event to signal when bytes are found
 
 # --- Helper Functions ---
@@ -63,10 +45,10 @@ def get_studio_versions_sync(): # Renamed to clarify it's sync
         return []
 
     versions_found_in_file = []
-    print("Parsing deployment history for Player versions...")
+    print("Parsing deployment history for Studio versions...")
     # Your existing parsing logic from the last provided script
     for line_num, line in enumerate(response.text.splitlines()):
-        if "New WindowsPlayer version-" in line:
+        if "New Studio64 version-" in line: # Focus on Studio64 as per your example
             parts = line.split()
             version_guid = None
             for part in parts:
@@ -77,12 +59,12 @@ def get_studio_versions_sync(): # Renamed to clarify it's sync
                  versions_found_in_file.append(version_guid)
 
     if not versions_found_in_file:
-        print("No Player version GUIDs were extracted.")
+        print("No Studio version GUIDs were extracted.")
         return []
 
     # Deduplicate while preserving order (oldest first from file)
     unique_versions_oldest_first = list(dict.fromkeys(versions_found_in_file))
-    print(f"Found {len(unique_versions_oldest_first)} unique Roblox Player version GUIDs in history.")
+    print(f"Found {len(unique_versions_oldest_first)} unique RobloxStudio version GUIDs in history.")
     return list(reversed(unique_versions_oldest_first)) # Newest first for processing
 
 async def download_file_async(session, url, local_path, pbar_position=0):
@@ -151,32 +133,57 @@ async def download_file_async(session, url, local_path, pbar_position=0):
         if await aio_os.path.exists(local_path): await aio_os.remove(local_path)
         return False
 
-# Synchronous function to perform the byte pattern search
-def sync_search_bytes_in_file(file_path, pattern_list):
-    """Searches for a byte sequence pattern with wildcards in a file synchronously."""
-    # print(f"    Searching pattern in {os.path.basename(file_path)}...") # Can be verbose
+def parse_aob_pattern(hex_string):
+    """
+    Parses a hex string with optional '??' wildcards into a list of bytes or None.
+    Example: "40 57 ?? 83" -> [0x40, 0x57, None, 0x83]
+    """
+    pattern = []
+    for byte_str in hex_string.split():
+        if byte_str == '??':
+            pattern.append(None) # Use None to represent a wildcard
+        else:
+            try:
+                pattern.append(int(byte_str, 16))
+            except ValueError:
+                print(f"Error: Invalid hex byte '{byte_str}' in pattern.")
+                return None # Indicate parsing failure
+    return pattern
+
+async def search_bytes_in_file_async(file_path, aob_pattern_hex):
+    """Searches for a byte pattern (AOB) with wildcards in a file asynchronously."""
+    # print(f"    Searching bytes in {os.path.basename(file_path)}...") # Can be verbose
+
+    pattern = parse_aob_pattern(aob_pattern_hex)
+    if pattern is None or not pattern:
+        print(f"    Invalid or empty AOB pattern: {aob_pattern_hex}")
+        return False
+
+    pattern_len = len(pattern)
+
     try:
-        with open(file_path, 'rb') as f:
-            content = f.read()
+        async with aiofiles.open(file_path, 'rb') as f:
+            content = await f.read()
 
-        pattern_len = len(pattern_list)
         content_len = len(content)
-
         if content_len < pattern_len:
             return False # File is smaller than the pattern
 
+        # Iterate through the file content byte by byte
         for i in range(content_len - pattern_len + 1):
             match = True
+            # Check the pattern against the content starting at position i
             for j in range(pattern_len):
-                # Check if the pattern byte is not a wildcard and doesn't match the content byte
-                if pattern_list[j] is not None and content[i + j] != pattern_list[j]:
+                if pattern[j] is not None and content[i + j] != pattern[j]:
                     match = False
-                    break # Mismatch found, move to next starting position in content
+                    break # Mismatch found, move to the next position in content
+            
             if match:
-                # print(f"    !!!! FOUND TARGET PATTERN in {os.path.basename(file_path)} at offset {i}!!!!")
-                return True # Pattern found
+                # print(f"    !!!! FOUND TARGET BYTES in {os.path.basename(file_path)} at offset {i}!!!!")
+                return True # Full pattern matched
 
-        return False # Pattern not found after checking all positions
+        return False # Pattern not found in the file
+
     except Exception as e:
         print(f"    Error reading/searching file {os.path.basename(file_path)}: {e}")
         return False
@@ -194,11 +201,11 @@ def sync_extract_target_from_zip(zip_path, target_filename_in_zip, extract_to_di
                 if os.path.basename(member).lower() == target_filename_in_zip.lower():
                     target_member_name_in_zip = member
                     break
-
+            
             if target_member_name_in_zip:
                 # Ensure extract_to_dir exists (should already be version_specific_dir)
                 # os.makedirs(extract_to_dir, exist_ok=True) # Redundant if version_specific_dir made
-
+                
                 # Extract to a specific file path
                 full_extract_path = os.path.join(extract_to_dir, extracted_filename)
                 with open(full_extract_path, 'wb') as f_out:
@@ -225,7 +232,7 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
         version_specific_dir = os.path.join(DOWNLOAD_DIR, version_guid)
         await aio_os.makedirs(version_specific_dir, exist_ok=True)
 
-        zip_filename_cdn = f"{version_guid}-RobloxApp.zip"
+        zip_filename_cdn = f"{version_guid}-RobloxStudio.zip"
         local_zip_path = os.path.join(version_specific_dir, zip_filename_cdn)
         zip_url = DOWNLOAD_BASE_URL + zip_filename_cdn
 
@@ -241,7 +248,7 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
         if download_successful:
             extracted_exe_path_local = os.path.join(version_specific_dir, TARGET_EXE_IN_ZIP)
             loop = asyncio.get_running_loop()
-
+            
             # print(f"    [V{pbar_pos}] Extracting '{TARGET_EXE_IN_ZIP}' from {zip_filename_cdn}...")
             # Run synchronous zip extraction in a thread pool
             extracted_member_name = await loop.run_in_executor(
@@ -262,25 +269,10 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
 
             if extracted_member_name:
                 # print(f"    [V{pbar_pos}] Searching in extracted {TARGET_EXE_IN_ZIP}...")
-                # Run the synchronous search function in a thread pool
-                pattern_found = await loop.run_in_executor(
-                    None, # Uses default ThreadPoolExecutor
-                    sync_search_bytes_in_file,
-                    extracted_exe_path_local,
-                    TARGET_AOB_PATTERN_LIST
-                )
-
-                if FOUND_EVENT.is_set(): # Check again
-                    if await aio_os.path.exists(extracted_exe_path_local): await aio_os.remove(extracted_exe_path_local)
-                    if await aio_os.path.exists(local_zip_path): await aio_os.remove(local_zip_path)
-                    if await aio_os.path.exists(version_specific_dir) and not await aio_os.listdir(version_specific_dir):
-                        await aio_os.rmdir(version_specific_dir)
-                    return None
-
-                if pattern_found:
+                if await search_bytes_in_file_async(extracted_exe_path_local, TARGET_BYTES_HEX):
                     if not FOUND_EVENT.is_set(): # Critical check before setting
                         FOUND_EVENT.set() # Signal all other tasks
-                        print(f"\n\n>>>> SUCCESS: Target pattern found by worker for version {version_guid} <<<<")
+                        print(f"\n\n>>>> SUCCESS: Bytes found by worker for version {version_guid} <<<<")
                         return {
                             "version_guid": version_guid,
                             "zip_url": zip_url,
@@ -292,12 +284,12 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
                         # Clean up our own extracted file and zip, as we are redundant
                         if await aio_os.path.exists(extracted_exe_path_local): await aio_os.remove(extracted_exe_path_local)
                         if await aio_os.path.exists(local_zip_path): await aio_os.remove(local_zip_path)
-                else: # Pattern not found in extracted exe
+                else: # Bytes not found in extracted exe
                     if await aio_os.path.exists(extracted_exe_path_local): await aio_os.remove(extracted_exe_path_local)
             # else: # Target exe not found in zip
                 # print(f"    [V{pbar_pos}] '{TARGET_EXE_IN_ZIP}' not found in {zip_filename_cdn}.")
 
-            # If we reached here and didn't return success, clean up zip (if pattern not found or exe not in zip)
+            # If we reached here and didn't return success, clean up zip (if bytes not found or exe not in zip)
             if await aio_os.path.exists(local_zip_path) and not FOUND_EVENT.is_set(): # Don't delete if it was the successful one
                  await aio_os.remove(local_zip_path)
         # else: # Download failed
@@ -306,23 +298,17 @@ async def process_version_async(session, version_guid, semaphore, pbar_pos):
 
         # Final cleanup for this version's dir if empty and we didn't find the target
         try:
-            # If current worker was the winner, its directory and zip are kept.
-            # If not the winner (FOUND_EVENT is set but this worker didn't return success),
-            # we clean up our specific extracted exe and zip if they still exist.
-            # The logic below handles cleaning up the version_specific_dir if it becomes empty
-            # after our cleanup or if we didn't find anything and FOUND_EVENT wasn't set.
-            if not FOUND_EVENT.is_set() or (FOUND_EVENT.is_set() and not await aio_os.path.exists(local_zip_path)):
-                 if await aio_os.path.exists(version_specific_dir) and not await aio_os.listdir(version_specific_dir):
+            if not FOUND_EVENT.is_set() or (FOUND_EVENT.is_set() and not await aio_os.path.exists(local_zip_path)): # check if current worker was the winner
+                if await aio_os.path.exists(version_specific_dir) and not await aio_os.listdir(version_specific_dir):
                     await aio_os.rmdir(version_specific_dir)
         except Exception as e_clean:
             print(f"    Note: Error during cleanup for {version_guid}: {e_clean}")
-
+        
         return None # Did not find in this version, or was superseded
 
 async def main():
-    print(f"Target AOB Pattern (hex): {TARGET_AOB_PATTERN_HEX_STRING}\n")
-    # print(f"Target AOB Pattern (list): {TARGET_AOB_PATTERN_LIST}\n") # Optional: for debugging
-
+    print(f"Target AOB (hex): {TARGET_BYTES_HEX}")
+    # print(f"Target bytes (raw): {TARGET_BYTES}\n") # This line is removed as we no longer convert to bytes here
     print(f"Max concurrent downloads: {CONCURRENT_DOWNLOADS}\n")
 
     if not await aio_os.path.exists(DOWNLOAD_DIR):
@@ -331,11 +317,11 @@ async def main():
 
     studio_versions = get_studio_versions_sync()
     if not studio_versions:
-        print("No Player versions found or could not fetch history. Exiting.")
+        print("No studio versions found or could not fetch history. Exiting.")
         return
 
     print(f"\nStarting search through {len(studio_versions)} unique versions (newest to oldest)...")
-
+    
     semaphore = asyncio.Semaphore(CONCURRENT_DOWNLOADS)
     tasks = []
     found_details_final = None
@@ -365,7 +351,7 @@ async def main():
 
     if found_details_final:
         print("\n" + "="*60)
-        print(f"SUCCESS: Target pattern found in version {found_details_final['version_guid']}")
+        print(f"SUCCESS: Bytes found in version {found_details_final['version_guid']}")
         print(f"  Downloaded Zip URL: {found_details_final['zip_url']}")
         print(f"  Local Zip Path: {found_details_final['zip_path']}")
         print(f"  Extracted From Zip: '{found_details_final['extracted_member']}' -> {found_details_final['extracted_exe_path']}")
@@ -373,7 +359,7 @@ async def main():
         print("="*60)
     else:
         print("\n--- Search Complete ---")
-        print("Target AOB pattern was not found in any of the checked Roblox Player versions.")
+        print("Target bytes were not found in any of the checked Roblox Studio versions.")
 
     # Final cleanup of the main download directory if it exists and is empty
     # (and wasn't the one containing the found file)
