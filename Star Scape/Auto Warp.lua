@@ -5,6 +5,14 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
+if not workspace:FindFirstChild("Ships") then
+    ExecutedFromStart = false
+elseif not workspace:FindFirstChild("Ships"):FindFirstChild(game.Players.LocalPlayer.Name) then
+    ExecutedFromStart = false
+elseif not workspace:FindFirstChild("Ships"):FindFirstChild(game.Players.LocalPlayer.Name):FindFirstChildOfClass("Model") then
+    ExecutedFromStart = false
+end
+
 if not syn or not syn.secure_call then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/Lua_SecureCall", true))()
 end
